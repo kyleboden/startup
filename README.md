@@ -30,17 +30,34 @@ Here is a basic design of what the **main page** would look like once a user has
 - **AI-Powered Document Creation**: Leverages ChatGPT to generate tailored resumes and cover letters.
 - **Editable Documents**: Easily modify and personalize AI-generated documents to match your style or preferences.
 
+### Technologies
+I will use the required technologies in the following ways:
 
-### Tecnologies
-I am going to use the required technologies in the following ways.
+- **HTML**: Provides the basic structure of the web application, with two main pages:
+  - A login page for user authentication.
+  - A form page for inputting information, where users can generate and modify resumes and cover letters.
+  
+- **CSS**: Used for styling the application, ensuring a consistent color theme, font styles, and sizes across the app. CSS animations will enhance user interactions, such as highlighting active input fields or animating button presses.
 
-- HTML - Uses correct HTML structure for application. Two HTML pages. One for login and one for voting. Hyperlinks to choice artifact.
-- CSS - Application styling that looks good on different screen sizes, uses good whitespace, color choice and contrast.
-- React - Provides login, choice display, applying votes, display other users votes, and use of React for routing and components.
-- Service - Backend service with endpoints for:
-  - login
-  - retrieving choices
-  - submitting votes
-  - retrieving vote status
-- DB/Login - Store users, choices, and votes in database. Register and login users. Credentials securely stored in database. Can't vote unless authenticated.
-- WebSocket - As each user votes, their votes are broadcast to all other users.
+- **JavaScript**: It will handle actions like submitting forms and loading personalized content after login.
+
+- **React**: 
+  - React will be the primary framework for building reusable components, such as forms, profile sections, and templates for resumes.
+  - React Router will handle navigation between pages (e.g., login page, resume generation page) without refreshing the entire page, providing a smoother user experience.
+
+- **Web Service**: 
+  - A backend service will handle requests such as:
+    - User login and authentication.
+    - Retrieving stored user information (work experience, education, skills).
+    - Fetching job descriptions for analysis.
+    - Submitting updated resumes and cover letters.
+
+- **Authentication**: 
+  - The login system will allow users to create an account and securely log in. Upon login, the application will display the user's name and provide access to their stored profile information (e.g., work history, skills).
+
+- **Database**: 
+  - A database will store user profiles, including work experience, education, skills, and previously generated documents (resumes and cover letters). This ensures users can revisit and update their documents as needed.
+
+- **WebSocket**: 
+  - WebSockets will be used to update the user interface in real-time, such as when a new resume or cover letter is generated.
+
