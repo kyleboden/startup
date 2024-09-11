@@ -10,17 +10,17 @@ Job hunting can be exhausting, with hours spent crafting resumes, writing cover 
 
 
 ### Key Features
-- Secure login over HTTPS
-- Ability to create a profile that stores information
-  - Store:
-      - Work Experience
-      - Contact Information
-      - Education
-      - Skills
-      - Languages
-- Ability to change resume/cover letter template
-- Ability to read and analyze a job description
-- Uses ChatGPT to generate documents
-- Ability to alter generated documents
+- **Secure Login**: Protects user data with encrypted connections over HTTPS.
+- **Personalized Profile**: Create and store a user profile with key information, including:
+  - Work Experience
+  - Contact Information
+  - Education
+  - Skills
+  - Languages
+- **Customizable Templates**: Choose from various resume and cover letter templates to suit different job applications.
+- **Job Description Analysis**: Automatically reads and analyzes job descriptions to align qualifications effectively.
+- **AI-Powered Document Creation**: Leverages ChatGPT to generate tailored resumes and cover letters.
+- **Editable Documents**: Easily modify and personalize AI-generated documents to match your style or preferences.
+
 
 ### Tecnologies
