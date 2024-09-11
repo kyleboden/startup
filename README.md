@@ -1,16 +1,8 @@
-# startup
-Startup application for BYU CS 260
+# Specification Deliverable
 
+## Design
 
-# A 1 heading
+## Elevator Pitch
 
-word
-
-## 2 heading
-
-word
-
-### 3 heading 
-
-word
-
+## Key Features
+## Tecnology Used
