@@ -8,6 +8,7 @@ Job hunting can be exhausting, with hours spent crafting resumes, writing cover 
 
 ### Design
 Here is a basic design of what the login page would look like:
+/images/MainPage
 
 
 Here is a basic design of what the main page would look like once a user has logged in:
