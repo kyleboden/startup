@@ -1,6 +1,6 @@
+<<<<<<< HEAD
 # startup
-Startup application for BYU CS 260
-
+Startup application for BYU CS 224
 # ApplySmart
 
 
