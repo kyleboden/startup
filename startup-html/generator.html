@@ -17,8 +17,27 @@
     <main>
         <p>Update Personal Information here:</p>
         <button onclick="window.location.href='userInfo.html'">Update Personal Information and Experience</button>
+        <br /><br />
+        <br /><br />
+
+        <label for="job-description">Job Description:</label><br />
+        <textarea id="job-description" name="job-description" rows="10" cols="80" placeholder="Paste your job description here"></textarea>
+        <br /><br />
+
+        <label for="extra-info">Any extra Information:</label><br />
+        <textarea id="extra-info" name="extra-info" rows="5" cols="80" placeholder="Add any extra information that could be useful for this specific job, ie, personal experiences, etc."></textarea>
+        <br /><br />
+
+        <button id="generate-resume" onclick="generateResume()">Generate Resume and Cover Letter</button>
+
     </main>
 
+    <script>
+        function generateResume() {
+            alert("Resume is being generated...");
+            // Add logic to handle resume generation here
+        }
+    </script>
 
     <footer>
         <hr />
