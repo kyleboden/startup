@@ -6,7 +6,7 @@
     <title>ApplySmart HTML</title>
     <link rel="icon" href="as.png" type="image/png"/>
     <style>
-        .education-entry, .work-entry, .language-entry {
+        .education-entry, .work-entry, .language-entry, .contact-entry, .award-entry, .website-entry, .project-entry {
             margin-bottom: 20px;
             border: 1px solid #ccc;
             padding: 10px;
@@ -24,6 +24,21 @@
     <h2 id="welcome-message"></h2>
     <hr />
     <p>Please tell us more about you!</p>
+
+    <h3>Contact Information</h3>
+    <div class="contact-entry">
+        <label for="phone">Phone Number:</label>
+        <input type="text" class="phone" placeholder="Enter your phone number" /><br /><br />
+
+        <label for="address">Address:</label>
+        <input type="text" class="address" placeholder="Enter your address" /><br /><br />
+
+        <label for="email">Email:</label>
+        <input type="email" class="email" placeholder="Enter your email" /><br /><br />
+
+        <label for="linkedIn">LinkedIn URL:</label>
+        <input type="url" class="linkedIn" placeholder="Enter your LinkedIn URL" /><br /><br />
+    </div>
     
     <h3>Education</h3>
     <div id="education-container">
@@ -48,6 +63,32 @@
     </div>
     <button id="add-language">Add Another Language</button>
 
+    <h3>Awards and Certifications</h3>
+    <div id="award-container">
+        <!-- This container will be filled dynamically when the button is clicked -->
+    </div>
+    <button id="add-award">Add Another</button>
+
+    <h3>Relevant Websites</h3>
+    <div id="website-container">
+        <!-- This container will be filled dynamically when the button is clicked -->
+    </div>
+    <button id="add-website">Add Another Website</button>
+
+    <h3>Projects</h3>
+    <div id="project-container">
+        <!-- This container will be filled dynamically when the button is clicked -->
+    </div>
+    <button id="add-project">Add Another Project</button>
+
+    <h3>Other Relevant Information</h3>
+    <div>
+        <textarea class="relevant-info" rows="4" cols="50" placeholder="Enter any other information about yourself :)"></textarea>
+    </div>
+
+    <br><br>
+    <button id="generate-resume">Generate a .csv file and Resume</button>
+    
 </main>
 
 <script>
@@ -179,6 +220,67 @@
         // Add event listener for the new "Remove" button
         newLanguageEntry.querySelector('.remove-language').addEventListener('click', function() {
             languageContainer.removeChild(newLanguageEntry);
+        });
+    });
+
+    document.getElementById('add-award').addEventListener('click', function() {
+        const awardContainer = document.getElementById('award-container');
+        const newAwardEntry = document.createElement('div');
+        newAwardEntry.classList.add('award-entry');
+        newAwardEntry.innerHTML = `
+            <textarea class="award" rows="1" cols="50" placeholder="Enter award or certification name"></textarea><br /><br />
+            <button class="remove-award">Remove</button>
+        `;
+        awardContainer.appendChild(newAwardEntry);
+
+        // Add event listener for the new "Remove" button
+        newAwardEntry.querySelector('.remove-award').addEventListener('click', function() {
+            awardContainer.removeChild(newAwardEntry);
+        });
+    });
+
+    document.getElementById('add-website').addEventListener('click', function() {
+        const websiteContainer = document.getElementById('website-container');
+        const newWebsiteEntry = document.createElement('div');
+        newWebsiteEntry.classList.add('website-entry');
+        newWebsiteEntry.innerHTML = `
+            <label for="website-url">Website URL:</label>
+            <input type="url" class="website-url" placeholder="Enter website URL" /><br /><br />
+
+            <label for="website-description">Description:</label>
+            <textarea class="website-description" rows="1" cols="50" placeholder="Describe the website"></textarea><br /><br />
+            
+            <button class="remove-website">Remove</button>
+        `;
+        websiteContainer.appendChild(newWebsiteEntry);
+
+        // Add event listener for the new "Remove" button
+        newWebsiteEntry.querySelector('.remove-website').addEventListener('click', function() {
+            websiteContainer.removeChild(newWebsiteEntry);
+        });
+    });
+
+    document.getElementById('add-project').addEventListener('click', function() {
+        const projectContainer = document.getElementById('project-container');
+        const newProjectEntry = document.createElement('div');
+        newProjectEntry.classList.add('project-entry');
+        newProjectEntry.innerHTML = `
+            <label for="project-name">Project Name:</label>
+            <input type="text" class="project-name" placeholder="Enter project name" /><br /><br />
+
+            <label for="project-description">Description:</label>
+            <textarea class="project-description" rows="4" cols="50" placeholder="Describe the project"></textarea><br /><br />
+            
+            <label for="project-url">Project URL:</label>
+            <input type="url" class="project-url" placeholder="Enter project URL" /><br /><br />
+            
+            <button class="remove-project">Remove</button>
+        `;
+        projectContainer.appendChild(newProjectEntry);
+
+        // Add event listener for the new "Remove" button
+        newProjectEntry.querySelector('.remove-project').addEventListener('click', function() {
+            projectContainer.removeChild(newProjectEntry);
         });
     });
 </script>
