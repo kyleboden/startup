@@ -61,3 +61,7 @@ I will use the required technologies in the following ways:
 - **WebSocket**: 
   - WebSockets will be used to update the user interface in real-time, such as when a new resume or cover letter is generated.
 
+## HTML deliverable
+
+For this deliverable I built out the structure of my application using HTML.
+- [x] **HTML pages** - Three HTML page that represent the ability to login input User Information, and generate a Resume/Cover Letter
