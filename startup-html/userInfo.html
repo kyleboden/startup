@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ApplySmart HTML</title>
+    <link rel="icon" href="as.png" type="image/png"/>
+    <style>
+        .education-entry, .work-entry {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Apply Smart User Input</h1>
+</header>
+<hr />
+
+<main>
+    <h2 id="welcome-message"></h2>
+    <hr />
+    <p>Please tell us more about you!</p>
+    
+    <h3>Education</h3>
+    <div id="education-container">
+        <div class="education-entry">
+            <label for="school">School:</label>
+            <input type="text" class="school" placeholder="Enter your school name" /><br /><br />
+
+            <label for="start-date">Start Date:</label>
+            <input type="date" class="start-date" /><br /><br />
+
+            <label for="end-date">End Date:</label>
+            <input type="date" class="end-date" /><br /><br />
+
+            <label for="gpa">GPA:</label>
+            <input type="text" class="gpa" placeholder="Enter your GPA" /><br /><br />
+
+            <label for="major">Major:</label>
+            <input type="text" class="major" placeholder="Enter your major" /><br /><br />
+            <button class="remove-education">Remove</button>
+        </div>
+    </div>
+    <button id="add-education">Add Another Education</button>
+
+    <h3>Work History</h3>
+    <div id="work-container">
+        <div class="work-entry">
+            <label for="company">Company:</label>
+            <input type="text" class="company" placeholder="Enter your company name" /><br /><br />
+    
+            <label for="key-roles">Key Roles:</label>
+            <textarea class="key-roles" rows="2" cols="50" placeholder="Describe your key roles"></textarea><br /><br />
+    
+            <label for="work-start-date">Start Date:</label>
+            <input type="date" class="work-start-date" /><br /><br />
+    
+            <label for="work-end-date">End Date:</label>
+            <input type="date" class="work-end-date" /><br /><br />
+            <button class="remove-work">Remove</button>
+        </div>
+    </div>
+    <button id="add-work">Add Another Work Entry</button>
+</main>
+
+<script>
+    // Function to get URL parameters
+    function getQueryParams() {
+        const params = {};
+        const queryString = window.location.search.slice(1);
+        const pairs = queryString.split('&');
+        for (const pair of pairs) {
+            const [key, value] = pair.split('=');
+            params[decodeURIComponent(key)] = decodeURIComponent(value);
+        }
+        return params;
+    }
+
+    // Get the username from the URL and display it
+    const params = getQueryParams();
+    const username = params.username;
+    if (username) {
+        document.getElementById('welcome-message').innerText = `Welcome, ${username}!`;
+    } else {
+        document.getElementById('welcome-message').innerText = 'Welcome, Guest!';
+    }
+
+    // Function to add another education entry
+    document.getElementById('add-education').addEventListener('click', function() {
+        const educationContainer = document.getElementById('education-container');
+        const newEntry = document.createElement('div');
+        newEntry.classList.add('education-entry');
+        newEntry.innerHTML = `
+            <label for="school">School:</label>
+            <input type="text" class="school" placeholder="Enter your school name" /><br /><br />
+
+            <label for="start-date">Start Date:</label>
+            <input type="date" class="start-date" /><br /><br />
+
+            <label for="end-date">End Date:</label>
+            <input type="date" class="end-date" /><br /><br />
+
+            <label for="gpa">GPA:</label>
+            <input type="text" class="gpa" placeholder="Enter your GPA" /><br /><br />
+
+            <label for="major">Major:</label>
+            <input type="text" class="major" placeholder="Enter your major" /><br /><br />
+            <button class="remove-education">Remove</button>
+        `;
+        educationContainer.appendChild(newEntry);
+
+        // Add event listener for the new "Remove" button
+        newEntry.querySelector('.remove-education').addEventListener('click', function() {
+            educationContainer.removeChild(newEntry);
+        });
+    });
+
+    // Initial "Remove" button functionality for education entries
+    document.querySelectorAll('.remove-education').forEach(button => {
+        button.addEventListener('click', function() {
+            const educationEntry = button.parentElement;
+            document.getElementById('education-container').removeChild(educationEntry);
+        });
+    });
+
+    // Function to add another work entry
+    document.getElementById('add-work').addEventListener('click', function() {
+        const workContainer = document.getElementById('work-container');
+        const newWorkEntry = document.createElement('div');
+        newWorkEntry.classList.add('work-entry');
+        newWorkEntry.innerHTML = `
+            <label for="company">Company:</label>
+            <input type="text" class="company" placeholder="Enter your company name" /><br /><br />
+
+            <label for="key-roles">Key Roles:</label>
+            <textarea class="key-roles" rows="2" cols="50" placeholder="Describe your key roles"></textarea><br /><br />
+
+            <label for="work-start-date">Start Date:</label>
+            <input type="date" class="work-start-date" /><br /><br />
+
+            <label for="work-end-date">End Date:</label>
+            <input type="date" class="work-end-date" /><br /><br />
+            <button class="remove-work">Remove</button>
+        `;
+        workContainer.appendChild(newWorkEntry);
+
+        // Add event listener for the new "Remove" button
+        newWorkEntry.querySelector('.remove-work').addEventListener('click', function() {
+            workContainer.removeChild(newWorkEntry);
+        });
+    });
+
+    // Initial "Remove" button functionality for work entries
+    document.querySelectorAll('.remove-work').forEach(button => {
+        button.addEventListener('click', function() {
+            const workEntry = button.parentElement;
+            document.getElementById('work-container').removeChild(workEntry);
+        });
+    });
+</script>
+
+<footer>
+    <hr />
+    <span class="text-reset">Kyle Boden</span>
+    <br />
+    <a href="https://github.com/kyleboden/startup/tree/main/startup-html">GitHub</a>
+</footer>
+</body>
+</html>
