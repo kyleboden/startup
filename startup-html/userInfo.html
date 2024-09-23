@@ -6,7 +6,7 @@
     <title>ApplySmart HTML</title>
     <link rel="icon" href="as.png" type="image/png"/>
     <style>
-        .education-entry, .work-entry {
+        .education-entry, .work-entry, .language-entry {
             margin-bottom: 20px;
             border: 1px solid #ccc;
             padding: 10px;
@@ -27,44 +27,27 @@
     
     <h3>Education</h3>
     <div id="education-container">
-        <div class="education-entry">
-            <label for="school">School:</label>
-            <input type="text" class="school" placeholder="Enter your school name" /><br /><br />
-
-            <label for="start-date">Start Date:</label>
-            <input type="date" class="start-date" /><br /><br />
-
-            <label for="end-date">End Date:</label>
-            <input type="date" class="end-date" /><br /><br />
-
-            <label for="gpa">GPA:</label>
-            <input type="text" class="gpa" placeholder="Enter your GPA" /><br /><br />
-
-            <label for="major">Major:</label>
-            <input type="text" class="major" placeholder="Enter your major" /><br /><br />
-            <button class="remove-education">Remove</button>
-        </div>
+        <!-- This container will be filled dynamically when the button is clicked -->
     </div>
-    <button id="add-education">Add Another Education</button>
+    <button id="add-education">Add Education</button>
 
     <h3>Work History</h3>
     <div id="work-container">
-        <div class="work-entry">
-            <label for="company">Company:</label>
-            <input type="text" class="company" placeholder="Enter your company name" /><br /><br />
-    
-            <label for="key-roles">Key Roles:</label>
-            <textarea class="key-roles" rows="2" cols="50" placeholder="Describe your key roles"></textarea><br /><br />
-    
-            <label for="work-start-date">Start Date:</label>
-            <input type="date" class="work-start-date" /><br /><br />
-    
-            <label for="work-end-date">End Date:</label>
-            <input type="date" class="work-end-date" /><br /><br />
-            <button class="remove-work">Remove</button>
-        </div>
+        <!-- This container will be filled dynamically when the button is clicked -->
     </div>
-    <button id="add-work">Add Another Work Entry</button>
+    <button id="add-work">Add Work Entry</button>
+
+    <h3>Skills</h3>
+    <div>
+        <textarea class="skill" rows="4" cols="50" placeholder="Enter your skills (comma-separated)"></textarea>
+    </div>
+
+    <h3>Languages</h3>
+    <div id="language-container">
+        <!-- This container will be filled dynamically when the button is clicked -->
+    </div>
+    <button id="add-language">Add Another Language</button>
+
 </main>
 
 <script>
@@ -153,12 +136,49 @@
             workContainer.removeChild(newWorkEntry);
         });
     });
+    document.getElementById('add-language').addEventListener('click', function() {
+        const languageContainer = document.getElementById('language-container');
+        const newLanguageEntry = document.createElement('div');
+        newLanguageEntry.classList.add('language-entry');
+        newLanguageEntry.innerHTML = `
+            <label for="language">Language:</label>
+            <input type="text" class="language" placeholder="Enter a language" /><br /><br />
+            
+            <label for="native">Native:</label>
+            <input type="checkbox" class="native" /><br /><br />
 
-    // Initial "Remove" button functionality for work entries
-    document.querySelectorAll('.remove-work').forEach(button => {
-        button.addEventListener('click', function() {
-            const workEntry = button.parentElement;
-            document.getElementById('work-container').removeChild(workEntry);
+            <label for="proficiency">Proficiency Level:</label>
+            <select class="proficiency">
+                <option value="">Select proficiency</option>
+                <option value="basic">Basic</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+                <option value="fluent">Fluent</option>
+            </select><br /><br />
+            
+            <button class="remove-language">Remove</button>
+        `;
+        
+        // Append the new language entry to the container
+        languageContainer.appendChild(newLanguageEntry);
+
+        // Add event listener for the "Native" checkbox
+        const nativeCheckbox = newLanguageEntry.querySelector('.native');
+        const proficiencySelect = newLanguageEntry.querySelector('.proficiency');
+
+        nativeCheckbox.addEventListener('change', function() {
+            if (nativeCheckbox.checked) {
+                proficiencySelect.value = "fluent"; // Set proficiency to fluent
+                proficiencySelect.disabled = true; // Optionally disable the dropdown
+            } else {
+                proficiencySelect.value = ""; // Reset the proficiency
+                proficiencySelect.disabled = false; // Enable the dropdown again
+            }
+        });
+
+        // Add event listener for the new "Remove" button
+        newLanguageEntry.querySelector('.remove-language').addEventListener('click', function() {
+            languageContainer.removeChild(newLanguageEntry);
         });
     });
 </script>
