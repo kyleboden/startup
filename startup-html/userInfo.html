@@ -87,7 +87,7 @@
     </div>
 
     <br><br>
-    <button id="generate-resume">Generate a .csv file and Resume</button>
+    <button id="save-information">Save Information</button>
     
 </main>
 
@@ -177,6 +177,7 @@
             workContainer.removeChild(newWorkEntry);
         });
     });
+
     document.getElementById('add-language').addEventListener('click', function() {
         const languageContainer = document.getElementById('language-container');
         const newLanguageEntry = document.createElement('div');
@@ -283,6 +284,7 @@
             projectContainer.removeChild(newProjectEntry);
         });
     });
+
 </script>
 
 <footer>
