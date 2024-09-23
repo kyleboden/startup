@@ -64,4 +64,10 @@ I will use the required technologies in the following ways:
 ## HTML deliverable
 
 For this deliverable I built out the structure of my application using HTML.
-- [x] **HTML pages** - Three HTML page that represent the ability to login input User Information, and generate a Resume/Cover Letter
+- [x] **HTML pages** - Three HTML pages that represent the ability to login input User Information, and generate a Resume/Cover Letter
+- [x] **Links** - The login page automatically links to the User Information page. The User Information links to the Generator page. All of these contain a link to return to Login Page and a link to see my GitHub.
+- [x] **Text** - Each section of the resume (e.g., Education, Work History, Skills) is represented by textual descriptions and input fields.
+- [x] **Images** - I changed the icon of the page title to be an image.
+- [x] **DB/Login** - The application features input boxes for collecting user information, including contact details, job descriptions, and other relevant sections.
+- [x] **Dynamic Elements** - Users can dynamically add entries for education, work history, awards, and languages through buttons, allowing for a customizable resume.
+- [x] **Save Functionality** - A button is provided to save the user's information and navigate to the resume generation section.
