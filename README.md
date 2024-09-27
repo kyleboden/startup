@@ -65,6 +65,7 @@ I will use the required technologies in the following ways:
 
 For this deliverable I built out the structure of my application using HTML.
 - [x] **HTML pages** - Three HTML pages that represent the ability to login input User Information, and generate a Resume/Cover Letter
+- [x] **3rd Party Service Call** - Placeholder in the generateResume function in generator.html where I will insert an API call to a third party service, like OpenAI in order to generate the resume that will be returned.
 - [x] **Links** - The login page automatically links to the User Information page. The User Information links to the Generator page. All of these contain a link to return to Login Page and a link to see my GitHub.
 - [x] **Text** - Each section of the resume (e.g., Education, Work History, Skills) is represented by textual descriptions and input fields.
 - [x] **Images** - I changed the icon of the page title to be an image.
