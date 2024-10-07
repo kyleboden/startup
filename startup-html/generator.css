@@ -43,6 +43,16 @@ button:hover {
     background-color: #0f5f7a; /* Darker shade on hover */
 }
 
+textarea {
+    border-radius: 10px; /* Rounded edges */
+    border: 1px solid #ccc; /* Light border */
+    padding: 10px; /* Padding inside textareas */
+    width: 400px; /* Set a specific width for the textareas */
+    max-width: 100%; /* Allow responsiveness while keeping a max width */
+    margin-bottom: 20px; /* Space below textareas */
+    box-sizing: border-box; /* Include padding and border in the total width */
+}
+
 /* Style for the return button */
 footer button {
     /* Specific styles for footer buttons, if needed */
