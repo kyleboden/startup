@@ -90,8 +90,10 @@
     </div>
 
     <br><br>
+    <hr />
     <button id="save-information" onclick="window.location.href='generator.html'">Save Information and go to Resume Generator</button>
-    
+    <hr />
+
     
 </main>
 
@@ -137,18 +139,18 @@
 
             <label for="major">Major:</label>
             <input type="text" class="major" placeholder="Enter your major" /><br /><br />
-            <button class="remove-education">Remove</button>
+            <button class="remove-button">Remove</button>
         `;
         educationContainer.appendChild(newEntry);
 
         // Add event listener for the new "Remove" button
-        newEntry.querySelector('.remove-education').addEventListener('click', function() {
+        newEntry.querySelector('.remove-button').addEventListener('click', function() {
             educationContainer.removeChild(newEntry);
         });
     });
 
     // Initial "Remove" button functionality for education entries
-    document.querySelectorAll('.remove-education').forEach(button => {
+    document.querySelectorAll('.remove-button').forEach(button => {
         button.addEventListener('click', function() {
             const educationEntry = button.parentElement;
             document.getElementById('education-container').removeChild(educationEntry);
@@ -172,12 +174,12 @@
 
             <label for="work-end-date">End Date:</label>
             <input type="date" class="work-end-date" /><br /><br />
-            <button class="remove-work">Remove</button>
+            <button class="remove-button">Remove</button>
         `;
         workContainer.appendChild(newWorkEntry);
 
         // Add event listener for the new "Remove" button
-        newWorkEntry.querySelector('.remove-work').addEventListener('click', function() {
+        newWorkEntry.querySelector('.remove-button').addEventListener('click', function() {
             workContainer.removeChild(newWorkEntry);
         });
     });
@@ -202,7 +204,7 @@
                 <option value="fluent">Fluent</option>
             </select><br /><br />
             
-            <button class="remove-language">Remove</button>
+            <button class="remove-button">Remove</button>
         `;
         
         // Append the new language entry to the container
@@ -223,7 +225,7 @@
         });
 
         // Add event listener for the new "Remove" button
-        newLanguageEntry.querySelector('.remove-language').addEventListener('click', function() {
+        newLanguageEntry.querySelector('.remove-button').addEventListener('click', function() {
             languageContainer.removeChild(newLanguageEntry);
         });
     });
@@ -234,12 +236,12 @@
         newAwardEntry.classList.add('award-entry');
         newAwardEntry.innerHTML = `
             <textarea class="award" rows="1" cols="50" placeholder="Enter award or certification name"></textarea><br /><br />
-            <button class="remove-award">Remove</button>
+            <button class="remove-button">Remove</button>
         `;
         awardContainer.appendChild(newAwardEntry);
 
         // Add event listener for the new "Remove" button
-        newAwardEntry.querySelector('.remove-award').addEventListener('click', function() {
+        newAwardEntry.querySelector('.remove-button').addEventListener('click', function() {
             awardContainer.removeChild(newAwardEntry);
         });
     });
@@ -255,12 +257,12 @@
             <label for="website-description">Description:</label>
             <textarea class="website-description" rows="1" cols="50" placeholder="Describe the website"></textarea><br /><br />
             
-            <button class="remove-website">Remove</button>
+            <button class="remove-button">Remove</button>
         `;
         websiteContainer.appendChild(newWebsiteEntry);
 
         // Add event listener for the new "Remove" button
-        newWebsiteEntry.querySelector('.remove-website').addEventListener('click', function() {
+        newWebsiteEntry.querySelector('.remove-button').addEventListener('click', function() {
             websiteContainer.removeChild(newWebsiteEntry);
         });
     });
@@ -279,12 +281,12 @@
             <label for="project-url">Project URL:</label>
             <input type="url" class="project-url" placeholder="Enter project URL" /><br /><br />
             
-            <button class="remove-project">Remove</button>
+            <button class="remove-button">Remove</button>
         `;
         projectContainer.appendChild(newProjectEntry);
 
         // Add event listener for the new "Remove" button
-        newProjectEntry.querySelector('.remove-project').addEventListener('click', function() {
+        newProjectEntry.querySelector('.remove-button').addEventListener('click', function() {
             projectContainer.removeChild(newProjectEntry);
         });
     });
@@ -292,10 +294,9 @@
 </script>
 
 <footer>
-    <hr />
-    <br />
+
     <button onclick="window.location.href='index.html'">Return to Login Page</button>
-    <br /><br />
+    <br />
     <span class="text-reset">Kyle Boden</span>
     <br />
     <a href="https://github.com/kyleboden/startup/tree/main/startup-html">Click here to see my GitHub</a>

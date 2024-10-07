@@ -1,3 +1,66 @@
+/* General styles */
+body {
+    /* Remove flex layout from body to avoid affecting header and footer */
+    text-align: center; /* Center text in header and footer */
+}
+
+/* Main content */
+.main-content {
+    display: flex; /* Use flexbox for layout only in the main content */
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Form Container */
+.form-container {
+    display: flex; /* Use flexbox for layout */
+    flex-wrap: wrap; /* Allow items to wrap into the next line */
+    justify-content: center; /* Center items horizontally */
+    max-width: 800px; /* Set a max width for the form */
+}
+
+.contact-entry {
+    border: 1px solid #000000; /* Set border color and width */
+    padding: 20px; /* Add padding inside the border */
+    border-radius: 8px; /* Optional: Rounded corners */
+    max-width: 400px; /* Set a maximum width */
+    margin: 20px auto; /* Center the div with margin */
+}
+
+.skill {
+    border: 1px solid #000000; /* Set border color and width */
+    border-radius: 8px; /* Set the border radius to round the edges */
+    padding: 10px; /* Optional: Add padding inside the textarea */
+    resize: vertical; /* Optional: Allow vertical resizing only */
+    max-width: 400px; /* Set a maximum width */
+    width: calc(100% - 20px); /* Make it responsive and leave space for padding */
+}
+.relevant-info {
+    border: 1px solid #000000; /* Set border color and width */
+    border-radius: 8px; /* Set the border radius to round the edges */
+    padding: 10px; /* Optional: Add padding inside the textarea */
+    resize: vertical; /* Optional: Allow vertical resizing only */
+    max-width: 400px; /* Set a maximum width */
+    width: calc(100% - 20px); /* Make it responsive and leave space for padding */
+}
+
+/* Column Style */
+.column {
+    flex: 1 1 45%; /* Allow columns to grow and shrink with a base size */
+    margin: 10px; /* Space between columns */
+}
+
+
+
+
+/* Centering the buttons */
+.button-container {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center; /* Center align buttons */
+    margin-top: 20px; /* Space above the container */
+}
+
 button {
     display: block; /* Make the button a block element */
     margin: 0 auto; /* Automatically adjust margins to center it */
@@ -13,4 +76,49 @@ button {
 
 button:hover {
     background-color: #0f5f7a; /* Darker shade on hover */
+}
+main hr {
+    width: 50%; /* Adjust width as needed */
+    margin: 20px auto; /* Center and add vertical spacing */
+    border: 1px solid #ccc; /* Optional: Set border color */
+}
+
+/* Styles for the Save Information button */
+#save-information {
+    background-color: #1784AC; /* Set button color */
+    color: white; /* Button text color */
+    border: none; /* Remove border */
+    padding: 15px 30px; /* Increase padding for a larger button */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+    font-size: 18px; /* Increase font size for better visibility */
+    margin-top: 20px; /* Optional: Add space above the button */
+    display: block; /* Ensure button is displayed as a block element */
+    width: 100%; /* Make the button take full width of the parent */
+    max-width: 400px; /* Set a max width for the button */
+    transition: background-color 0.3s; /* Smooth background color change on hover */
+}
+
+#save-information:hover {
+    background-color: #0f5f7a; /* Darker shade on hover */
+}
+
+/* Additional styling */
+input,
+textarea {
+    margin-left: 10px; /* Optional: Add margin to inputs for better spacing */
+}
+
+.remove-button {
+    background-color: rgb(182, 112, 112); /* Set the background color to red */
+    color: white; /* Set text color to white for better contrast */
+    border: none; /* Remove border */
+    padding: 10px 20px; /* Padding for spacing */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    margin-top: 5px; /* Optional: Space above the button */
+}
+
+.remove-button:hover {
+    background-color: darkred; /* Darker red on hover */
 }
