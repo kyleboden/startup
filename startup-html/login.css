@@ -1,0 +1,59 @@
+/* Main content styles */
+main {
+    width: 100%;
+    max-width: 500px;
+
+    padding: 20px;
+    background-color: #ffffff;
+    margin: 20px auto; /* Center the main content horizontally */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center;
+    min-height: 200px; /* Minimum height to prevent it from being too small */
+  }
+  
+  /* Adjusting form elements */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Space between form elements */
+    width: 100%;
+  }
+  
+  form div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  form input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  button {
+    background-color: #1784AC;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  button:hover {
+    background-color: #0f5f7a; /* Darker shade on hover */
+  }
+  
