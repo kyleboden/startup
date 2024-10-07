@@ -1,3 +1,7 @@
+main h1 {
+    margin-bottom: 50px;
+  }
+
 /* Adjusting form elements */
 form {
     display: flex;
