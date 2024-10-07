@@ -1,0 +1,16 @@
+button {
+    display: block; /* Make the button a block element */
+    margin: 0 auto; /* Automatically adjust margins to center it */
+    background-color: #1784AC;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; /* Full width */
+    max-width: 250px; /* Set a max width */
+}
+
+button:hover {
+    background-color: #0f5f7a; /* Darker shade on hover */
+}
