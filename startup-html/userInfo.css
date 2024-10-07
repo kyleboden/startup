@@ -18,6 +18,7 @@ body {
     flex-wrap: wrap; /* Allow items to wrap into the next line */
     justify-content: center; /* Center items horizontally */
     max-width: 800px; /* Set a max width for the form */
+    
 }
 
 .contact-entry {
@@ -26,6 +27,8 @@ body {
     border-radius: 8px; /* Optional: Rounded corners */
     max-width: 400px; /* Set a maximum width */
     margin: 20px auto; /* Center the div with margin */
+    margin-bottom: 50px; /* Space below textareas */
+
 }
 
 textarea {
@@ -34,7 +37,7 @@ textarea {
     padding: 10px; /* Padding inside textareas */
     width: 400px; /* Set a specific width for the textareas */
     max-width: 100%; /* Allow responsiveness while keeping a max width */
-    margin-bottom: 20px; /* Space below textareas */
+    margin-bottom: 50px; /* Space below textareas */
     box-sizing: border-box; /* Include padding and border in the total width */
 }
 
@@ -66,6 +69,7 @@ button {
     cursor: pointer;
     width: 100%; /* Full width */
     max-width: 250px; /* Set a max width */
+    margin-bottom: 50px;
 }
 
 button:hover {
