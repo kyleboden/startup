@@ -1,3 +1,14 @@
+nav {
+    display: flex; /* Use flexbox for navigation buttons */
+    justify-content: flex-end; /* Align buttons to the right */
+    width: 50%; /* Make the nav take the full width of the header */
+    margin-top: 10px; /* Space between title and navigation buttons */
+}
+
+nav button {
+    margin-left: 10px; /* Space between buttons */
+}
+
 /* Main content styles */
 main {
     display: flex;

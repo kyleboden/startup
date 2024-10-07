@@ -26,17 +26,33 @@ header h1 {
   color: #ffffff; /* White text color for contrast */
   margin: 0; /* Remove default margin */
 }
+button {
+  padding: 10px 15px; /* Match the padding from styles.css */
+  border: none; /* No border */
+  border-radius: 4px; /* Round edges */
+  background-color: #1784AC; /* Consistent button background color */
+  color: white; /* Consistent text color */
+  cursor: pointer; /* Pointer cursor on hover */
+  width: 100%; /* Ensure full width */
+  max-width: 250px; /* Control maximum width */
+  box-sizing: border-box; /* Include padding and border in element's total width */
+  margin-top: 10px; /* Space above the button */
+}
 
+button:hover {
+  background-color: #0f5f7a; /* Darker shade on hover */
+}
 nav {
   display: flex; /* Use flexbox for navigation buttons */
   justify-content: flex-end; /* Align buttons to the right */
-  width: 100%; /* Make the nav take the full width */
+  width: 50%; /* Make the nav take the full width of the header */
   margin-top: 10px; /* Space between title and navigation buttons */
 }
 
 nav button {
   margin-left: 10px; /* Space between buttons */
 }
+
 
 /* Main content styles */
 main {
