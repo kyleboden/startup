@@ -1,0 +1,90 @@
+/* Reset default styles for the body */
+html, body {
+  height: 100%; /* Make the html and body take full height */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  font-family: Arial, sans-serif; /* Set a default font */
+  line-height: 1.6; /* Improve readability */
+  background-color: #1784ac1e; /* Light background color for the whole page */
+  display: flex; /* Set the body as a flex container */
+  flex-direction: column; /* Arrange children in a column */
+}
+
+/* Header styles */
+header {
+  display: flex;
+  align-items: center; /* Center-align the elements vertically */
+  background-color: #1784AC; /* Match header background with logo color */
+  padding: 10px; /* Space inside the header */
+}
+
+header img {
+  margin-right: 20px; /* Space between the image and text */
+}
+
+header h1 {
+  color: #ffffff; /* White text color for contrast */
+  margin: 0; /* Remove default margin */
+}
+
+/* Main content styles */
+main {
+  flex: 1; /* Allow main content to grow and fill available space */
+  padding: 20px; /* Add space inside the main content */
+  background-color: #ffffff; /* White background for the main section */
+  margin: 20px; /* Add margin to separate from edges */
+  border-radius: 5px; /* Round the corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+main h1 {
+  color: #1784AC; /* Use logo color for the main title */
+  text-align: center; /* Center-align the text */
+}
+
+main h3 {
+  color: #555; /* Medium grey for subheading */
+  text-align: center; /* Center-align the text */
+}
+
+main p {
+  max-width: 500px; /* Set a maximum width */
+  margin: 0 auto; /* Center the div horizontally */
+  padding: 0 20px; /* Horizontal padding */
+  color: #333; /* Dark text color for readability */
+}
+
+main h4 {
+  text-align: center; /* Center the h4 element */
+}
+
+main h4 a {
+  color: #1784AC; /* Link color matching the logo */
+  text-decoration: none; /* Remove underline */
+}
+
+main h4 a:hover {
+  text-decoration: underline; /* Underline on hover for better UX */
+}
+
+/* Footer styles */
+footer {
+  text-align: center; /* Center-align footer text */
+  padding: 20px; /* Increase padding for the footer height */
+  background-color: #f0f0f0; /* Light grey for footer background */
+}
+
+footer .text-reset {
+  font-weight: bold; /* Make the name bold */
+  color: #555;
+  margin-top: 10px; /* Space between the text and the top of the footer */
+}
+
+footer a {
+  color: #1784AC; /* Use the logo color */
+  text-decoration: none; /* Remove underline */
+}
+
+footer a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
