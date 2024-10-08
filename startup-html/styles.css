@@ -13,6 +13,10 @@ html, body {
   padding-top: 60px; /* Space for the fixed header */
 
 }
+.responsive-image {
+  max-width: 80%; /* Allow the image to scale down */
+  height: auto;    /* Maintain aspect ratio */
+}
 
 body {
   /* Remove flex layout from body to avoid affecting header and footer */
