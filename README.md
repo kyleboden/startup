@@ -72,3 +72,14 @@ For this deliverable I built out the structure of my application using HTML.
 - [x] **DB/Login** - The application features input boxes for collecting user information, including contact details, job descriptions, and other relevant sections.
 - [x] **Dynamic Elements** - Users can dynamically add entries for education, work history, awards, and languages through buttons, allowing for a customizable resume.
 - [x] **Save Functionality** - A button is provided to save the user's information and navigate to the resume generation section.
+
+## CSS deliverable
+
+For this deliverable I properly styled the application into its final appearance.
+
+- [x] **Header, footer, and main content body**
+- [x] **Navigation elements** - I dropped the underlines and changed the color for anchor elements. They become a hamburger menu when the window changes size.
+- [x] **Responsive to window resizing** - My app looks great on all window sizes and devices
+- [x] **Application elements** - Used good contrast and whitespace
+- [x] **Application text content** - Consistent fonts and colors
+- [x] **Application images** - My logo is displayed on multiple pages
