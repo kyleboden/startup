@@ -38,18 +38,17 @@
     </header>
 
     <main>
-
-        <label for="job-description">Job Description:</label><br />
-        <textarea id="job-description" name="job-description" rows="10" cols="80" placeholder="Paste your job description here"></textarea>
-        <br /><br />
-
-        <label for="extra-info">Any extra Information:</label><br />
-        <textarea id="extra-info" name="extra-info" rows="5" cols="80" placeholder="Add any extra information that could be useful for this specific job, ie, personal experiences, etc."></textarea>
-        <br /><br />
-
-        <button id="generate-resume" onclick="generateResume()">[PLACEHOLDER] Generate Resume and Cover Letter</button>
-
-    </main>
+      <div class="form-group">
+          <label for="job-description">Job Description:</label>
+          <textarea id="job-description" name="job-description" rows="10" placeholder="Paste your job description here"></textarea>
+      </div>
+      <div class="form-group">
+          <label for="extra-info">Any Extra Information:</label>
+          <textarea id="extra-info" name="extra-info" rows="5" placeholder="Add any extra information that could be useful for this specific job, e.g., personal experiences, etc."></textarea>
+      </div>
+      <button id="generate-resume" onclick="generateResume()">[PLACEHOLDER] Generate Resume and Cover Letter</button>
+  </main>
+  
 
     <script>
         function generateResume() {

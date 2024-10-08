@@ -20,7 +20,10 @@ html, body {
 }
 
 .nav-link:hover {
-  color: #999999; /* Optional: change this for hover state */
+  color: #6cdff3; /* Optional: change this for hover state */
+}
+.nav-link.active {
+  color: #6cdff3; /* Active link color */
 }
 
 header {
@@ -82,7 +85,7 @@ main h3 {
 }
 
 main p {
-  max-width: 500px; /* Set a maximum width */
+  max-width: 650px; /* Set a maximum width */
   margin: 0 auto; /* Center the div horizontally */
   padding: 0 20px; /* Horizontal padding */
   color: #333; /* Dark text color for readability */

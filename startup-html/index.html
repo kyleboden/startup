@@ -1,59 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-  integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-  crossorigin="anonymous"
-/>
-    <head>
-        <meta charset="UTF-8" />
-        <!-- Tell browsers not to scale the viewport automatically -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>ApplySmart HTML</title>
-        <link rel="stylesheet" href="styles.css">
-        <link rel="icon" href="ASNEWtransparent.png" type="image/png"/>
-      </head>
-  <body>
+<head>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+        crossorigin="anonymous"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ApplySmart HTML</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="ASNEWtransparent.png" type="image/png"/>
+</head>
+<body>
+  <header class="d-flex justify-content-between align-items-center fixed-top">
+    <a href="./index.html">
+        <img src="ApplySmartTWhite.png" style="width: 200px; height: auto;" />
+    </a>
+    <nav class="navbar navbar-expand-lg">
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="generator.html">Resume Generator</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="userInfo.html">Update Information</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
-    <header class="d-flex justify-content-between align-items-center fixed-top ">
-      <a href="./index.html"><img src="ApplySmartTWhite.png" style="width: 200px; height: auto;" /></a>
-      <nav class="navbar navbar-expand">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="login.html">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="generator.html">Resume Generator</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="userInfo.html">Update Information</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
 
     <main>
+        <br />
         <h1>Welcome to Apply Smart</h1>
+        <br />
         <div>
             <h3>Stop getting overlooked – ApplySmart helps you stand out.</h3>
+            <br />
             <p>
-              ApplySmart is your personal job-hunting assistant, designed to simplify the exhausting application process. We create customized resumes and cover letters tailored to each job you apply for. Our advanced AI analyzes job descriptions alongside your unique qualifications, helping you stand out from the crowd and bypass automated filters used by many companies. With ApplySmart, you increase your chances of getting noticed by recruiters and landing that interview. Start your job hunt with us today and experience a faster, more effective way to secure your next opportunity!
+                ApplySmart is your personal job-hunting assistant, designed to simplify the exhausting application process. We create customized resumes and cover letters tailored to each job you apply for. Our advanced AI analyzes job descriptions alongside your unique qualifications, helping you stand out from the crowd and bypass automated filters used by many companies. With ApplySmart, you increase your chances of getting noticed by recruiters and landing that interview. Start your job hunt with us today and experience a faster, more effective way to secure your next opportunity!
             </p>
             <h4>
+                <br /><br />
                 <a href="./login.html">Sign up</a> or <a href="./login.html">Login</a> to get started.
             </h4>
         </div>
     </main>
 
-
     <footer>
         <span class="text-reset">Kyle Boden</span>
         <br />
         <a href="https://github.com/kyleboden/startup/tree/main/startup-html">Click here to see my GitHub</a>
-      </footer>
-  </body>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OmQ6R3CIEE2D5shqP6FZ4mT8WkC57KGlR8WgM8mg3CCw4Ilz1v7aSeFNR7tZQHLg" crossorigin="anonymous"></script>
+</body>
 </html>

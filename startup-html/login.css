@@ -1,4 +1,19 @@
+h1{
+    padding-top: 20px;
+}
 
+#username {
+    padding-top: 10px;
+}
+#password {
+    padding-bottom: 10px;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
 
 /* Adjusting form elements */
 form {

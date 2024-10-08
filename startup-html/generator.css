@@ -1,5 +1,3 @@
-
-
 /* Main content styles */
 main {
     display: flex;
@@ -8,14 +6,33 @@ main {
     padding: 20px; /* Add some padding */
 }
 
-/* Styling the textareas */
+/* Form group styles */
+.form-group {
+    display: flex; /* Use flexbox for label and textarea */
+    flex-direction: column; /* Arrange items vertically */
+    align-items: flex-start; /* Align items to the start (left) */
+    width: 100%; /* Full width */
+    max-width: 600px; /* Set max width for the group */
+}
+
+/* Label styles */
+label {
+    font-weight: bold; /* Makes the label text bold */
+    font-size: 1.2rem; /* Font size for better readability */
+    color: #1784AC; /* Use your logo color for consistency */
+    margin-bottom: 0.5rem; /* Adds space below the label */
+}
+
+/* Textarea styles */
 textarea {
     border-radius: 10px; /* Rounded edges */
     border: 1px solid #ccc; /* Light border */
     padding: 10px; /* Padding inside textareas */
-    width: 80%; /* Width of textareas */
-    max-width: 800px; /* Max width to prevent stretching */
+    width: 100%; /* Use full width */
+    min-height: 100px; /* Minimum height for textareas */
     margin-bottom: 20px; /* Space below textareas */
+    box-sizing: border-box; /* Include padding and border in the total width */
+    font-size: 1rem; /* Font size for textarea text */
 }
 
 /* Button styles */
@@ -34,24 +51,3 @@ button:hover {
     background-color: #0f5f7a; /* Darker shade on hover */
 }
 
-textarea {
-    border-radius: 10px; /* Rounded edges */
-    border: 1px solid #ccc; /* Light border */
-    padding: 10px; /* Padding inside textareas */
-    width: 400px; /* Set a specific width for the textareas */
-    max-width: 100%; /* Allow responsiveness while keeping a max width */
-    margin-bottom: 20px; /* Space below textareas */
-    box-sizing: border-box; /* Include padding and border in the total width */
-}
-
-/* Style for the return button */
-footer button {
-    /* Specific styles for footer buttons, if needed */
-}
-
-/* Optional: Adjusting the spacing of the hr elements */
-hr {
-    width: 50%; /* Adjust the width of the horizontal rule */
-    margin: 20px auto; /* Center the hr */
-    border: 1px solid #ccc; /* Border style */
-}
