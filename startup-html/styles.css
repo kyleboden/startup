@@ -14,7 +14,10 @@ html, body {
 
 }
 
-
+body {
+  /* Remove flex layout from body to avoid affecting header and footer */
+  text-align: right; /* Center text in header and footer */
+}
 .nav-link {
   color: #ffffff; /* Change this to your desired color */
 }
@@ -72,6 +75,7 @@ main {
   margin: 20px; /* Add margin to separate from edges */
   border-radius: 5px; /* Round the corners */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-align: center; /* Center the image and text inside main */
 }
 
 main h1 {

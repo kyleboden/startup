@@ -6,10 +6,7 @@ main h3 {
 }
 
 
-body {
-    /* Remove flex layout from body to avoid affecting header and footer */
-    text-align: center; /* Center text in header and footer */
-}
+
 
 /* Main content */
 .main-content {
