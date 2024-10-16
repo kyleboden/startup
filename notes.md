@@ -55,7 +55,7 @@ Explanation:
 
     * It selects the element with the ID attribute title.
     * IDs must be unique within a webpage, so only one element should have this ID.
-    * In the example, it targets the <h1> element with id="title" and sets its font size to 24px and its color to blue.
+    * In the example, it targets the `<h1>` element with id="title" and sets its font size to 24px and its color to blue.
   * .grid is a class selector:
   
     * It selects all elements with the class attribute grid.
