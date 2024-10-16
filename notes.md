@@ -12,7 +12,7 @@ You can find more information in the [Go to README](./README.md).
 
 2. What does a div tag do?
 
-  * The <div> tag is a block-level element used to group together HTML elements, acting as a container for other content. It does not have any semantic meaning on its own but is commonly used to structure and style sections of a webpage using CSS. For example:
+  * The `<div>` tag is a block-level element used to group together HTML elements, acting as a container for other content. It does not have any semantic meaning on its own but is commonly used to structure and style sections of a webpage using CSS. For example:
       ```html
       <div class="container">
           <p>This is some text inside a div.</p>
