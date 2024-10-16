@@ -18,3 +18,34 @@ You can find more information in the [Go to README](./README.md).
           <p>This is some text inside a div.</p>
       </div>
   * This div can then be styled or manipulated using CSS or JavaScript.
+### In the following code, what is the difference between the `#title` and `.grid` selector?
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #title {
+            font-size: 24px;
+            color: blue;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+    </style>
+    <title>Selectors Example</title>
+</head>
+<body>
+    <h1 id="title">Welcome to My Webpage</h1>
+    <div class="grid">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+    </div>
+</body>
+</html>
