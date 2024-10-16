@@ -209,30 +209,30 @@ Usage: Useful for shorter, simpler functions or callbacks.
   [2, 4, 6, 8, 10]
   This means that the original array [1, 2, 3, 4, 5] is transformed into a new array where each number is doubled.
   
-10. What does the following code output using getElementById and addEventListener?
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Event Listener Example</title>
-    </head>
-    <body>
-        <button id="myButton">Click Me!</button>
-        <script>
-            document.getElementById('myButton').addEventListener('click', () => {
-                console.log('Button was clicked!');
-            });
-        </script>
-    </body>
-    </html>
-
-Explanation:
-The code selects the button element with the ID myButton using getElementById.
-It adds an event listener that listens for click events on the button.
-When the button is clicked, the callback function executes and logs the message Button was clicked! to the console.
-Output: When the button is clicked, the console will output: Button was clicked!
-This means that the specified action (logging to the console) will occur every time the button is clicked.
+ What does the following code output using getElementById and addEventListener?
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Event Listener Example</title>
+      </head>
+      <body>
+          <button id="myButton">Click Me!</button>
+          <script>
+              document.getElementById('myButton').addEventListener('click', () => {
+                  console.log('Button was clicked!');
+              });
+          </script>
+      </body>
+      </html>
+  
+  Explanation:
+  The code selects the button element with the ID myButton using getElementById.
+  It adds an event listener that listens for click events on the button.
+  When the button is clicked, the callback function executes and logs the message Button was clicked! to the console.
+  Output: When the button is clicked, the console will output: Button was clicked!
+  This means that the specified action (logging to the console) will occur every time the button is clicked.
 
 10. What does the following line of Javascript do using a # selector?
     ```javascript
@@ -248,7 +248,7 @@ This means that the specified action (logging to the console) will occur every t
   Method: querySelector allows for CSS-style selectors.
   Result: Returns the element or null if not found.
   
-12. Which of the following are true? (mark all that are true about the DOM)
+11. Which of the following are true? (mark all that are true about the DOM)
 
   True: The DOM represents the structure of an HTML document as a tree of objects.
   True: The DOM allows programming languages to manipulate the structure, style, and content of web pages.
@@ -258,9 +258,390 @@ This means that the specified action (logging to the console) will occur every t
   
   The DOM is a powerful representation of the web page structure that allows for dynamic manipulation and interaction across different programming languages.
 
+12. By default, the HTML span element has a default CSS display property value of:
+    The default CSS display property value for the HTML `<span>` element is:
+
+        ```css
+        display: inline;
+  Inline Element: The <span> element is an inline element, meaning it does not start on a new line and only takes up as much width as necessary.
+  Purpose: The <span> element is typically used to apply styles or manipulate small portions of text without affecting the surrounding content layout.
+
+  ex: <p>This is a <span style="color: red;">red</span> word in a paragraph.</p>
+  In this example, the word "red" is styled with a different color without disrupting the flow of the paragraph.
+  
+13. How would you use CSS to change all the div elements to have a background color of red?
+    ```css
+    div {
+        background-color: red;
+    }
+
+
+
+14. How would you display an image with a hyperlink in HTML?
+  To display an image with a hyperlink in HTML, you can use the `<a>` (anchor) element to wrap the `<img>` (image) element. Here’s how you can do it:
+
+#### Example Code:
+
+    ```html
+    <a href="https://www.example.com">
+        <img src="image.jpg" alt="Description of Image" />
+    </a>
+Explanation:
+The <a> element creates a hyperlink to the URL specified in the href attribute.
+The <img> element is nested inside the <a> element, making the image clickable.
+The src attribute specifies the path to the image file.
+The alt attribute provides alternative text for the image, which is important for accessibility and displays if the image cannot be loaded.
+When a user clicks on the image, they will be directed to https://www.example.com.
+  
+15. In the CSS box model, what is the ordering of the box layers starting at the inside and working out?
+    In the CSS box model, the ordering of the box layers from the inside to the outside is as follows:
+    
+    Content: The innermost part that holds the actual content, such as text, images, etc.
+    Padding: The space between the content and the border. It creates space inside the box and does not have a background color.
+    Border: A line surrounding the padding (if any) and the content. It can have width, style, and color.
+    Margin: The outermost layer that creates space outside the border, separating the element from other elements.
++------------------------+
+|        Margin          |
+|  +------------------+  |
+|  |      Border      |  |
+|  |  +-----------+   |  |
+|  |  |  Padding  |   |  |
+|  |  | +-------+ |   |  |
+|  |  | |Content | |   |  |
+|  |  | +-------+ |   |  |
+|  |  +-----------+   |  |
+|  +------------------+  |
++------------------------+
+
+
+### 16. Given the following HTML, what CSS would you use to set the text "trouble" to green and leave the "double" text unaffected?
+
+    ```html
+    <p>This is some text with the word <span class="highlight">trouble</span> and the word double.</p>
+  
+  CSS to Set "trouble" to Green:
+  To set the text "trouble" to green while leaving "double" unaffected, you can target the <span> element with the class .highlight in your CSS:
+  
+  .highlight {
+      color: green;
+  }
+
+  Explanation:
+  The <span> element wrapping "trouble" has a class named highlight.
+  The CSS rule targets that class and sets the color property to green.
+  As a result, only the text "trouble" will be displayed in green, while "double" remains unaffected.
+
+Here’s the information for questions 16 and 17 formatted in Markdown for your notes:
+
+markdown
+Copy code
+### 16. Given the following HTML, what CSS would you use to set the text "trouble" to green and leave the "double" text unaffected?
+
+#### Example HTML:
+
+    ```html
+    <p>This is some text with the word <span class="highlight">trouble</span> and the word double.</p>
+  CSS to Set "trouble" to Green:
+  To set the text "trouble" to green while leaving "double" unaffected, you can target the <span> element with the class .highlight in your CSS:
+
+  css
+  Copy code
+  .highlight {
+      color: green;
+  }
+  Explanation:
+  The <span> element wrapping "trouble" has a class named highlight.
+  The CSS rule targets that class and sets the color property to green.
+  As a result, only the text "trouble" will be displayed in green, while "double" remains unaffected.
+
+  
+17. What will the following code output when executed using a for loop and console.log?
+    for (let i = 0; i < 5; i++) {
+        console.log(i);
+    }
+
+    The for loop initializes a variable i to 0 and increments i by 1 after each iteration.
+    The loop continues as long as i is less than 5.
+    console.log(i) outputs the current value of i during each iteration.
+
+    Output:
+      0
+      1
+      2
+      3
+      4
+    This means that the numbers 0 through 4 will be printed to the console, each on a new line.
+
+18. How would you use JavaScript to select an element with the id of “byu” and change the text color of that element to green?
+    To select an element with the ID of `byu` and change its text color to green using JavaScript, you can use the `document.getElementById()` method. Here’s how you can do it:
+      ```html
+      <p id="byu">This is a paragraph with the ID "byu".</p>
+      
+      <script>
+          const element = document.getElementById('byu');
+          element.style.color = 'green';
+      </script>
+  Explanation:
+  The <p> element has an ID of byu.
+  document.getElementById('byu') selects the element with that ID.
+  The style.color property is then set to 'green', changing the text color of that element.
+
+19. What is the opening HTML tag for a paragraph, ordered list, unordered list, second level heading, first level heading, and third level heading?
+    Here are the opening HTML tags for the requested elements:
+
+      Paragraph: <p>
+      Ordered List: <ol>
+      Unordered List: <ul>
+      Second Level Heading: <h2>
+      First Level Heading: <h1>
+      Third Level Heading: <h3>
+      
+      <p>This is a paragraph.</p>
+      <ol>
+          <li>First item</li>
+          <li>Second item</li>
+      </ol>
+      <ul>
+          <li>Bullet item</li>
+          <li>Another bullet item</li>
+      </ul>
+      <h1>This is a first level heading</h1>
+      <h2>This is a second level heading</h2>
+      <h3>This is a third level heading</h3>
+      
+      These tags define the structure and hierarchy of content in an HTML document.
+
+20. How do you declare the document type to be html? 
+    
+To declare the document type as HTML, you use the `<!DOCTYPE>` declaration at the very beginning of your HTML document. This informs the browser about the version of HTML being used.
+
+      ```html
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Document Type Declaration</title>
+      </head>
+      <body>
+          <p>This is an example HTML document.</p>
+      </body>
+      </html>
+
+21. What is valid javascript syntax for if, else, for, while, switch statements?
+     ```javascript
+    if (condition) {
+    // code to execute if condition is true
+    } else {
+        // code to execute if condition is false
+    }
+     
+    for (let i = 0; i < 5; i++) {
+        console.log(i);
+    }
+     
+    let i = 0;
+    while (i < 5) {
+        console.log(i);
+        i++;
+    }
+     
+    switch (expression) {
+        case value1:
+            // code to execute if expression equals value1
+            break;
+        case value2:
+            // code to execute if expression equals value2
+            break;
+        default:
+            // code to execute if expression does not match any case
+    }
+
+22. What is the correct syntax for creating a JavaScript object?
+    
+    The correct syntax for creating a JavaScript object is to use either an object literal or the `new Object()` constructor. The most common way is using an object literal.
+#### Example Code (Object Literal):
+
+        ```javascript
+        const person = {
+            name: "John Doe",
+            age: 30,
+            job: "Developer",
+            greet: function() {
+                console.log("Hello, my name is " + this.name);
+            }
+        };
+  
+      // USING new Object()
+      const person = new Object();
+      person.name = "John Doe";
+      person.age = 30;
+      person.job = "Developer";
+      person.greet = function() {
+          console.log("Hello, my name is " + this.name);
+      };
+  Object Literal: This is the most concise way to create an object, where you define key-value pairs within curly braces.
+  Using new Object(): This method allows you to create an object instance, but it is less commonly used compared to the object literal syntax.
+
+
+23. Is it possible to add new properties to JavaScript objects?
+  Yes, it is possible to add new properties to JavaScript objects at any time, even after the object has been created.
+    const car = {
+        make: "Toyota",
+        model: "Camry"
+    };
+    
+    // Adding a new property
+    car.year = 2021;
+    
+    console.log(car);
+
+
+24. If you want to include JavaScript on an HTML page, which tag do you use? 
+
+      To include JavaScript on an HTML page, you use the `<script>` tag.
+
+      #### Example Code:
+      
+      ```html
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Include JavaScript</title>
+      </head>
+      <body>
+          <p id="animal">fish</p>
+      
+          <script>
+              // JavaScript code can be included here
+              console.log("JavaScript is included!");
+          </script>
+      </body>
+      </html>
+  
+  The <script> tag can be placed either in the <head> or <body> sections of an HTML document.
+  You can include JavaScript code directly within the <script> tag or link to an external JavaScript file using the src attribute (e.g., <script src="script.js"></script>).
+
+
+25. Given the following HTML, what JavaScript could you use to set the text "animal" to "crow" and leave the "fish" text unaffected?
+
+      ```html
+      <p id="animal">fish</p>
+      <p>fish</p>
+
+  JavaScript Code to Change "animal" to "crow":
+
+      document.getElementById('animal').innerText = 'crow';
+  The JavaScript code uses document.getElementById('animal') to select the <p> element with the ID animal.
+  The innerText property is then set to 'crow', which changes the text content of that specific element to "crow" while leaving the other "fish" text unaffected.
+  
+26. Which of the following correctly describes JSON?
+
+    JSON, which stands for JavaScript Object Notation, is a lightweight data interchange format that is easy for humans to read and write and easy for machines to parse and generate. It is often used to transmit data between a server and a web application.
+    
+    #### Key Features of JSON:
+    
+    - **Data Structure**: JSON is based on key-value pairs and is similar to JavaScript object literals. 
+    - **Format**: It supports data types such as strings, numbers, arrays, booleans, and nested objects.
+    - **File Extension**: JSON files typically use the `.json` extension.
+    - **Language Independence**: Although JSON is derived from JavaScript, it is language-independent and can be used with many programming languages.
+    
+    #### Example JSON:
+    
+    ```json
+    {
+        "name": "John Doe",
+        "age": 30,
+        "isStudent": false,
+        "courses": ["Math", "Science"],
+        "address": {
+            "street": "123 Main St",
+            "city": "Anytown"
+        }
+    }
+
+27. What does the console command chmod, pwd, cd, ls, vim, nano, mkdir, mv, rm, man, ssh, ps, wget, sudo do?
+Here’s a brief description of each command:
+
+    chmod: Changes the permissions of a file or directory.
+    
+    pwd: Prints the current working directory, showing the full path of where you are in the filesystem.
+    
+    cd: Changes the current directory to another directory. Usage: cd [directory_path].
+    
+    ls: Lists the files and directories in the current directory. Options can include -l for detailed listing and -a for hidden files.
+    
+    vim: Opens the Vim text editor for creating or editing files.
+    
+    nano: Opens the Nano text editor, which is more user-friendly compared to Vim.
+    
+    mkdir: Creates a new directory. Usage: mkdir [directory_name].
+    
+    mv: Moves or renames files or directories. Usage: mv [source] [destination].
+    
+    rm: Removes files or directories. Use with caution, especially with the -r option for recursive deletion.
+    
+    man: Displays the manual for a command, providing details about its usage. Usage: man [command].
+    
+    ssh: Securely connects to a remote machine over SSH (Secure Shell). Usage: ssh [user]@[hostname].
+    
+    ps: Displays the currently running processes. Options like aux can provide detailed information.
+    
+    wget: Downloads files from the web via HTTP, HTTPS, or FTP.
+    
+    sudo: Executes a command with superuser (administrative) privileges, allowing users to perform tasks that require elevated permissions.
+
+        # Change directory
+    cd /path/to/directory
+    
+    # List files
+    ls -la
+    
+    # Create a new directory
+    mkdir new_folder
+    
+    # Remove a file
+    rm unwanted_file.txt
+    
+    # Download a file
+    wget http://example.com/file.zip
+    
+    # Run a command with superuser privileges
+    sudo apt update
+
+
+### 28. Which of the following console commands creates a remote shell session?
+    - **`ssh`** (Secure Shell) allows you to securely connect to a remote machine over a network. It provides a secure channel over an unsecured network by using encryption.
+
+
+### 29. Which of the following is true when the -la parameter is specified for the ls console command?
+  When the -la parameters are specified for the ls command, the following is true:
+  
+      -l: This option displays the contents of the directory in a detailed (long) format, which includes permissions, number of links, owner name, owner group, file size, and the timestamp of the last modification.
+      
+      -a: This option includes hidden files in the listing, which are files and directories that start with a dot (.).
 
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
