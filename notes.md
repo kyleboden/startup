@@ -10,3 +10,11 @@ You can find more information in the [Go to README](./README.md).
    * href="styles.css" indicates the path to the CSS file.
    * The link element is typically placed inside the <head> section of an HTML document and doesn't produce any visual content on the page itself.
 
+2. What does a div tag do?
+
+  * The <div> tag is a block-level element used to group together HTML elements, acting as a container for other content. It does not have any semantic meaning on its own but is commonly used to structure and style sections of a webpage using CSS. For example:
+      ```html
+      <div class="container">
+          <p>This is some text inside a div.</p>
+      </div>
+  * This div can then be styled or manipulated using CSS or JavaScript.
