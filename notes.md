@@ -101,5 +101,75 @@ Explanation:
   * In the example above, the margin: 30px; adds 30 pixels of space outside the .box element, separating it from other elements or the edge of the browser window.
   * Margin does not affect the size of the element itself; it just adds space around it.
  
-  Padding: Space inside the element, between the content and the border.
-Margin: Space outside the element, creating distance between it and other elements or the page boundary.
+* Padding: Space inside the element, between the content and the border.
+* Margin: Space outside the element, creating distance between it and other elements or the page boundary.
+
+
+4. Given this HTML and this CSS, how will the images be displayed using flex?
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .image-container {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                height: 300px;
+                border: 2px solid black;
+            }
+    
+            .image-container img {
+                width: 100px;
+                height: auto;
+            }
+        </style>
+        <title>Flexbox Image Display</title>
+    </head>
+    <body>
+        <div class="image-container">
+            <img src="image1.jpg" alt="Image 1">
+            <img src="image2.jpg" alt="Image 2">
+            <img src="image3.jpg" alt="Image 3">
+        </div>
+    </body>
+    </html>
+
+  Explanation:
+  The .image-container element has display: flex;, which turns it into a flex container. This means all direct children of this container (the <img> elements) are treated as flex items.
+  justify-content: space-around; distributes the space around the images. Each image will have equal space on its left and right, creating separation between them within the container.
+  align-items: center; vertically centers the images within the height of the container, which is set to 300px.
+  Result:
+  
+  The images will be displayed in a row, as flex containers by default arrange their items in a horizontal line.
+  The images will be equally spaced apart due to justify-content: space-around;.
+  The images will be vertically centered within the container because of align-items: center;.
+  Summary:
+  
+  Flex Direction: The images are laid out in a row (default flex direction).
+  Justification: The images are spaced equally with space on both sides (space-around).
+  Alignment: The images are vertically centered within the container (center).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
