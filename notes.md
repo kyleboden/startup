@@ -65,3 +65,41 @@ Explanation:
   
     * ID Selector (#title): Targets a single, unique element. Should be used for elements that appear only once on a page.
     * Class Selector (.grid): Can target multiple elements. It's useful for applying styles to multiple elements that share the same class.
+   
+4. In the following code, what is the difference between padding and margin?
+
+  
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .box {
+                width: 200px;
+                height: 100px;
+                background-color: lightblue;
+                padding: 20px;
+                margin: 30px;
+                border: 2px solid blue;
+            }
+        </style>
+        <title>Padding vs. Margin</title>
+    </head>
+    <body>
+        <div class="box">This is a box.</div>
+    </body>
+    </html>
+
+* Padding is the space inside an element, between its content and its border.
+
+  * In the example above, the padding: 20px; adds 20 pixels of space inside the .box element, between the content (This is a box.) and its border.
+  * This increases the size of the element because it pushes the border outward.
+ 
+* Margin is the space outside an element, creating distance between the element’s border and other surrounding elements.
+  * In the example above, the margin: 30px; adds 30 pixels of space outside the .box element, separating it from other elements or the edge of the browser window.
+  * Margin does not affect the size of the element itself; it just adds space around it.
+ 
+  Padding: Space inside the element, between the content and the border.
+Margin: Space outside the element, creating distance between it and other elements or the page boundary.
