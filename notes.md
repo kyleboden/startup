@@ -622,15 +622,100 @@ Here’s a brief description of each command:
       -l: This option displays the contents of the directory in a detailed (long) format, which includes permissions, number of links, owner name, owner group, file size, and the timestamp of the last modification.
       
       -a: This option includes hidden files in the listing, which are files and directories that start with a dot (.).
+    
+    The command ls -la lists all files and directories, including hidden ones, in a detailed format, providing valuable information about each file and directory.
 
 
+### 30. Which of the following is true for the domain name `banana.fruit.bozo.click`? 
+
+  - **Top-Level Domain (TLD)**: The top-level domain is the last part of the domain name, which in this case is **`.click`**. TLDs are used to categorize domains based on their purpose or origin, such as `.com`, `.org`, `.net`, etc.
+  
+  - **Root Domain**: The root domain refers to the main domain name without any subdomains, which here is **`bozo.click`**.
+  
+  - **Subdomain**: A subdomain is a domain that is part of a larger domain. In this case, **`banana`** is the subdomain of the root domain **`bozo.click`**, and **`fruit`** is also a subdomain of **`bozo.click`**.
+  
+  #### Summary:
+  
+  - **Top-Level Domain (TLD)**: `.click`
+  - **Root Domain**: `bozo.click`
+  - **Subdomains**: `banana` and `fruit`
+
+---
+
+### 31. Is a web certificate necessary to use HTTPS?
+
+  Yes, a web certificate (commonly known as an SSL/TLS certificate) is necessary to use HTTPS.
+  
+  #### Explanation:
+  
+  - **HTTPS (Hypertext Transfer Protocol Secure)** is the secure version of HTTP. It uses SSL/TLS to encrypt data transmitted between the user's browser and the web server.
+  - A web certificate verifies the identity of the website and establishes a secure connection, ensuring that data exchanged is encrypted and protected from eavesdropping or tampering.
+  - Browsers will display warnings if you try to access a website using HTTPS without a valid certificate, indicating that the connection is not secure.
+  
+  #### Key Points:
+  
+  - SSL/TLS certificates can be obtained from Certificate Authorities (CAs) and must be installed on the web server to enable HTTPS.
+  - Websites using HTTPS are often indicated by a padlock symbol in the browser's address bar.
+  
+### 32. Can a DNS A record point to an IP address or another A record?
+
+  A DNS A record **can only point to an IP address**, not to another A record. 
+  
+  #### Explanation:
+  
+  - **A Record**: An A record (Address Record) maps a domain name to its corresponding IPv4 address. For example, if you have an A record for `example.com`, it points directly to the IP address like `192.0.2.1`.
+  
+  - **CNAME Record**: If you want to point one domain name to another domain name (like pointing `www.example.com` to `example.com`), you would use a CNAME record (Canonical Name Record) instead of an A record.
+  
+  #### Summary:
+  
+  - **A Record**: Points to an IPv4 address.
+  - **CNAME Record**: Points to another domain name (not an IP address).
+  
+  ---
+
+### 33. Port 443, 80, 22 is reserved for which protocol?
+
+  - **Port 443**: Reserved for **HTTPS** (Hypertext Transfer Protocol Secure). This port is used for secure communication over a computer network.
+  
+  - **Port 80**: Reserved for **HTTP** (Hypertext Transfer Protocol). This port is used for unencrypted web traffic.
+  
+  - **Port 22**: Reserved for **SSH** (Secure Shell). This port is used for secure remote login and other secure network services.
+  
+  #### Summary:
+  
+  - **Port 443**: HTTPS
+  - **Port 80**: HTTP
+  - **Port 22**: SSH
+  
 
 
+### 34. What will the following code using Promises output when executed?
 
+#### Example Code:
 
+    ```javascript
+    const promise = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Promise resolved!");
+        }, 1000);
+    });
+    
+    promise
+        .then(result => {
+            console.log(result);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+  output: Promise resolved!
 
-
-
+    Explanation:
+      Promise Creation: A new Promise is created that will resolve after 1 second (1000 milliseconds) with the message "Promise resolved!".
+      .then() Method: The .then() method is called on the promise, which is used to handle the resolved value. When the promise resolves successfully, it logs the result to the console.
+      Asynchronous Behavior: Because the promise resolves after a delay, you will see no immediate output. After 1 second, you will see the output "Promise resolved!" in the console.
+    Note:
+      If there were an error in the promise (e.g., by calling reject("Error occurred!") instead of resolve), the output would be handled by the .catch() method.
 
 
 
