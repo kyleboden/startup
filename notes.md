@@ -105,7 +105,7 @@ Explanation:
 * Margin: Space outside the element, creating distance between it and other elements or the page boundary.
 
 
-4. Given this HTML and this CSS, how will the images be displayed using flex?
+5. Given this HTML and this CSS, how will the images be displayed using flex?
     ```html
     <!DOCTYPE html>
     <html lang="en">
@@ -152,20 +152,111 @@ Explanation:
   Justification: The images are spaced equally with space on both sides (space-around).
   Alignment: The images are vertically centered within the container (center).
 
-5. 
+6.  What does the following padding CSS do?
+
+    ```css
+    .container {
+        padding: 10px 20px 30px 40px;
+    }
+
+Explanation:
+The padding values are applied in a clockwise order:
+10px is the padding for the top of the element.
+20px is the padding for the right side of the element.
+30px is the padding for the bottom of the element.
+40px is the padding for the left side of the element.
+This shorthand format allows you to specify padding for all four sides of an element in one line. The result is that the element will have different amounts of space between its content and its border, depending on the side.
+
+Summary:
+
+Top padding: 10px
+Right padding: 20px
+Bottom padding: 30px
+Left padding: 40px
+
+7. What does the following code using arrow syntax function declaration do?
+
+  const addNumbers = (a, b) => {
+      return a + b;
+  };
+  
+  // Example usage:
+  console.log(addNumbers(3, 4)); // Outputs: 7
+  
+Explanation:
+The code defines a function called addNumbers using arrow function syntax.
+(a, b) are the parameters for the function, and => indicates that this is an arrow function.
+The function returns the sum of a and b.
+Arrow functions provide a shorter syntax for writing functions and also handle the this keyword differently compared to regular functions, often making them useful for inline functions or callbacks.
+In this example:
+
+addNumbers(3, 4) will return 7 because it adds the two parameters 3 and 4.
+Summary:
+
+Arrow Function: A concise way to declare functions.
+Return Value: The sum of a and b.
+Usage: Useful for shorter, simpler functions or callbacks.
 
 
+8. What does the following code using `map` with an array output?
+   ```javascript
+    const numbers = [1, 2, 3, 4, 5];
+    const doubled = numbers.map(num => num * 2);
+    
+    console.log(doubled);Explanation:
+  The map function creates a new array by applying the provided function (in this case, num => num * 2) to each element in the numbers array.
+  Each element in the numbers array is multiplied by 2.
+  [2, 4, 6, 8, 10]
+  This means that the original array [1, 2, 3, 4, 5] is transformed into a new array where each number is doubled.
+  
+10. What does the following code output using getElementById and addEventListener?
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Event Listener Example</title>
+    </head>
+    <body>
+        <button id="myButton">Click Me!</button>
+        <script>
+            document.getElementById('myButton').addEventListener('click', () => {
+                console.log('Button was clicked!');
+            });
+        </script>
+    </body>
+    </html>
 
+Explanation:
+The code selects the button element with the ID myButton using getElementById.
+It adds an event listener that listens for click events on the button.
+When the button is clicked, the callback function executes and logs the message Button was clicked! to the console.
+Output: When the button is clicked, the console will output: Button was clicked!
+This means that the specified action (logging to the console) will occur every time the button is clicked.
 
+10. What does the following line of Javascript do using a # selector?
+    ```javascript
+    const element = document.querySelector('#myElement');
+  Explanation:
+  The line of JavaScript uses the document.querySelector() method to select an element from the DOM.
+  The # selector indicates that it is targeting an element with the ID of myElement.
+  The querySelector method returns the first matching element it finds in the document.
+  If no element with that ID exists, element will be null.
+  Summary:
+  
+  Purpose: Selects the first element with the ID myElement.
+  Method: querySelector allows for CSS-style selectors.
+  Result: Returns the element or null if not found.
+  
+12. Which of the following are true? (mark all that are true about the DOM)
 
-
-
-
-
-
-
-
-
+  True: The DOM represents the structure of an HTML document as a tree of objects.
+  True: The DOM allows programming languages to manipulate the structure, style, and content of web pages.
+  True: The DOM is language-independent and can be used with various programming languages.
+  False: The DOM is only accessible through JavaScript. (While JavaScript is the most common language used to interact with the DOM, other languages can also manipulate it through various means, such as WebAssembly or server-side languages in specific contexts.)
+  Summary:
+  
+  The DOM is a powerful representation of the web page structure that allows for dynamic manipulation and interaction across different programming languages.
 
 
 
