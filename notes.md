@@ -6,19 +6,21 @@ You can find more information in the [Go to README](./README.md).
    * The `<link>` element is used in HTML to link external resources, like stylesheets, to an HTML document. It is most commonly used to include CSS files. The syntax looks like this:
       ```html
       <link rel="stylesheet" href="styles.css">
-   * rel="stylesheet" specifies the relationship between the HTML document and the linked file.
-   * href="styles.css" indicates the path to the CSS file.
-   * The link element is typically placed inside the <head> section of an HTML document and doesn't produce any visual content on the page itself.
+      ```
+   * `rel="stylesheet"` specifies the relationship between the HTML document and the linked file.
+   * `href="styles.css"` indicates the path to the CSS file.
+   * The link element is typically placed inside the `<head>` section of an HTML document and doesn't produce any visual content on the page itself.
 
-2. What does a div tag do?
-
-  * The `<div>` tag is a block-level element used to group together HTML elements, acting as a container for other content. It does not have any semantic meaning on its own but is commonly used to structure and style sections of a webpage using CSS. For example:
+2. **What does a div tag do?**
+   * The `<div>` tag is a block-level element used to group together HTML elements, acting as a container for other content. It does not have any semantic meaning on its own but is commonly used to structure and style sections of a webpage using CSS. For example:
       ```html
       <div class="container">
           <p>This is some text inside a div.</p>
       </div>
-  * This div can then be styled or manipulated using CSS or JavaScript.
-3. In the following code, what is the difference between the `#title` and `.grid` selector?
+      ```
+   * This div can then be styled or manipulated using CSS or JavaScript.
+
+3. **In the following code, what is the difference between the `#title` and `.grid` selector?**
 
     ```html
     <!DOCTYPE html>
@@ -49,26 +51,25 @@ You can find more information in the [Go to README](./README.md).
         </div>
     </body>
     </html>
+    ```
 
-Explanation:
-  * #title is an ID selector:
-
-    * It selects the element with the ID attribute title.
-    * IDs must be unique within a webpage, so only one element should have this ID.
-    * In the example, it targets the `<h1>` element with id="title" and sets its font size to 24px and its color to blue.
-  * .grid is a class selector:
-  
-    * It selects all elements with the class attribute grid.
-    * Classes can be reused across multiple elements on the page.
-    * In the example, it targets the <div> with class="grid", applying a grid layout with 3 columns and a gap of 10px between grid items.
-  Summary:
-  
-    * ID Selector (#title): Targets a single, unique element. Should be used for elements that appear only once on a page.
-    * Class Selector (.grid): Can target multiple elements. It's useful for applying styles to multiple elements that share the same class.
+   **Explanation:**
+   * `#title` is an ID selector:
+     * It selects the element with the ID attribute `title`.
+     * IDs must be unique within a webpage, so only one element should have this ID.
+     * In the example, it targets the `<h1>` element with `id="title"` and sets its font size to 24px and its color to blue.
    
-4. In the following code, what is the difference between padding and margin?
+   * `.grid` is a class selector:
+     * It selects all elements with the class attribute `grid`.
+     * Classes can be reused across multiple elements on the page.
+     * In the example, it targets the `<div>` with `class="grid"`, applying a grid layout with 3 columns and a gap of 10px between grid items.
+   
+   **Summary:**
+   * **ID Selector (`#title`)**: Targets a single, unique element. Should be used for elements that appear only once on a page.
+   * **Class Selector (`.grid`)**: Can target multiple elements. It's useful for applying styles to multiple elements that share the same class.
+   
+4. **In the following code, what is the difference between padding and margin?**
 
-  
     ```html
     <!DOCTYPE html>
     <html lang="en">
@@ -91,21 +92,22 @@ Explanation:
         <div class="box">This is a box.</div>
     </body>
     </html>
+    ```
 
-* Padding is the space inside an element, between its content and its border.
+   * **Padding** is the space inside an element, between its content and its border.
+     * In the example above, the `padding: 20px;` adds 20 pixels of space inside the `.box` element, between the content ("This is a box.") and its border.
+     * This increases the size of the element because it pushes the border outward.
+  
+   * **Margin** is the space outside an element, creating distance between the element’s border and other surrounding elements.
+     * In the example above, the `margin: 30px;` adds 30 pixels of space outside the `.box` element, separating it from other elements or the edge of the browser window.
+     * Margin does not affect the size of the element itself; it just adds space around it.
 
-  * In the example above, the padding: 20px; adds 20 pixels of space inside the .box element, between the content (This is a box.) and its border.
-  * This increases the size of the element because it pushes the border outward.
- 
-* Margin is the space outside an element, creating distance between the element’s border and other surrounding elements.
-  * In the example above, the margin: 30px; adds 30 pixels of space outside the .box element, separating it from other elements or the edge of the browser window.
-  * Margin does not affect the size of the element itself; it just adds space around it.
- 
-* Padding: Space inside the element, between the content and the border.
-* Margin: Space outside the element, creating distance between it and other elements or the page boundary.
+   * **Summary**:
+     * **Padding**: Space inside the element, between the content and the border.
+     * **Margin**: Space outside the element, creating distance between it and other elements or the page boundary.
 
+5. **Given this HTML and this CSS, how will the images be displayed using flex?**
 
-5. Given this HTML and this CSS, how will the images be displayed using flex?
     ```html
     <!DOCTYPE html>
     <html lang="en">
@@ -136,103 +138,113 @@ Explanation:
         </div>
     </body>
     </html>
+    ```
 
-  Explanation:
-  The .image-container element has display: flex;, which turns it into a flex container. This means all direct children of this container (the <img> elements) are treated as flex items.
-  justify-content: space-around; distributes the space around the images. Each image will have equal space on its left and right, creating separation between them within the container.
-  align-items: center; vertically centers the images within the height of the container, which is set to 300px.
-  Result:
-  
-  The images will be displayed in a row, as flex containers by default arrange their items in a horizontal line.
-  The images will be equally spaced apart due to justify-content: space-around;.
-  The images will be vertically centered within the container because of align-items: center;.
-  Summary:
-  
-  Flex Direction: The images are laid out in a row (default flex direction).
-  Justification: The images are spaced equally with space on both sides (space-around).
-  Alignment: The images are vertically centered within the container (center).
+   **Explanation**:
+   * The `.image-container` element has `display: flex;`, which turns it into a flex container. This means all direct children of this container (the `<img>` elements) are treated as flex items.
+   * `justify-content: space-around;` distributes the space around the images. Each image will have equal space on its left and right, creating separation between them within the container.
+   * `align-items: center;` vertically centers the images within the height of the container, which is set to 300px.
+   
+   **Result**:
+   * The images will be displayed in a row, as flex containers by default arrange their items in a horizontal line.
+   * The images will be equally spaced apart due to `justify-content: space-around;`.
+   * The images will be vertically centered within the container because of `align-items: center;`.
 
-6.  What does the following padding CSS do?
+   **Summary**:
+   * **Flex Direction**: The images are laid out in a row (default flex direction).
+   * **Justification**: The images are spaced equally with space on both sides (space-around).
+   * **Alignment**: The images are vertically centered within the container (center).
+
+6. **What does the following padding CSS do?**
 
     ```css
     .container {
         padding: 10px 20px 30px 40px;
     }
+    ```
 
-Explanation:
-The padding values are applied in a clockwise order:
-10px is the padding for the top of the element.
-20px is the padding for the right side of the element.
-30px is the padding for the bottom of the element.
-40px is the padding for the left side of the element.
-This shorthand format allows you to specify padding for all four sides of an element in one line. The result is that the element will have different amounts of space between its content and its border, depending on the side.
+   **Explanation**:
+   * The padding values are applied in a clockwise order:
+     * `10px` is the padding for the top of the element.
+     * `20px` is the padding for the right side of the element.
+     * `30px` is the padding for the bottom of the element.
+     * `40px` is the padding for the left side of the element.
+   * This shorthand format allows you to specify padding for all four sides of an element in one line. The result is that the element will have different amounts of space between its content and its border, depending on the side.
 
-Summary:
+   **Summary**:
+   * **Top padding**: 10px
+   * **Right padding**: 20px
+   * **Bottom padding**: 30px
+   * **Left padding**: 40px
 
-Top padding: 10px
-Right padding: 20px
-Bottom padding: 30px
-Left padding: 40px
+7. **What does the following code using arrow syntax function declaration do?**
 
-7. What does the following code using arrow syntax function declaration do?
+    ```javascript
+    const addNumbers = (a, b) => {
+        return a + b;
+    };
+    
+    // Example usage:
+    console.log(addNumbers(3, 4)); // Outputs: 7
+    ```
 
-  const addNumbers = (a, b) => {
-      return a + b;
-  };
-  
-  // Example usage:
-  console.log(addNumbers(3, 4)); // Outputs: 7
-  
-Explanation:
-The code defines a function called addNumbers using arrow function syntax.
-(a, b) are the parameters for the function, and => indicates that this is an arrow function.
-The function returns the sum of a and b.
-Arrow functions provide a shorter syntax for writing functions and also handle the this keyword differently compared to regular functions, often making them useful for inline functions or callbacks.
-In this example:
+   **Explanation**:
+   * The code defines a function called `addNumbers` using arrow function syntax.
+   * `(a, b)` are the parameters for the function, and `=>` indicates that this is an arrow function.
+   * The function returns the sum of `a` and `b`.
+   * Arrow functions provide a shorter syntax for writing functions and also handle the `this` keyword differently compared to regular functions, often making them useful for inline functions or callbacks.
 
-addNumbers(3, 4) will return 7 because it adds the two parameters 3 and 4.
-Summary:
+   **In this example**:
+   * `addNumbers(3, 4)` will return `7` because it adds the two parameters `3` and `4`.
 
-Arrow Function: A concise way to declare functions.
-Return Value: The sum of a and b.
-Usage: Useful for shorter, simpler functions or callbacks.
+   **Summary**:
+   * **Arrow Function**: A concise way to declare functions.
+   * **Return Value**: The sum of `a` and `b`.
+   * **Usage**: Useful for shorter, simpler functions or callbacks.
 
+8. **What does the following code using `map` with an array output?**
 
-8. What does the following code using `map` with an array output?
-   ```javascript
+    ```javascript
     const numbers = [1, 2, 3, 4, 5];
     const doubled = numbers.map(num => num * 2);
     
-    console.log(doubled);Explanation:
-  The map function creates a new array by applying the provided function (in this case, num => num * 2) to each element in the numbers array.
-  Each element in the numbers array is multiplied by 2.
-  [2, 4, 6, 8, 10]
-  This means that the original array [1, 2, 3, 4, 5] is transformed into a new array where each number is doubled.
-  
- What does the following code output using getElementById and addEventListener?
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Event Listener Example</title>
-      </head>
-      <body>
-          <button id="myButton">Click Me!</button>
-          <script>
-              document.getElementById('myButton').addEventListener('click', () => {
-                  console.log('Button was clicked!');
-              });
-          </script>
-      </body>
-      </html>
-  
-  Explanation:
-  The code selects the button element with the ID myButton using getElementById.
-  It adds an event listener that listens for click events on the button.
-  When the button is clicked, the callback function executes and logs the message Button was clicked! to the console.
-  Output: When the button is clicked, the console will output: Button was clicked!
-  This means that the specified action (logging to the console) will occur every time the button is clicked.
+    console.log(doubled);
+    ```
+
+   **Explanation**:
+   * The `map` function creates a new array by applying the provided function (`num => num * 2`) to each element in the `numbers` array.
+   * Each element in the `numbers` array is multiplied by `2`, resulting in a new array.
+   * Therefore, the original array `[1, 2, 3, 4, 5]` is transformed into a new array where each number is doubled: `[2, 4, 6, 8, 10]`.
+
+9. **What does the following code output using `getElementById` and `addEventListener`?**
+
+    ```html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Event Listener Example</title>
+    </head>
+    <body>
+        <button id="myButton">Click Me!</button>
+        <script>
+            document.getElementById('myButton').addEventListener('click', () => {
+                console.log('Button was clicked!');
+            });
+        </script>
+    </body>
+    </html>
+    ```
+
+   **Explanation**:
+   * The code selects the button element with the ID `myButton` using `getElementById`.
+   * It adds an event listener that listens for click events on the button.
+   * When the button is clicked, the callback function executes and logs the message `Button was clicked!` to the console.
+
+   **Output**:
+   * When the button is clicked, the console will output: `Button was clicked!`
+   * This means that the specified action (logging to the console) will occur every time the button is clicked.
 
 10. What does the following line of Javascript do using a # selector?
     ```javascript
