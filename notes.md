@@ -340,45 +340,29 @@ In this example, the word "red" is styled with a different color without disrupt
       +------------------------+
 
 
-### 16. Given the following HTML, what CSS would you use to set the text "trouble" to green and leave the "double" text unaffected?
+16. **Given the following HTML, what CSS would you use to set the text "trouble" to green and leave the "double" text unaffected?**
+
+   #### Example HTML:
 
     ```html
     <p>This is some text with the word <span class="highlight">trouble</span> and the word double.</p>
-  
-  CSS to Set "trouble" to Green:
-  To set the text "trouble" to green while leaving "double" unaffected, you can target the <span> element with the class .highlight in your CSS:
-  
-  .highlight {
-      color: green;
-  }
+    ```
 
-  Explanation:
-  The <span> element wrapping "trouble" has a class named highlight.
-  The CSS rule targets that class and sets the color property to green.
-  As a result, only the text "trouble" will be displayed in green, while "double" remains unaffected.
+   **CSS to Set "trouble" to Green**:
 
-Here’s the information for questions 16 and 17 formatted in Markdown for your notes:
+   To set the text "trouble" to green while leaving "double" unaffected, you can target the `<span>` element with the class `.highlight` in your CSS:
 
-markdown
-Copy code
-### 16. Given the following HTML, what CSS would you use to set the text "trouble" to green and leave the "double" text unaffected?
+    ```css
+    .highlight {
+        color: green;
+    }
+    ```
 
-#### Example HTML:
+   **Explanation**:
+   - The `<span>` element wrapping "trouble" has a class named `highlight`.
+   - The CSS rule targets that class and sets the `color` property to green.
+   - As a result, only the text "trouble" will be displayed in green, while "double" remains unaffected.
 
-    ```html
-    <p>This is some text with the word <span class="highlight">trouble</span> and the word double.</p>
-  CSS to Set "trouble" to Green:
-  To set the text "trouble" to green while leaving "double" unaffected, you can target the <span> element with the class .highlight in your CSS:
-
-  css
-  Copy code
-  .highlight {
-      color: green;
-  }
-  Explanation:
-  The <span> element wrapping "trouble" has a class named highlight.
-  The CSS rule targets that class and sets the color property to green.
-  As a result, only the text "trouble" will be displayed in green, while "double" remains unaffected.
 
   
 17. What will the following code output when executed using a for loop and console.log?
