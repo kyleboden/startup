@@ -245,85 +245,99 @@ You can find more information in the [Go to README](./README.md).
    **Output**:
    * When the button is clicked, the console will output: `Button was clicked!`
    * This means that the specified action (logging to the console) will occur every time the button is clicked.
+   * 
+10. **What does the following line of JavaScript do using a `#` selector?**
 
-10. What does the following line of Javascript do using a # selector?
     ```javascript
     const element = document.querySelector('#myElement');
-  Explanation:
-  The line of JavaScript uses the document.querySelector() method to select an element from the DOM.
-  The # selector indicates that it is targeting an element with the ID of myElement.
-  The querySelector method returns the first matching element it finds in the document.
-  If no element with that ID exists, element will be null.
-  Summary:
-  
-  Purpose: Selects the first element with the ID myElement.
-  Method: querySelector allows for CSS-style selectors.
-  Result: Returns the element or null if not found.
-  
-11. Which of the following are true? (mark all that are true about the DOM)
+    ```
 
-  True: The DOM represents the structure of an HTML document as a tree of objects.
-  True: The DOM allows programming languages to manipulate the structure, style, and content of web pages.
-  True: The DOM is language-independent and can be used with various programming languages.
-  False: The DOM is only accessible through JavaScript. (While JavaScript is the most common language used to interact with the DOM, other languages can also manipulate it through various means, such as WebAssembly or server-side languages in specific contexts.)
-  Summary:
+   **Explanation**:
+   * The line of JavaScript uses the `document.querySelector()` method to select an element from the DOM.
+   * The `#` selector indicates that it is targeting an element with the ID of `myElement`.
+   * The `querySelector` method returns the first matching element it finds in the document.
+   * If no element with that ID exists, `element` will be `null`.
+
+   **Summary**:
+   * **Purpose**: Selects the first element with the ID `myElement`.
+   * **Method**: `querySelector` allows for CSS-style selectors.
+   * **Result**: Returns the element or `null` if not found.
+
+11. **Which of the following are true? (mark all that are true about the DOM)**
+
+   - **True**: The DOM represents the structure of an HTML document as a tree of objects.
+   - **True**: The DOM allows programming languages to manipulate the structure, style, and content of web pages.
+   - **True**: The DOM is language-independent and can be used with various programming languages.
+   - **False**: The DOM is only accessible through JavaScript. *(While JavaScript is the most common language used to interact with the DOM, other languages can also manipulate it through various means, such as WebAssembly or server-side languages in specific contexts.)*
+
+   **Summary**:
+   * The DOM is a powerful representation of the web page structure that allows for dynamic manipulation and interaction across different programming languages.
+
+12. **By default, the HTML `<span>` element has a default CSS display property value of:**
+
+    ```css
+    display: inline;
+    ```
+
+   **Explanation**:
+   * **Inline Element**: The `<span>` element is an inline element, meaning it does not start on a new line and only takes up as much width as necessary.
+   * **Purpose**: The `<span>` element is typically used to apply styles or manipulate small portions of text without affecting the surrounding content layout.
+
+     **Example**:
+     ```html
+     <p>This is a <span style="color: red;">red</span> word in a paragraph.</p>
+In this example, the word "red" is styled with a different color without disrupting the flow of the paragraph.
   
-  The DOM is a powerful representation of the web page structure that allows for dynamic manipulation and interaction across different programming languages.
+13. **How would you use CSS to change all the `<div>` elements to have a background color of red?**
 
-12. By default, the HTML span element has a default CSS display property value of:
-    The default CSS display property value for the HTML `<span>` element is:
-
-        ```css
-        display: inline;
-  Inline Element: The <span> element is an inline element, meaning it does not start on a new line and only takes up as much width as necessary.
-  Purpose: The <span> element is typically used to apply styles or manipulate small portions of text without affecting the surrounding content layout.
-
-  ex: <p>This is a <span style="color: red;">red</span> word in a paragraph.</p>
-  In this example, the word "red" is styled with a different color without disrupting the flow of the paragraph.
-  
-13. How would you use CSS to change all the div elements to have a background color of red?
     ```css
     div {
         background-color: red;
     }
+    ```
 
+14. **How would you display an image with a hyperlink in HTML?**
 
+   To display an image with a hyperlink in HTML, you can use the `<a>` (anchor) element to wrap the `<img>` (image) element. Here’s how you can do it:
 
-14. How would you display an image with a hyperlink in HTML?
-  To display an image with a hyperlink in HTML, you can use the `<a>` (anchor) element to wrap the `<img>` (image) element. Here’s how you can do it:
-
-#### Example Code:
+   **Example Code:**
 
     ```html
     <a href="https://www.example.com">
         <img src="image.jpg" alt="Description of Image" />
     </a>
-Explanation:
-The <a> element creates a hyperlink to the URL specified in the href attribute.
-The <img> element is nested inside the <a> element, making the image clickable.
-The src attribute specifies the path to the image file.
-The alt attribute provides alternative text for the image, which is important for accessibility and displays if the image cannot be loaded.
-When a user clicks on the image, they will be directed to https://www.example.com.
-  
-15. In the CSS box model, what is the ordering of the box layers starting at the inside and working out?
-    In the CSS box model, the ordering of the box layers from the inside to the outside is as follows:
-    
-    Content: The innermost part that holds the actual content, such as text, images, etc.
-    Padding: The space between the content and the border. It creates space inside the box and does not have a background color.
-    Border: A line surrounding the padding (if any) and the content. It can have width, style, and color.
-    Margin: The outermost layer that creates space outside the border, separating the element from other elements.
-+------------------------+
-|        Margin          |
-|  +------------------+  |
-|  |      Border      |  |
-|  |  +-----------+   |  |
-|  |  |  Padding  |   |  |
-|  |  | +-------+ |   |  |
-|  |  | |Content | |   |  |
-|  |  | +-------+ |   |  |
-|  |  +-----------+   |  |
-|  +------------------+  |
-+------------------------+
+    ```
+
+   **Explanation**:
+   - The `<a>` element creates a hyperlink to the URL specified in the `href` attribute.
+   - The `<img>` element is nested inside the `<a>` element, making the image clickable.
+   - The `src` attribute specifies the path to the image file.
+   - The `alt` attribute provides alternative text for the image, which is important for accessibility and displays if the image cannot be loaded.
+   - When a user clicks on the image, they will be directed to `https://www.example.com`.
+
+15. **In the CSS box model, what is the ordering of the box layers starting from the inside and working out?**
+
+   In the CSS box model, the ordering of the box layers from the inside to the outside is as follows:
+
+   1. **Content**: The innermost part that holds the actual content, such as text, images, etc.
+   2. **Padding**: The space between the content and the border. It creates space inside the box and does not have a background color.
+   3. **Border**: A line surrounding the padding (if any) and the content. It can have width, style, and color.
+   4. **Margin**: The outermost layer that creates space outside the border, separating the element from other elements.
+
+   **Visual Representation**:
+
+      +------------------------+
+      |        Margin          |
+      |  +------------------+  |
+      |  |      Border      |  |
+      |  |  +-----------+   |  |
+      |  |  |  Padding  |   |  |
+      |  |  | +-------+ |   |  |
+      |  |  | |Content | |   |  |
+      |  |  | +-------+ |   |  |
+      |  |  +-----------+   |  |
+      |  +------------------+  |
+      +------------------------+
 
 
 ### 16. Given the following HTML, what CSS would you use to set the text "trouble" to green and leave the "double" text unaffected?
