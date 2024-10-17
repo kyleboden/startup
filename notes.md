@@ -365,16 +365,17 @@ In this example, the word "red" is styled with a different color without disrupt
 
 
   
-17. What will the following code output when executed using a for loop and console.log?
+17. **What will the following code output when executed using a for loop and console.log?**
+
+    ```javascript
     for (let i = 0; i < 5; i++) {
         console.log(i);
     }
+    ```
 
-    The for loop initializes a variable i to 0 and increments i by 1 after each iteration.
-    The loop continues as long as i is less than 5.
-    console.log(i) outputs the current value of i during each iteration.
+   The for loop initializes a variable `i` to 0 and increments `i` by 1 after each iteration. The loop continues as long as `i` is less than 5. `console.log(i)` outputs the current value of `i` during each iteration.
 
-    Output:
+   **Output:**
       0
       1
       2
@@ -382,61 +383,69 @@ In this example, the word "red" is styled with a different color without disrupt
       4
     This means that the numbers 0 through 4 will be printed to the console, each on a new line.
 
-18. How would you use JavaScript to select an element with the id of “byu” and change the text color of that element to green?
-    To select an element with the ID of `byu` and change its text color to green using JavaScript, you can use the `document.getElementById()` method. Here’s how you can do it:
-      ```html
-      <p id="byu">This is a paragraph with the ID "byu".</p>
-      
-      <script>
-          const element = document.getElementById('byu');
-          element.style.color = 'green';
-      </script>
+18. **How would you use JavaScript to select an element with the id of “byu” and change the text color of that element to green?**
+
+   To select an element with the ID of `byu` and change its text color to green using JavaScript, you can use the `document.getElementById()` method. Here’s how you can do it:
+
+     ```html
+     <p id="byu">This is a paragraph with the ID "byu".</p>
+     
+     <script>
+         const element = document.getElementById('byu');
+         element.style.color = 'green';
+     </script>
+
   Explanation:
   The <p> element has an ID of byu.
   document.getElementById('byu') selects the element with that ID.
   The style.color property is then set to 'green', changing the text color of that element.
 
-19. What is the opening HTML tag for a paragraph, ordered list, unordered list, second level heading, first level heading, and third level heading?
-    Here are the opening HTML tags for the requested elements:
+19. **What is the opening HTML tag for a paragraph, ordered list, unordered list, second level heading, first level heading, and third level heading?**
 
-      Paragraph: <p>
-      Ordered List: <ol>
-      Unordered List: <ul>
-      Second Level Heading: <h2>
-      First Level Heading: <h1>
-      Third Level Heading: <h3>
-      
-      <p>This is a paragraph.</p>
-      <ol>
-          <li>First item</li>
-          <li>Second item</li>
-      </ol>
-      <ul>
-          <li>Bullet item</li>
-          <li>Another bullet item</li>
-      </ul>
-      <h1>This is a first level heading</h1>
-      <h2>This is a second level heading</h2>
-      <h3>This is a third level heading</h3>
-      
-      These tags define the structure and hierarchy of content in an HTML document.
+   Here are the opening HTML tags for the requested elements:
 
-20. How do you declare the document type to be html? 
-    
-To declare the document type as HTML, you use the `<!DOCTYPE>` declaration at the very beginning of your HTML document. This informs the browser about the version of HTML being used.
+   - **Paragraph:** `<p>`
+   - **Ordered List:** `<ol>`
+   - **Unordered List:** `<ul>`
+   - **Second Level Heading:** `<h2>`
+   - **First Level Heading:** `<h1>`
+   - **Third Level Heading:** `<h3>`
 
-      ```html
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Document Type Declaration</title>
-      </head>
-      <body>
-          <p>This is an example HTML document.</p>
-      </body>
-      </html>
+   **Example:**
+     ```html
+     <p>This is a paragraph.</p>
+     <ol>
+         <li>First item</li>
+         <li>Second item</li>
+     </ol>
+     <ul>
+         <li>Bullet item</li>
+         <li>Another bullet item</li>
+     </ul>
+     <h1>This is a first level heading</h1>
+     <h2>This is a second level heading</h2>
+     <h3>This is a third level heading</h3>
+
+   These tags define the structure and hierarchy of content in an HTML document.
+
+20. **How do you declare the document type to be HTML?**
+
+   To declare the document type as HTML, you use the `<!DOCTYPE>` declaration at the very beginning of your HTML document. This informs the browser about the version of HTML being used.
+
+   **Example:**
+     ```html
+     <!DOCTYPE html>
+     <html lang="en">
+     <head>
+         <meta charset="UTF-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <title>Document Type Declaration</title>
+     </head>
+     <body>
+         <p>This is an example HTML document.</p>
+     </body>
+     </html>
+
 
 21. What is valid javascript syntax for if, else, for, while, switch statements?
      ```javascript
