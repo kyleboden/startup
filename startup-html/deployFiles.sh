@@ -22,6 +22,7 @@ printf "\n----> Clear out the previous distribution on the target.\n"
 ssh -i "$key" ubuntu@$hostname << ENDSSH
 rm -rf services/${service}/public
 mkdir -p services/${service}/public
+export API_KEY = $API_KEY
 ENDSSH
 
 # Step 2

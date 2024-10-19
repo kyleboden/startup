@@ -49,6 +49,7 @@
     </nav>
 </header>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./engine.js"></script>
 
     <main>
       <div class="form-group">
@@ -59,17 +60,85 @@
           <label for="extra-info">Any Extra Information:</label>
           <textarea id="extra-info" name="extra-info" rows="5" placeholder="Add any extra information that could be useful for this specific job, e.g., personal experiences, etc."></textarea>
       </div>
-      <button id="generate-resume" onclick="generateResume()">[PLACEHOLDER] Generate Resume and Cover Letter</button>
+      <button id="generate-resume" onclick="generateResume()">
+        <!-- Loading spinner element -->
+        <div id="loading-spinner"></div>
+        <div id="generate-button-text">[PLACEHOLDER] Generate Resume and Cover Letter</div>
+    </button>
   </main>
   
+  <style>
+    /* Loading spinner styles */
+    #loading-spinner {
+        display: none; /* Hidden by default */
+        border: 4px solid rgb(255, 255, 255);
+        border-left-color: #09485f;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        top: 50%; /* Center it vertically */
+        left: 50%; /* Center it horizontally */
+        transform: translate(-50%, -50%); /* Move it to center */
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
 
     <script>
         function generateResume() {
-            alert("[PLACEHOLDER] Resume is being generated...");
+            // alert("[PLACEHOLDER] Resume is being generated...");
+            const generateResumeButton = document.getElementById('generate-resume');
+            generateResumeButton.disabled = true;
+            const loadingSpinner = document.getElementById('loading-spinner');
+            loadingSpinner.style.display = 'block';
+            const buttonText = document.getElementById('generate-button-text');
+            buttonText.style.display = 'none';
+
+            
+            const userInfo = localStorage.getItem('user-info') ? JSON.parse(localStorage.getItem('user-info')) : {
+                contactInfo: {},
+                education: [],
+                workHistory: [],
+                skills: '',
+                languages: [],
+                awardsAndCertifications: [],
+                relevantWebsites: [],
+                projects: [],
+                otherInfo: ''
+            }
+
+            const jobData = {
+                jobDescription: document.getElementById('job-description').value,
+                extraInfo: document.getElementById('extra-info').value
+            }
+
             // Add logic to handle resume generation here
             // This is a placeholder for where I will insert 
             // an API call to a third-party service, like openai
             // in order to generate the resume that will be returned
+            queryEngine(jobData, userInfo)
+            .then(result => {
+                console.log(result);
+                const blob = new Blob([result], { type: 'text/html'});
+                const url = URL.createObjectURL(blob);
+                window.open(url, "_blank");
+            })
+            .catch(error => {
+                console.error('Error generating resume:', error);
+            })
+            .finally(_ => {
+                generateResumeButton.disabled = false;
+                loadingSpinner.style.display = 'none';
+                buttonText.style.display = 'block';
+            });
         }
     </script>
 

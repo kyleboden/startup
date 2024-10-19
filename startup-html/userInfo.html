@@ -1,157 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-        crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ApplySmart HTML</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="userInfo.css">
-    <link rel="icon" href="ASNEWtransparent.png" type="image/png"/>
+    <link rel="icon" href="ASNEWtransparent.png" type="image/png" />
 </head>
+
 <body>
-  <header class="d-flex justify-content-between align-items-center fixed-top">
-    <a href="./index.html">
-        <img src="ApplySmartTWhite.png" style="width: 200px; height: auto;" />
-    </a>
-    <nav class="navbar navbar-expand-lg">
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto"> <!-- Add ms-auto here -->
-                <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="login.html">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="generator.html">Resume Generator</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="userInfo.html">Update Information</a>
-                </li>
-            </ul>
+    <header class="d-flex justify-content-between align-items-center fixed-top">
+        <a href="./index.html">
+            <img src="ApplySmartTWhite.png" style="width: 200px; height: auto;" />
+        </a>
+        <nav class="navbar navbar-expand-lg">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto"> <!-- Add ms-auto here -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="generator.html">Resume Generator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="userInfo.html">Update Information</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <main>
+        <h2 id="welcome-message"></h2>
+        <p>Please tell us more about you!</p>
+        <br />
+
+        <h3>Contact Information</h3>
+        <div id="contact-entry">
+            <label for="name">Full Name:</label>
+            <input type="text" class="name" placeholder="Enter your Full Name" /><br /><br />
+
+            <label for="phone">Phone Number:</label>
+            <input type="text" class="phone" placeholder="Enter your phone number" /><br /><br />
+
+            <label for="address">Address:</label>
+            <input type="text" class="address" placeholder="Enter your address" /><br /><br />
+
+            <label for="email">Email:</label>
+            <input type="email" class="email" placeholder="Enter your email" /><br /><br />
+
+            <label for="linkedIn">LinkedIn URL:</label>
+            <input type="url" class="linkedIn" placeholder="Enter your LinkedIn URL" /><br /><br />
         </div>
-    </nav>
-</header>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<main>
-    <h2 id="welcome-message"></h2>
-    <p>Please tell us more about you!</p>
-    <br />
+        <h3>Education</h3>
+        <div id="education-container">
+            <!-- This container will be filled dynamically when the button is clicked -->
+        </div>
+        <button id="add-education">Add Education</button>
 
-    <h3>Contact Information</h3>
-    <div class="contact-entry">
-        <label for="phone">Phone Number:</label>
-        <input type="text" class="phone" placeholder="Enter your phone number" /><br /><br />
+        <h3>Work History</h3>
+        <div id="work-container">
+            <!-- This container will be filled dynamically when the button is clicked -->
+        </div>
+        <button id="add-work">Add Work Entry</button>
 
-        <label for="address">Address:</label>
-        <input type="text" class="address" placeholder="Enter your address" /><br /><br />
+        <h3>Skills</h3>
+        <div id="skill-container">
+            <textarea class="skill" rows="4" cols="50" placeholder="Enter your skills (comma-separated)"></textarea>
+        </div>
 
-        <label for="email">Email:</label>
-        <input type="email" class="email" placeholder="Enter your email" /><br /><br />
+        <h3>Languages</h3>
+        <div id="language-container">
+            <!-- This container will be filled dynamically when the button is clicked -->
+        </div>
+        <button id="add-language">Add Another Language</button>
 
-        <label for="linkedIn">LinkedIn URL:</label>
-        <input type="url" class="linkedIn" placeholder="Enter your LinkedIn URL" /><br /><br />
-    </div>
-    
-    <h3>Education</h3>
-    <div id="education-container">
-        <!-- This container will be filled dynamically when the button is clicked -->
-    </div>
-    <button id="add-education">Add Education</button>
+        <h3>Awards and Certifications</h3>
+        <div id="award-container">
+            <!-- This container will be filled dynamically when the button is clicked -->
+        </div>
+        <button id="add-award">Add Another</button>
 
-    <h3>Work History</h3>
-    <div id="work-container">
-        <!-- This container will be filled dynamically when the button is clicked -->
-    </div>
-    <button id="add-work">Add Work Entry</button>
+        <h3>Relevant Websites</h3>
+        <div id="website-container">
+            <!-- This container will be filled dynamically when the button is clicked -->
+        </div>
+        <button id="add-website">Add Another Website</button>
 
-    <h3>Skills</h3>
-    <div>
-        <textarea class="skill" rows="4" cols="50" placeholder="Enter your skills (comma-separated)"></textarea>
-    </div>
+        <h3>Projects</h3>
+        <div id="project-container">
+            <!-- This container will be filled dynamically when the button is clicked -->
+        </div>
+        <button id="add-project">Add Another Project</button>
 
-    <h3>Languages</h3>
-    <div id="language-container">
-        <!-- This container will be filled dynamically when the button is clicked -->
-    </div>
-    <button id="add-language">Add Another Language</button>
+        <h3>Other Relevant Information</h3>
+        <div id="other-container">
+            <textarea class="relevant-info" rows="4" cols="50"
+                placeholder="Enter any other information about yourself :)"></textarea>
+        </div>
 
-    <h3>Awards and Certifications</h3>
-    <div id="award-container">
-        <!-- This container will be filled dynamically when the button is clicked -->
-    </div>
-    <button id="add-award">Add Another</button>
+        <br><br>
+        <hr />
+        <button id="save-information" onclick="window.location.href='generator.html'">Save Information and go to Resume
+            Generator</button>
+        <hr />
 
-    <h3>Relevant Websites</h3>
-    <div id="website-container">
-        <!-- This container will be filled dynamically when the button is clicked -->
-    </div>
-    <button id="add-website">Add Another Website</button>
 
-    <h3>Projects</h3>
-    <div id="project-container">
-        <!-- This container will be filled dynamically when the button is clicked -->
-    </div>
-    <button id="add-project">Add Another Project</button>
+    </main>
 
-    <h3>Other Relevant Information</h3>
-    <div>
-        <textarea class="relevant-info" rows="4" cols="50" placeholder="Enter any other information about yourself :)"></textarea>
-    </div>
-
-    <br><br>
-    <hr />
-    <button id="save-information" onclick="window.location.href='generator.html'">Save Information and go to Resume Generator</button>
-    <hr />
-
-    
-</main>
-
-<script>
-    // Function to get URL parameters
-    function getQueryParams() {
-        const params = {};
-        const queryString = window.location.search.slice(1);
-        const pairs = queryString.split('&');
-        for (const pair of pairs) {
-            const [key, value] = pair.split('=');
-            params[decodeURIComponent(key)] = decodeURIComponent(value);
+    <script>
+        const userInfo = localStorage.getItem('user-info') ? JSON.parse(localStorage.getItem('user-info')) : {
+            contactInfo: {},
+            education: [],
+            workHistory: [],
+            skills: '',
+            languages: [],
+            awardsAndCertifications: [],
+            relevantWebsites: [],
+            projects: [],
+            otherInfo: ''
         }
-        return params;
-    }
 
-    // Get the username from the URL and display it
-    const params = getQueryParams();
-    const username = params.username;
-    if (username) {
-        document.getElementById('welcome-message').innerText = `Welcome, ${username}!`;
-    } else {
-        document.getElementById('welcome-message').innerText = 'Welcome, Guest!';
-    }
+        function saveSectionInformation(containerId, paramName) {
+            const container = document.getElementById(containerId)
+            const entries = container.querySelectorAll('div')
+            userInfo[paramName] = []
+            entries.forEach(entry => {
+                const inputs = entry.querySelectorAll('input')
+                const savedEntry = {}
+                inputs.forEach(input => {
+                    savedEntry[input.className] = input.value
+                })
+                const textAreas = entry.querySelectorAll('textarea')
+                textAreas.forEach(textarea => {
+                    savedEntry[textarea.className] = textarea.value
+                })
+                const selections = entry.querySelectorAll('select')
+                selections.forEach(selection => {
+                    savedEntry[selection.className] = selection.value
+                })
+                userInfo[paramName].push(savedEntry)
+            })
+        }
 
-    // Function to add another education entry
-    document.getElementById('add-education').addEventListener('click', function() {
-        const educationContainer = document.getElementById('education-container');
-        const newEntry = document.createElement('div');
-        newEntry.classList.add('education-entry');
-        newEntry.innerHTML = `
+        document.getElementById('save-information').addEventListener('click', () => {
+            const contactForm = document.getElementById('contact-entry')
+            const contactInputs = contactForm.querySelectorAll('input')
+            contactInputs.forEach(input => {
+                userInfo.contactInfo[input.className] = input.value
+            })
+
+            saveSectionInformation('education-container', 'education')
+            saveSectionInformation('work-container', 'workHistory')
+
+            const skillContainer = document.getElementById('skill-container')
+            const skills = skillContainer.querySelector('textarea')
+            userInfo.skills = skills.value
+
+            saveSectionInformation('language-container', 'languages')
+            saveSectionInformation('award-container', 'awardsAndCertifications')
+            saveSectionInformation('website-container', 'relevantWebsites')
+            saveSectionInformation('project-container', 'projects')
+
+            const otherContainer = document.getElementById('other-container')
+            const other = otherContainer.querySelector('textarea')
+            userInfo.otherInfo = other.value
+
+            localStorage.setItem('user-info', JSON.stringify(userInfo))
+        })
+
+        // Function to get URL parameters
+        function getQueryParams() {
+            const params = {};
+            const queryString = window.location.search.slice(1);
+            const pairs = queryString.split('&');
+            for (const pair of pairs) {
+                const [key, value] = pair.split('=');
+                params[decodeURIComponent(key)] = decodeURIComponent(value);
+            }
+            return params;
+        }
+
+        // Get the username from the URL and display it
+        const params = getQueryParams();
+        const username = params.username;
+        if (username) {
+            document.getElementById('welcome-message').innerText = `Welcome, ${username}!`;
+        } else {
+            document.getElementById('welcome-message').innerText = 'Welcome, Guest!';
+        }
+
+        // Function to add another education entry
+        document.getElementById('add-education').addEventListener('click', function () {
+            const educationContainer = document.getElementById('education-container');
+            const newEntry = document.createElement('div');
+            newEntry.classList.add('education-entry');
+            newEntry.innerHTML = `
             <label for="school">School:</label>
             <input type="text" class="school" placeholder="Enter your school name" /><br /><br />
 
@@ -168,30 +225,33 @@
             <input type="text" class="major" placeholder="Enter your major" /><br /><br />
             <button class="remove-button">Remove</button>
         `;
-        educationContainer.appendChild(newEntry);
+            educationContainer.appendChild(newEntry);
 
-        // Add event listener for the new "Remove" button
-        newEntry.querySelector('.remove-button').addEventListener('click', function() {
-            educationContainer.removeChild(newEntry);
+            // Add event listener for the new "Remove" button
+            newEntry.querySelector('.remove-button').addEventListener('click', function () {
+                educationContainer.removeChild(newEntry);
+            });
         });
-    });
 
-    // Initial "Remove" button functionality for education entries
-    document.querySelectorAll('.remove-button').forEach(button => {
-        button.addEventListener('click', function() {
-            const educationEntry = button.parentElement;
-            document.getElementById('education-container').removeChild(educationEntry);
+        // Initial "Remove" button functionality for education entries
+        document.querySelectorAll('.remove-button').forEach(button => {
+            button.addEventListener('click', function () {
+                const educationEntry = button.parentElement;
+                document.getElementById('education-container').removeChild(educationEntry);
+            });
         });
-    });
 
-    // Function to add another work entry
-    document.getElementById('add-work').addEventListener('click', function() {
-        const workContainer = document.getElementById('work-container');
-        const newWorkEntry = document.createElement('div');
-        newWorkEntry.classList.add('work-entry');
-        newWorkEntry.innerHTML = `
+        // Function to add another work entry
+        document.getElementById('add-work').addEventListener('click', function () {
+            const workContainer = document.getElementById('work-container');
+            const newWorkEntry = document.createElement('div');
+            newWorkEntry.classList.add('work-entry');
+            newWorkEntry.innerHTML = `
             <label for="company">Company:</label>
             <input type="text" class="company" placeholder="Enter your company name" /><br /><br />
+
+            <label for="position">Position:</label>
+            <input type="text" class="position" placeholder="Enter your position" /><br /><br />
 
             <label for="key-roles">Key Roles:</label>
             <textarea class="key-roles" rows="2" cols="50" placeholder="Describe your key roles"></textarea><br /><br />
@@ -203,19 +263,19 @@
             <input type="date" class="work-end-date" /><br /><br />
             <button class="remove-button">Remove</button>
         `;
-        workContainer.appendChild(newWorkEntry);
+            workContainer.appendChild(newWorkEntry);
 
-        // Add event listener for the new "Remove" button
-        newWorkEntry.querySelector('.remove-button').addEventListener('click', function() {
-            workContainer.removeChild(newWorkEntry);
+            // Add event listener for the new "Remove" button
+            newWorkEntry.querySelector('.remove-button').addEventListener('click', function () {
+                workContainer.removeChild(newWorkEntry);
+            });
         });
-    });
 
-    document.getElementById('add-language').addEventListener('click', function() {
-        const languageContainer = document.getElementById('language-container');
-        const newLanguageEntry = document.createElement('div');
-        newLanguageEntry.classList.add('language-entry');
-        newLanguageEntry.innerHTML = `
+        document.getElementById('add-language').addEventListener('click', function () {
+            const languageContainer = document.getElementById('language-container');
+            const newLanguageEntry = document.createElement('div');
+            newLanguageEntry.classList.add('language-entry');
+            newLanguageEntry.innerHTML = `
             <label for="language">Language:</label>
             <input type="text" class="language" placeholder="Enter a language" /><br /><br />
             
@@ -233,51 +293,51 @@
             
             <button class="remove-button">Remove</button>
         `;
-        
-        // Append the new language entry to the container
-        languageContainer.appendChild(newLanguageEntry);
 
-        // Add event listener for the "Native" checkbox
-        const nativeCheckbox = newLanguageEntry.querySelector('.native');
-        const proficiencySelect = newLanguageEntry.querySelector('.proficiency');
+            // Append the new language entry to the container
+            languageContainer.appendChild(newLanguageEntry);
 
-        nativeCheckbox.addEventListener('change', function() {
-            if (nativeCheckbox.checked) {
-                proficiencySelect.value = "fluent"; // Set proficiency to fluent
-                proficiencySelect.disabled = true; // Optionally disable the dropdown
-            } else {
-                proficiencySelect.value = ""; // Reset the proficiency
-                proficiencySelect.disabled = false; // Enable the dropdown again
-            }
+            // Add event listener for the "Native" checkbox
+            const nativeCheckbox = newLanguageEntry.querySelector('.native');
+            const proficiencySelect = newLanguageEntry.querySelector('.proficiency');
+
+            nativeCheckbox.addEventListener('change', function () {
+                if (nativeCheckbox.checked) {
+                    proficiencySelect.value = "fluent"; // Set proficiency to fluent
+                    proficiencySelect.disabled = true; // Optionally disable the dropdown
+                } else {
+                    proficiencySelect.value = ""; // Reset the proficiency
+                    proficiencySelect.disabled = false; // Enable the dropdown again
+                }
+            });
+
+            // Add event listener for the new "Remove" button
+            newLanguageEntry.querySelector('.remove-button').addEventListener('click', function () {
+                languageContainer.removeChild(newLanguageEntry);
+            });
         });
 
-        // Add event listener for the new "Remove" button
-        newLanguageEntry.querySelector('.remove-button').addEventListener('click', function() {
-            languageContainer.removeChild(newLanguageEntry);
-        });
-    });
-
-    document.getElementById('add-award').addEventListener('click', function() {
-        const awardContainer = document.getElementById('award-container');
-        const newAwardEntry = document.createElement('div');
-        newAwardEntry.classList.add('award-entry');
-        newAwardEntry.innerHTML = `
+        document.getElementById('add-award').addEventListener('click', function () {
+            const awardContainer = document.getElementById('award-container');
+            const newAwardEntry = document.createElement('div');
+            newAwardEntry.classList.add('award-entry');
+            newAwardEntry.innerHTML = `
             <textarea class="award" rows="1" cols="50" placeholder="Enter award or certification name"></textarea><br /><br />
             <button class="remove-button">Remove</button>
         `;
-        awardContainer.appendChild(newAwardEntry);
+            awardContainer.appendChild(newAwardEntry);
 
-        // Add event listener for the new "Remove" button
-        newAwardEntry.querySelector('.remove-button').addEventListener('click', function() {
-            awardContainer.removeChild(newAwardEntry);
+            // Add event listener for the new "Remove" button
+            newAwardEntry.querySelector('.remove-button').addEventListener('click', function () {
+                awardContainer.removeChild(newAwardEntry);
+            });
         });
-    });
 
-    document.getElementById('add-website').addEventListener('click', function() {
-        const websiteContainer = document.getElementById('website-container');
-        const newWebsiteEntry = document.createElement('div');
-        newWebsiteEntry.classList.add('website-entry');
-        newWebsiteEntry.innerHTML = `
+        document.getElementById('add-website').addEventListener('click', function () {
+            const websiteContainer = document.getElementById('website-container');
+            const newWebsiteEntry = document.createElement('div');
+            newWebsiteEntry.classList.add('website-entry');
+            newWebsiteEntry.innerHTML = `
             <label for="website-url">Website URL:</label>
             <input type="url" class="website-url" placeholder="Enter website URL" /><br /><br />
 
@@ -286,19 +346,19 @@
             
             <button class="remove-button">Remove</button>
         `;
-        websiteContainer.appendChild(newWebsiteEntry);
+            websiteContainer.appendChild(newWebsiteEntry);
 
-        // Add event listener for the new "Remove" button
-        newWebsiteEntry.querySelector('.remove-button').addEventListener('click', function() {
-            websiteContainer.removeChild(newWebsiteEntry);
+            // Add event listener for the new "Remove" button
+            newWebsiteEntry.querySelector('.remove-button').addEventListener('click', function () {
+                websiteContainer.removeChild(newWebsiteEntry);
+            });
         });
-    });
 
-    document.getElementById('add-project').addEventListener('click', function() {
-        const projectContainer = document.getElementById('project-container');
-        const newProjectEntry = document.createElement('div');
-        newProjectEntry.classList.add('project-entry');
-        newProjectEntry.innerHTML = `
+        document.getElementById('add-project').addEventListener('click', function () {
+            const projectContainer = document.getElementById('project-container');
+            const newProjectEntry = document.createElement('div');
+            newProjectEntry.classList.add('project-entry');
+            newProjectEntry.innerHTML = `
             <label for="project-name">Project Name:</label>
             <input type="text" class="project-name" placeholder="Enter project name" /><br /><br />
 
@@ -310,21 +370,22 @@
             
             <button class="remove-button">Remove</button>
         `;
-        projectContainer.appendChild(newProjectEntry);
+            projectContainer.appendChild(newProjectEntry);
 
-        // Add event listener for the new "Remove" button
-        newProjectEntry.querySelector('.remove-button').addEventListener('click', function() {
-            projectContainer.removeChild(newProjectEntry);
+            // Add event listener for the new "Remove" button
+            newProjectEntry.querySelector('.remove-button').addEventListener('click', function () {
+                projectContainer.removeChild(newProjectEntry);
+            });
         });
-    });
 
-</script>
+    </script>
 
-<footer>
-    <span class="text-reset">Kyle Boden</span>
-    <br />
-    <a href="https://github.com/kyleboden/startup/tree/main/startup-html">Click here to see my GitHub</a>
-</footer>
+    <footer>
+        <span class="text-reset">Kyle Boden</span>
+        <br />
+        <a href="https://github.com/kyleboden/startup/tree/main/startup-html">Click here to see my GitHub</a>
+    </footer>
 
 </body>
+
 </html>

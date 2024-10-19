@@ -24,7 +24,7 @@ main h3 {
     
 }
 
-.contact-entry {
+#contact-entry {
     border: 1.5px solid #000000; /* Set border color and width */
     padding: 20px; /* Add padding inside the border */
     border-radius: 8px; /* Optional: Rounded corners */
