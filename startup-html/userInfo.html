@@ -50,19 +50,19 @@
         <h3>Contact Information</h3>
         <div id="contact-entry">
             <label for="name">Full Name:</label>
-            <input type="text" class="name" placeholder="Enter your Full Name" /><br /><br />
+            <input type="text" id="name" placeholder="Enter your Full Name" /><br /><br />
 
             <label for="phone">Phone Number:</label>
-            <input type="text" class="phone" placeholder="Enter your phone number" /><br /><br />
+            <input type="text" id="phone" placeholder="Enter your phone number" /><br /><br />
 
             <label for="address">Address:</label>
-            <input type="text" class="address" placeholder="Enter your address" /><br /><br />
+            <input type="text" id="address" placeholder="Enter your address" /><br /><br />
 
             <label for="email">Email:</label>
-            <input type="email" class="email" placeholder="Enter your email" /><br /><br />
+            <input type="email" id="email" placeholder="Enter your email" /><br /><br />
 
             <label for="linkedIn">LinkedIn URL:</label>
-            <input type="url" class="linkedIn" placeholder="Enter your LinkedIn URL" /><br /><br />
+            <input type="url" id="linkedIn" placeholder="Enter your LinkedIn URL" /><br /><br />
         </div>
 
         <h3>Education</h3>
@@ -79,7 +79,7 @@
 
         <h3>Skills</h3>
         <div id="skill-container">
-            <textarea class="skill" rows="4" cols="50" placeholder="Enter your skills (comma-separated)"></textarea>
+            <textarea id="skills" rows="4" cols="50" placeholder="Enter your skills (comma-separated)"></textarea>
         </div>
 
         <h3>Languages</h3>
@@ -108,7 +108,7 @@
 
         <h3>Other Relevant Information</h3>
         <div id="other-container">
-            <textarea class="relevant-info" rows="4" cols="50"
+            <textarea id="relevant-info" rows="4" cols="50"
                 placeholder="Enter any other information about yourself :)"></textarea>
         </div>
 
@@ -210,19 +210,19 @@
             newEntry.classList.add('education-entry');
             newEntry.innerHTML = `
             <label for="school">School:</label>
-            <input type="text" class="school" placeholder="Enter your school name" /><br /><br />
+            <input type="text" id="school" placeholder="Enter your school name" /><br /><br />
 
             <label for="start-date">Start Date:</label>
-            <input type="date" class="start-date" /><br /><br />
+            <input type="date" id="start-date" /><br /><br />
 
             <label for="end-date">End Date:</label>
-            <input type="date" class="end-date" /><br /><br />
+            <input type="date" id="end-date" /><br /><br />
 
             <label for="gpa">GPA:</label>
-            <input type="text" class="gpa" placeholder="Enter your GPA" /><br /><br />
+            <input type="text" id="gpa" placeholder="Enter your GPA" /><br /><br />
 
             <label for="major">Major:</label>
-            <input type="text" class="major" placeholder="Enter your major" /><br /><br />
+            <input type="text" id="major" placeholder="Enter your major" /><br /><br />
             <button class="remove-button">Remove</button>
         `;
             educationContainer.appendChild(newEntry);
@@ -248,19 +248,19 @@
             newWorkEntry.classList.add('work-entry');
             newWorkEntry.innerHTML = `
             <label for="company">Company:</label>
-            <input type="text" class="company" placeholder="Enter your company name" /><br /><br />
+            <input type="text" id="company" placeholder="Enter your company name" /><br /><br />
 
             <label for="position">Position:</label>
-            <input type="text" class="position" placeholder="Enter your position" /><br /><br />
+            <input type="text" id="position" placeholder="Enter your position" /><br /><br />
 
             <label for="key-roles">Key Roles:</label>
-            <textarea class="key-roles" rows="2" cols="50" placeholder="Describe your key roles"></textarea><br /><br />
+            <textarea id="key-roles" rows="2" cols="50" placeholder="Describe your key roles"></textarea><br /><br />
 
             <label for="work-start-date">Start Date:</label>
-            <input type="date" class="work-start-date" /><br /><br />
+            <input type="date" id="work-start-date" /><br /><br />
 
             <label for="work-end-date">End Date:</label>
-            <input type="date" class="work-end-date" /><br /><br />
+            <input type="date" id="work-end-date" /><br /><br />
             <button class="remove-button">Remove</button>
         `;
             workContainer.appendChild(newWorkEntry);
@@ -277,13 +277,13 @@
             newLanguageEntry.classList.add('language-entry');
             newLanguageEntry.innerHTML = `
             <label for="language">Language:</label>
-            <input type="text" class="language" placeholder="Enter a language" /><br /><br />
+            <input type="text" id="language" placeholder="Enter a language" /><br /><br />
             
             <label for="native">Native:</label>
-            <input type="checkbox" class="native" /><br /><br />
+            <input type="checkbox" id="native" /><br /><br />
 
             <label for="proficiency">Proficiency Level:</label>
-            <select class="proficiency">
+            <select id="proficiency">
                 <option value="">Select proficiency</option>
                 <option value="basic">Basic</option>
                 <option value="intermediate">Intermediate</option>
@@ -322,7 +322,7 @@
             const newAwardEntry = document.createElement('div');
             newAwardEntry.classList.add('award-entry');
             newAwardEntry.innerHTML = `
-            <textarea class="award" rows="1" cols="50" placeholder="Enter award or certification name"></textarea><br /><br />
+            <textarea id="award" rows="1" cols="50" placeholder="Enter award or certification name"></textarea><br /><br />
             <button class="remove-button">Remove</button>
         `;
             awardContainer.appendChild(newAwardEntry);
@@ -339,10 +339,10 @@
             newWebsiteEntry.classList.add('website-entry');
             newWebsiteEntry.innerHTML = `
             <label for="website-url">Website URL:</label>
-            <input type="url" class="website-url" placeholder="Enter website URL" /><br /><br />
+            <input type="url" id="website-url" placeholder="Enter website URL" /><br /><br />
 
             <label for="website-description">Description:</label>
-            <textarea class="website-description" rows="1" cols="50" placeholder="Describe the website"></textarea><br /><br />
+            <textarea id="website-description" rows="1" cols="50" placeholder="Describe the website"></textarea><br /><br />
             
             <button class="remove-button">Remove</button>
         `;
@@ -360,13 +360,13 @@
             newProjectEntry.classList.add('project-entry');
             newProjectEntry.innerHTML = `
             <label for="project-name">Project Name:</label>
-            <input type="text" class="project-name" placeholder="Enter project name" /><br /><br />
+            <input type="text" id="project-name" placeholder="Enter project name" /><br /><br />
 
             <label for="project-description">Description:</label>
-            <textarea class="project-description" rows="4" cols="50" placeholder="Describe the project"></textarea><br /><br />
+            <textarea id="project-description" rows="4" cols="50" placeholder="Describe the project"></textarea><br /><br />
             
             <label for="project-url">Project URL:</label>
-            <input type="url" class="project-url" placeholder="Enter project URL" /><br /><br />
+            <input type="url" id="project-url" placeholder="Enter project URL" /><br /><br />
             
             <button class="remove-button">Remove</button>
         `;
