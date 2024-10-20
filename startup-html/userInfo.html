@@ -138,7 +138,7 @@
                 const sectionValue = {}
                 const data = section.querySelectorAll('.user-info-data')
                 data.forEach(item => {
-                    sectionValue[item.id] = item.value
+                    sectionValue[item.id] = item.type === 'checkbox' ? item.checked : item.value
                 })
                 userInfo[section.id] = sectionValue
             })
@@ -151,7 +151,7 @@
                     const subsectionValue = {}
                     const data = subsection.querySelectorAll('.user-info-data')
                     data.forEach(item => {
-                        subsectionValue[item.id] = item.value
+                        subsectionValue[item.id] = item.type === 'checkbox' ? item.checked : item.value
                     })
                     dynamicSectionValue.push(subsectionValue)
                 })
@@ -167,7 +167,11 @@
                 const data = section.querySelectorAll('.user-info-data')
                 const sectionData = userInfo[section.id]
                 data.forEach(item => {
-                    item.value = sectionData[item.id] ?? ''
+                    if (item.type === 'checkbox') {
+                        item.checked = sectionData[item.id]
+                    } else {
+                        item.value = sectionData[item.id] ?? ''
+                    }
                 })
             })
 
@@ -186,7 +190,11 @@
                     const subsectionData = dynamicSectionData[index]
                     const data = subsection.querySelectorAll('.user-info-data')
                     data.forEach(item => {
-                        item.value = subsectionData[item.id] ?? ''
+                        if (item.type === 'checkbox') {
+                            item.checked = subsectionData[item.id]
+                        } else {
+                            item.value = subsectionData[item.id] ?? ''
+                        }
                     })
                 })
             })
