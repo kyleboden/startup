@@ -1,4 +1,3 @@
-Auto-populate user information page from saved data
 Specify formatting for chat gpt
 Freeform resume input option
 Prevent hallucinations in adding qualifications : Landon
