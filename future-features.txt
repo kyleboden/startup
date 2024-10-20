@@ -1,8 +1,8 @@
 Auto-populate user information page from saved data
 Specify formatting for chat gpt
 Freeform resume input option
-Prevent hallucinations in adding qualifications
+Prevent hallucinations in adding qualifications : Landon
 Allow resume to be downloaded to a pdf
 Specifying sectinos that you would like in the resume
-
+Add more robust input checking/hand holding
 get triple ticks removed from resume
