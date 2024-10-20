@@ -1,96 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-        crossorigin="anonymous"
-    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ApplySmart HTML</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="generator.css">
-    <link rel="icon" href="ASNEWtransparent.png" type="image/png"/>
+    <link rel="icon" href="ASNEWtransparent.png" type="image/png" />
 </head>
+
 <body>
-  <header class="d-flex justify-content-between align-items-center fixed-top">
-    <a href="./index.html">
-        <img src="ApplySmartTWhite.png" style="width: 200px; height: auto;" />
-    </a>
-    <nav class="navbar navbar-expand-lg">
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto"> <!-- Add ms-auto here -->
-            <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="login.html">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="generator.html">Resume Generator</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="userInfo.html">Update Information</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="./engine.js"></script>
+    <header class="d-flex justify-content-between align-items-center fixed-top">
+        <a href="./index.html">
+            <img src="ApplySmartTWhite.png" style="width: 200px; height: auto;" />
+        </a>
+        <nav class="navbar navbar-expand-lg">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto"> <!-- Add ms-auto here -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="generator.html">Resume Generator</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="userInfo.html">Update Information</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./engine.js"></script>
 
     <main>
-      <div class="form-group">
-          <label for="job-description">Job Description:</label>
-          <textarea id="job-description" name="job-description" rows="10" placeholder="Paste your job description here"></textarea>
-      </div>
-      <div class="form-group">
-          <label for="extra-info">Any Extra Information:</label>
-          <textarea id="extra-info" name="extra-info" rows="5" placeholder="Add any extra information that could be useful for this specific job, e.g., personal experiences, etc."></textarea>
-      </div>
-      <button id="generate-resume" onclick="generateResume()">
-        <!-- Loading spinner element -->
-        <div id="loading-spinner"></div>
-        <div id="generate-button-text">[PLACEHOLDER] Generate Resume and Cover Letter</div>
-    </button>
-  </main>
-  
-  <style>
-    /* Loading spinner styles */
-    #loading-spinner {
-        display: none; /* Hidden by default */
-        border: 4px solid rgb(255, 255, 255);
-        border-left-color: #09485f;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-        top: 50%; /* Center it vertically */
-        left: 50%; /* Center it horizontally */
-        transform: translate(-50%, -50%); /* Move it to center */
-    }
+        <div class="form-group">
+            <label for="job-description">Job Description:</label>
+            <textarea id="job-description" name="job-description" rows="10"
+                placeholder="Paste your job description here"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="extra-info">Any Extra Information:</label>
+            <textarea id="extra-info" name="extra-info" rows="5"
+                placeholder="Add any extra information that could be useful for this specific job, e.g., personal experiences, etc."></textarea>
+        </div>
+        <button id="generate-resume" onclick="generateResume()">
+            <!-- Loading spinner element -->
+            <div id="loading-spinner"></div>
+            <div id="generate-button-text">[PLACEHOLDER] Generate Resume and Cover Letter</div>
+        </button>
+    </main>
 
-    @keyframes spin {
-        from {
-            transform: rotate(0deg);
+    <style>
+        /* Loading spinner styles */
+        #loading-spinner {
+            display: none;
+            /* Hidden by default */
+            border: 4px solid rgb(255, 255, 255);
+            border-left-color: #09485f;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            top: 50%;
+            /* Center it vertically */
+            left: 50%;
+            /* Center it horizontally */
+            transform: translate(-50%, -50%);
+            /* Move it to center */
         }
-        to {
-            transform: rotate(360deg);
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
         }
-    }
-</style>
+    </style>
 
     <script>
         function generateResume() {
@@ -102,7 +101,7 @@
             const buttonText = document.getElementById('generate-button-text');
             buttonText.style.display = 'none';
 
-            
+
             const userInfo = localStorage.getItem('user-info') ? JSON.parse(localStorage.getItem('user-info')) : {
                 contactInfo: {},
                 education: [],
@@ -125,28 +124,29 @@
             // an API call to a third-party service, like openai
             // in order to generate the resume that will be returned
             queryEngine(jobData, userInfo)
-            .then(result => {
-                console.log(result);
-                const blob = new Blob([result], { type: 'text/html'});
-                const url = URL.createObjectURL(blob);
-                window.open(url, "_blank");
-            })
-            .catch(error => {
-                console.error('Error generating resume:', error);
-            })
-            .finally(_ => {
-                generateResumeButton.disabled = false;
-                loadingSpinner.style.display = 'none';
-                buttonText.style.display = 'block';
-            });
+                .then(result => {
+                    const modifiedResult = result.slice(7, -3)
+                    const blob = new Blob([modifiedResult], { type: 'text/html' });
+                    const url = URL.createObjectURL(blob);
+                    window.open(url, "_blank");
+                })
+                .catch(error => {
+                    console.error('Error generating resume:', error);
+                })
+                .finally(_ => {
+                    generateResumeButton.disabled = false;
+                    loadingSpinner.style.display = 'none';
+                    buttonText.style.display = 'block';
+                });
         }
     </script>
 
-<footer>
-  <span class="text-reset">Kyle Boden</span>
-  <br />
-  <a href="https://github.com/kyleboden/startup/tree/main/startup-html">Click here to see my GitHub</a>
-</footer>
-    
-  </body>
+    <footer>
+        <span class="text-reset">Kyle Boden</span>
+        <br />
+        <a href="https://github.com/kyleboden/startup/tree/main/startup-html">Click here to see my GitHub</a>
+    </footer>
+
+</body>
+
 </html>

@@ -4,4 +4,3 @@ Prevent hallucinations in adding qualifications : Landon
 Allow resume to be downloaded to a pdf
 Specifying sectinos that you would like in the resume
 Add more robust input checking/hand holding
-get triple ticks removed from resume
