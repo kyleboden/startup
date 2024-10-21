@@ -62,9 +62,12 @@
             <div id="loading-spinner"></div>
             <div id="generate-button-text">[PLACEHOLDER] Generate Resume and Cover Letter</div>
         </button>
-        <button id="download-pdf-button">
-            Download PDF
+        <button id="download-pdf-button" onclick="downloadPDF()">
+            Download As PDF
         </button>
+        <div id="resume-preview">
+            <!-- Preview of generated resume will be added here -->
+        </div>
     </main>
 
     <style>
@@ -96,6 +99,15 @@
             }
         }
 
+        #resume-preview {
+            all: unset;
+            display: none;
+            border: solid 1px #cccccc;
+            box-shadow: 10px 10px 5px #cccccc;
+            margin: 20px;
+            padding: 20px;
+        }
+
         #download-pdf-button {
             display: none;
             background-color: rgb(255, 166, 0);
@@ -109,14 +121,16 @@
     <script>
         // We set this as a function so that we can add and remove event listeners
         function downloadPDF() {
-            const opt = {
-                margin: 0.5,
-                filename: 'ApplySmart-Resume.pdf',
-                html2canvas: { scale: 4, logging: false },
-                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-                pagebreak: { mode: 'avoid-all' }
-            };
-            html2pdf().set(opt).from(localStorage.getItem('resume')).save()
+            if (localStorage.getItem('resume')) {
+                const opt = {
+                    margin: 0.5,
+                    filename: 'ApplySmart-Resume.pdf',
+                    html2canvas: { scale: 4, logging: false },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+                    pagebreak: { mode: 'avoid-all' }
+                };
+                html2pdf().set(opt).from(localStorage.getItem('resume')).save()
+            }
         }
 
         function generateResume() {
@@ -152,10 +166,10 @@
                     const modifiedResult = result.slice(7, -3)
                     localStorage.setItem('resume', modifiedResult)
                     pdfButton.style.display = 'block';
-                    // This remove is necessary to prevent us from downloading multiple pdfs
-                    // if the user clicks generate again without refreshing the page
-                    pdfButton.removeEventListener('click', downloadPDF)
-                    pdfButton.addEventListener('click', downloadPDF)
+
+                    const resumePreview = document.getElementById('resume-preview')
+                    resumePreview.innerHTML = modifiedResult
+                    resumePreview.style.display = 'block';
                 })
                 .catch(error => {
                     console.error('Error generating resume:', error);
