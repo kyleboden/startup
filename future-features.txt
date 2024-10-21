@@ -1,6 +1,5 @@
 Specify formatting for chat gpt
 Freeform resume input option
 Prevent hallucinations in adding qualifications : Landon
-Allow resume to be downloaded to a pdf : Jacob
 Specifying sectinos that you would like in the resume
 Add more robust input checking/hand holding
