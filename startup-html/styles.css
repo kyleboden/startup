@@ -1,6 +1,5 @@
 /* Reset default styles for the body */
 html, body {
-  padding-top: 60px; /* Adjust this value to match the height of your header */
 
   height: 100%; /* Make the html and body take full height */
   margin: 0; /* Remove default margin */
@@ -10,7 +9,7 @@ html, body {
   background-color: #1784ac1e; /* Light background color for the whole page */
   display: flex; /* Set the body as a flex container */
   flex-direction: column; /* Arrange children in a column */
-  padding-top: 60px; /* Space for the fixed header */
+  padding-top: 45px; /* Space for the fixed header */
 
 }
 .responsive-image {
