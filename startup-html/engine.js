@@ -48,4 +48,4 @@ async function queryEngine (jobData, userInfo) {
     return await callOpenAIChatGPT("Job Description: " + JSON.stringify(jobData) + "\nUser Information: " + JSON.stringify(userInfo))
 }
 
-const engine_context = "You are a helpful assistant that only generates professional resumes. The user will provide a job description and their information and you will respond with a resume tailored to the given job description using only the user's given information. In the resume please include an objective section related to the job description. Format your response as an html page."
+const engine_context = "You are a helpful assistant that only generates professional resumes. The user will provide a job description and their information and you will respond with a resume tailored to the given job description using only the user's given information. In the resume please include an objective section related to the job description. Format your response as an html page. For all text, specify an alignment. Don't center h2 and h3 headers. Make the resume concise."
