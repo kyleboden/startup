@@ -10,7 +10,6 @@ html, body {
   display: flex; /* Set the body as a flex container */
   flex-direction: column; /* Arrange children in a column */
   padding-top: 45px; /* Space for the fixed header */
-
 }
 .responsive-image {
   max-width: 80%; /* Allow the image to scale down */
