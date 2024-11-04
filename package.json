@@ -1,0 +1,24 @@
+{
+  "name": "startup",
+  "version": "1.0.0",
+  "description": "Job hunting can be exhausting, with hours spent crafting resumes, writing cover letters, and applying to countless jobs, often without hearing back. In today's world, companies use AI tools to filter resumes before they even reach a human. With recruiters overwhelmed by applications, many great candidates are overlooked. ApplySmart changes that. Our platform uses AI to analyze job descriptions and your qualifications to create tailored resumes and cover letters that help you stand out, leveling the playing field and increasing your chances of landing an interview.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^5.4.10"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.5",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.27.0"
+  }
+}
