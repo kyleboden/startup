@@ -1,92 +1,162 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './userInfo.css';
 
-export function UserInfo() {
+export function UserInfo () {
+    const [userInfo, setUserInfo] = useState({});
+    const [educationEntries, setEducationEntries] = useState([]);
+    const [workEntries, setWorkEntries] = useState([]);
+    const [languageEntries, setLanguageEntries] = useState([]);
+    const [awardEntries, setAwardEntries] = useState([]);
+    const [websiteEntries, setWebsiteEntries] = useState([]);
+    const [projectEntries, setProjectEntries] = useState([]);
+    const [username, setUsername] = useState('Guest');
 
-  const saveUserInformation = () => {
-    // Call the save function
-    // Add your save logic here
-    window.location.href = 'generator.html';
-  };
+    useEffect(() => {
+        loadUserInformation();
+        const params = new URLSearchParams(window.location.search);
+        const userParam = params.get('username');
+        setUsername(userParam || 'Guest');
+    }, []);
 
-  return (
-    <main>
-      <h2 id="welcome-message"></h2>
-      <p>Please tell us more about you!</p>
-      <br />
+    const saveUserInformation = () => {
+        const updatedUserInfo = { ...userInfo };
 
-      <h3>Contact Information</h3>
-      <div id="contact-information" className="user-info-section">
-        <label htmlFor="name">Full Name:</label>
-        <input type="text" id="name" className="user-info-data" placeholder="Enter your Full Name" /><br /><br />
+        // Gather static section data
+        const sections = document.querySelectorAll('.user-info-section');
+        sections.forEach(section => {
+            const sectionValue = {};
+            const data = section.querySelectorAll('.user-info-data');
+            data.forEach(item => {
+                sectionValue[item.id] = item.type === 'checkbox' ? item.checked : item.value;
+            });
+            updatedUserInfo[section.id] = sectionValue;
+        });
 
-        <label htmlFor="phone">Phone Number:</label>
-        <input type="text" id="phone" className="user-info-data" placeholder="Enter your phone number" /><br /><br />
+        // Gather dynamic section data
+        updatedUserInfo.education = educationEntries;
+        updatedUserInfo.workHistory = workEntries;
+        updatedUserInfo.languages = languageEntries;
+        updatedUserInfo.awards = awardEntries;
+        updatedUserInfo.websites = websiteEntries;
+        updatedUserInfo.projects = projectEntries;
 
-        <label htmlFor="address">Address:</label>
-        <input type="text" id="address" className="user-info-data" placeholder="Enter your address" /><br /><br />
+        localStorage.setItem('user-info', JSON.stringify(updatedUserInfo));
+        setUserInfo(updatedUserInfo);
+        window.location.href = 'generator.html';
+    };
 
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" className="user-info-data" placeholder="Enter your email" /><br /><br />
+    const loadUserInformation = () => {
+        const storedUserInfo = JSON.parse(localStorage.getItem('user-info')) || {};
+        setUserInfo(storedUserInfo);
 
-        <label htmlFor="linkedIn">LinkedIn URL:</label>
-        <input type="url" id="linkedIn" className="user-info-data" placeholder="Enter your LinkedIn URL" /><br /><br />
-      </div>
+        // Set form values from localStorage
+        const sections = document.querySelectorAll('.user-info-section');
+        sections.forEach(section => {
+            const data = section.querySelectorAll('.user-info-data');
+            const sectionData = storedUserInfo[section.id] || {};
+            data.forEach(item => {
+                if (item.type === 'checkbox') {
+                    item.checked = sectionData[item.id] || false;
+                } else {
+                    item.value = sectionData[item.id] || '';
+                }
+            });
+        });
+    };
 
-      <h3>Education</h3>
-      <div id="education-information" className="user-info-dynamic-section">
-        {/* Dynamically populated */}
-      </div>
-      <button id="add-education-information">Add Education</button>
+    const addEducationEntry = () => {
+        setEducationEntries([...educationEntries, { school: '', startDate: '', endDate: '', gpa: '', major: '' }]);
+    };
 
-      <h3>Work History</h3>
-      <div id="work-history-information" className="user-info-dynamic-section">
-        {/* Dynamically populated */}
-      </div>
-      <button id="add-work-history-information">Add Work Entry</button>
+    const removeEducationEntry = (index) => {
+        const updatedEntries = educationEntries.filter((_, i) => i !== index);
+        setEducationEntries(updatedEntries);
+    };
 
-      <h3>Skills</h3>
-      <div id="skill-information" className="user-info-section">
-        <textarea id="skills" className="user-info-data" rows="4" cols="50"
-                  placeholder="Enter your skills (comma-separated)"></textarea>
-      </div>
+    const handleEducationChange = (index, field, value) => {
+        const updatedEntries = [...educationEntries];
+        updatedEntries[index][field] = value;
+        setEducationEntries(updatedEntries);
+    };
 
-      <h3>Languages</h3>
-      <div id="language-information" className="user-info-dynamic-section">
-        {/* Dynamically populated */}
-      </div>
-      <button id="add-language-information">Add Another Language</button>
+    const renderEducationEntries = () => {
+        return educationEntries.map((entry, index) => (
+            <div className="education-entry user-info-dynamic-subsection" key={index}>
+                <label>School:</label>
+                <input type="text" className="user-info-data" value={entry.school} onChange={(e) => handleEducationChange(index, 'school', e.target.value)} placeholder="Enter your school name" /><br /><br />
+                
+                <label>Start Date:</label>
+                <input type="date" className="user-info-data" value={entry.startDate} onChange={(e) => handleEducationChange(index, 'startDate', e.target.value)} /><br /><br />
+                
+                <label>End Date:</label>
+                <input type="date" className="user-info-data" value={entry.endDate} onChange={(e) => handleEducationChange(index, 'endDate', e.target.value)} /><br /><br />
+                
+                <label>GPA:</label>
+                <input type="text" className="user-info-data" value={entry.gpa} onChange={(e) => handleEducationChange(index, 'gpa', e.target.value)} placeholder="Enter your GPA" /><br /><br />
+                
+                <label>Major:</label>
+                <input type="text" className="user-info-data" value={entry.major} onChange={(e) => handleEducationChange(index, 'major', e.target.value)} placeholder="Enter your major" /><br /><br />
+                <button type="button" onClick={() => removeEducationEntry(index)}>Remove</button>
+            </div>
+        ));
+    };
 
-      <h3>Awards and Certifications</h3>
-      <div id="award-information" className="user-info-dynamic-section">
-        {/* Dynamically populated */}
-      </div>
-      <button id="add-award-information">Add Another</button>
+    return (
+        <div>
+            <header className="d-flex justify-content-between align-items-center fixed-top">
+                <a href="./index.html">
+                    <img src="ApplySmartTWhite.png" style={{ width: '200px', height: 'auto' }} alt="Logo" />
+                </a>
+                <nav className="navbar navbar-expand-lg">
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav ms-auto">
+                            <li className="nav-item"><a className="nav-link" href="index.html">Home</a></li>
+                            <li className="nav-item"><a className="nav-link" href="login.html">Login</a></li>
+                            <li className="nav-item"><a className="nav-link" href="generator.html">Resume Generator</a></li>
+                            <li className="nav-item"><a className="nav-link active" href="userInfo.html">Update Information</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
 
-      <h3>Relevant Websites</h3>
-      <div id="website-information" className="user-info-dynamic-section">
-        {/* Dynamically populated */}
-      </div>
-      <button id="add-website-information">Add Another Website</button>
+            <main>
+                <h2>Welcome, {username}!</h2>
+                <p>Please tell us more about you!</p>
+                <br />
 
-      <h3>Projects</h3>
-      <div id="project-information" className="user-info-dynamic-section">
-        {/* Dynamically populated */}
-      </div>
-      <button id="add-project-information">Add Another Project</button>
+                <h3>Contact Information</h3>
+                <div className="user-info-section" id="contact-information">
+                    <label htmlFor="name">Full Name:</label>
+                    <input type="text" id="name" className="user-info-data" placeholder="Enter your Full Name" /><br /><br />
 
-      <h3>Other Relevant Information</h3>
-      <div id="other-information" className="user-info-section">
-        <textarea id="relevant-info" className="user-info-data" rows="4" cols="50"
-                  placeholder="Enter any other information about yourself :)"></textarea>
-      </div>
+                    <label htmlFor="phone">Phone Number:</label>
+                    <input type="text" id="phone" className="user-info-data" placeholder="Enter your phone number" /><br /><br />
 
-      <br /><br />
-      <hr />
-      <button id="save-information" onClick={saveUserInformation}>
-        Save Information and go to Resume Generator
-      </button>
-      <hr />
-    </main>
-  );
-}
+                    <label htmlFor="address">Address:</label>
+                    <input type="text" id="address" className="user-info-data" placeholder="Enter your address" /><br /><br />
+
+                    <label htmlFor="email">Email:</label>
+                    <input type="email" id="email" className="user-info-data" placeholder="Enter your email" /><br /><br />
+
+                    <label htmlFor="linkedIn">LinkedIn URL:</label>
+                    <input type="url" id="linkedIn" className="user-info-data" placeholder="Enter your LinkedIn URL" /><br /><br />
+                </div>
+
+                <h3>Education</h3>
+                <div id="education-information" className="user-info-dynamic-section">
+                    {renderEducationEntries()}
+                </div>
+                <button type="button" onClick={addEducationEntry}>Add Education</button>
+
+                {/* Similar sections for Work History, Skills, Languages, Awards, Websites, Projects can be added here */}
+                <button id="save-information" onClick={saveUserInformation}>Save Information and go to Resume Generator</button>
+            </main>
+
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+        </div>
+    );
+};
+
