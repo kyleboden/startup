@@ -1,9 +1,9 @@
 import React from 'react';
 
-export function Login() {
+export function HomePage() {
   return (
     <main className='container-fluid bg-secondary text-center'>
-      <div>login displayed here</div>
+      <div>home page displayed here</div>
     </main>
   );
 }
