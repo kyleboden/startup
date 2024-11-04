@@ -1,6 +1,5 @@
 /* Reset default styles for the body */
 html, body {
-
   height: 100%; /* Make the html and body take full height */
   margin: 0; /* Remove default margin */
   padding: 0; /* Remove default padding */
@@ -9,17 +8,19 @@ html, body {
   background-color: #1784ac1e; /* Light background color for the whole page */
   display: flex; /* Set the body as a flex container */
   flex-direction: column; /* Arrange children in a column */
+}
+
+/* Remove padding from body to avoid spacing issues */
+body {
   padding-top: 45px; /* Space for the fixed header */
 }
+
+/* Responsive image styles */
 .responsive-image {
   max-width: 80%; /* Allow the image to scale down */
   height: auto;    /* Maintain aspect ratio */
 }
 
-body {
-  /* Remove flex layout from body to avoid affecting header and footer */
-  text-align: right; /* Center text in header and footer */
-}
 .nav-link {
   color: #ffffff; /* Change this to your desired color */
 }
@@ -27,10 +28,12 @@ body {
 .nav-link:hover {
   color: #6cdff3; /* Optional: change this for hover state */
 }
+
 .nav-link.active {
   color: #6cdff3; /* Active link color */
 }
 
+/* Header styles */
 header {
   display: flex;
   align-items: center; /* Center-align the elements vertically */
@@ -51,11 +54,11 @@ header h1 {
   color: #ffffff; /* White text color for contrast */
   margin: 0; /* Remove default margin */
 }
-menu {
+
+.menu {
   flex: 1;
   display: flex;
-  /*  overwrite Bootstrap so the menu does not wrap */
-  flex-direction: row !important;
+  flex-direction: row; /* Overwrite Bootstrap so the menu does not wrap */
   list-style: none;
 }
 
@@ -64,10 +67,9 @@ menu {
   border-bottom: solid rgb(182, 182, 182) thin;
 }
 
-menu .nav-item {
+.menu .nav-item {
   padding: 0 0.3em;
 }
-
 
 /* Main content styles */
 main {
@@ -115,6 +117,7 @@ footer {
   text-align: center; /* Center-align footer text */
   padding: 20px; /* Increase padding for the footer height */
   background-color: #f0f0f0; /* Light grey for footer background */
+  margin-top: auto; /* Push footer to the bottom */
 }
 
 footer .text-reset {
