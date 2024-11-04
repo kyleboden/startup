@@ -1,53 +1,26 @@
-/* Main content styles */
-main {
+/* Loading spinner styles */
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    margin: auto;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  #generate-resume {
     display: flex;
-    flex-direction: column;
-    align-items: center; /* Center align main content */
-    padding: 20px; /* Add some padding */
-}
-
-/* Form group styles */
-.form-group {
-    display: flex; /* Use flexbox for label and textarea */
-    flex-direction: column; /* Arrange items vertically */
-    align-items: flex-start; /* Align items to the start (left) */
-    width: 100%; /* Full width */
-    max-width: 600px; /* Set max width for the group */
-}
-
-/* Label styles */
-label {
-    font-weight: bold; /* Makes the label text bold */
-    font-size: 1.2rem; /* Font size for better readability */
-    color: #1784AC; /* Use your logo color for consistency */
-    margin-bottom: 0.5rem; /* Adds space below the label */
-}
-
-/* Textarea styles */
-textarea {
-    border-radius: 10px; /* Rounded edges */
-    border: 1px solid #ccc; /* Light border */
-    padding: 10px; /* Padding inside textareas */
-    width: 100%; /* Use full width */
-    min-height: 100px; /* Minimum height for textareas */
-    margin-bottom: 20px; /* Space below textareas */
-    box-sizing: border-box; /* Include padding and border in the total width */
-    font-size: 1rem; /* Font size for textarea text */
-}
-
-/* Button styles */
-button {
-    background-color: #1784AC; /* Button color */
-    color: white; /* Button text color */
-    border: none; /* Remove border */
-    padding: 10px 20px; /* Padding for button */
-    border-radius: 5px; /* Rounded edges for buttons */
-    cursor: pointer; /* Pointer cursor on hover */
-    font-size: 16px; /* Button text size */
-    margin-top: 10px; /* Space above buttons */
-}
-
-button:hover {
-    background-color: #0f5f7a; /* Darker shade on hover */
-}
-
+    align-items: center;
+    justify-content: center;
+  }
+  

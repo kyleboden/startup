@@ -8,29 +8,7 @@ html, body {
   background-color: #1784ac1e; /* Light background color for the whole page */
   display: flex; /* Set the body as a flex container */
   flex-direction: column; /* Arrange children in a column */
-}
-
-/* Remove padding from body to avoid spacing issues */
-body {
   padding-top: 45px; /* Space for the fixed header */
-}
-
-/* Responsive image styles */
-.responsive-image {
-  max-width: 80%; /* Allow the image to scale down */
-  height: auto;    /* Maintain aspect ratio */
-}
-
-.nav-link {
-  color: #ffffff; /* Change this to your desired color */
-}
-
-.nav-link:hover {
-  color: #6cdff3; /* Optional: change this for hover state */
-}
-
-.nav-link.active {
-  color: #6cdff3; /* Active link color */
 }
 
 /* Header styles */
@@ -46,31 +24,6 @@ header {
   z-index: 1000; /* Ensure it appears above other content */
 }
 
-header img {
-  margin-right: 20px; /* Space between the image and text */
-}
-
-header h1 {
-  color: #ffffff; /* White text color for contrast */
-  margin: 0; /* Remove default margin */
-}
-
-.menu {
-  flex: 1;
-  display: flex;
-  flex-direction: row; /* Overwrite Bootstrap so the menu does not wrap */
-  list-style: none;
-}
-
-.navbar-brand {
-  padding-left: 0.3em;
-  border-bottom: solid rgb(182, 182, 182) thin;
-}
-
-.menu .nav-item {
-  padding: 0 0.3em;
-}
-
 /* Main content styles */
 main {
   flex: 1; /* Allow main content to grow and fill available space */
@@ -80,36 +33,8 @@ main {
   border-radius: 5px; /* Round the corners */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   text-align: center; /* Center the image and text inside main */
-}
+  margin-bottom: 110px; /* Add margin to avoid overlap with the footer */
 
-main h1 {
-  color: #1784AC; /* Use logo color for the main title */
-  text-align: center; /* Center-align the text */
-}
-
-main h3 {
-  color: #555; /* Medium grey for subheading */
-  text-align: center; /* Center-align the text */
-}
-
-main p {
-  max-width: 650px; /* Set a maximum width */
-  margin: 0 auto; /* Center the div horizontally */
-  padding: 0 20px; /* Horizontal padding */
-  color: #333; /* Dark text color for readability */
-}
-
-main h4 {
-  text-align: center; /* Center the h4 element */
-}
-
-main h4 a {
-  color: #1784AC; /* Link color matching the logo */
-  text-decoration: none; /* Remove underline */
-}
-
-main h4 a:hover {
-  text-decoration: underline; /* Underline on hover for better UX */
 }
 
 /* Footer styles */
@@ -117,7 +42,11 @@ footer {
   text-align: center; /* Center-align footer text */
   padding: 20px; /* Increase padding for the footer height */
   background-color: #f0f0f0; /* Light grey for footer background */
-  margin-top: auto; /* Push footer to the bottom */
+  position: fixed; /* Fix the footer at the bottom */
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 999; /* Ensure it appears below the header but above other content */
 }
 
 footer .text-reset {

@@ -58,15 +58,16 @@ export default function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
 
-        <footer >
+        <footer>
           <div className="container-fluid">
             <span className="text-reset">Kyle Boden</span>
-            <a className="text-reset" href="https://github.com/kyleboden/startup/tree/main/startup-html">
+            <a href="https://github.com/kyleboden/startup/tree/main/startup-html">
               <br />
               Click here to see my GitHub
             </a>
           </div>
         </footer>
+
       </div>
     </BrowserRouter>
   );
