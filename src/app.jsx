@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { HomePage } from './homePage/homePage';
 import { Login } from './login/login';
 import { Generator } from './generator/generator';
 import { UserInfo } from './userInfo/userInfo';
-import { HomePage } from './homePage/homePage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
@@ -79,3 +79,4 @@ function NotFound() {
     </main>
   );
 }
+

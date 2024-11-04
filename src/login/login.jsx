@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './login.css'; 
 
-export function LoginPage() {
+export function Login() {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
