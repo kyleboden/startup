@@ -17,6 +17,8 @@ export function UserInfo() {
         school: '',
         startDate: '',
         endDate: '',
+        gpa: '',
+        major: '',
     });
     const [newWork, setNewWork] = useState({ // State for new work entry
         company: '',
@@ -73,13 +75,14 @@ export function UserInfo() {
         setIsAddingEducation(false);
     };
 
-    const addWorkEntry = () => { // Function to add work entry
+    const addWorkEntry = () => {
         if (newWork.company && newWork.position && newWork.startDate && newWork.endDate) {
             setWorkEntries((prev) => [...prev, newWork]);
             setNewWork({ company: '', position: '', startDate: '', endDate: '' });
             setIsAddingWork(false);
         }
     };
+    
 
     const removeWorkEntry = (index) => { // Function to remove work entry
         const updatedEntries = workEntries.filter((_, i) => i !== index);
@@ -124,48 +127,66 @@ export function UserInfo() {
             </div>
 
             <h3>Education</h3>
-            <div className="education-section">
-                {educationEntries.map((entry, index) => (
-                    <div key={index} className="education-entry">
-                        <p>School: {entry.school}</p>
-                        <p>Start: {entry.startDate}</p>
-                        <p>End: {entry.endDate}</p>
-                        <div className="button-group">
-                            <button onClick={() => removeEducationEntry(index)}>Remove</button>
-                            <button onClick={() => editEducationEntry(index)}>Edit</button>
-                        </div>
-                    </div>
-                ))}
+<div className="education-section">
+    {educationEntries.map((entry, index) => (
+        <div key={index} className="education-entry">
+            <p>School: {entry.school}</p>
+            <p>Start: {entry.startDate}</p>
+            <p>End: {entry.endDate}</p>
+            <p>GPA: {entry.school}</p>
+            <p>Major: {entry.school}</p>
 
-                <button onClick={() => {
-                    setIsAddingEducation(true);
-                    setIsEditingEducation(false); // Reset editing when adding new
-                    setNewEducation({ school: '', startDate: '', endDate: '' }); // Reset form
-                }}>Add Education</button>
+            <div className="button-group">
+                <button onClick={() => removeEducationEntry(index)}>Remove</button>
+                <button onClick={() => editEducationEntry(index)}>Edit</button>
+            </div>
+        </div>
+    ))}
 
-                {(isAddingEducation || isEditingEducation) && (
-                    <div className="new-education-form">
-                        <label htmlFor="school">School:</label>
-                        <input type="text" id="school" value={newEducation.school} onChange={handleNewEducationChange} placeholder="Enter school name" />
+    <button onClick={() => {
+        setIsAddingEducation(true);
+        setIsEditingEducation(false); // Reset editing when adding new
+        setNewEducation({ school: '', startDate: '', endDate: '' }); // Reset form
+    }}>Add Education</button>
 
-                        <label htmlFor="startDate">Start Date:</label>
-                        <input type="text" id="startDate" value={newEducation.startDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
-
-                        <label htmlFor="endDate">End Date:</label>
-                        <input type="text" id="endDate" value={newEducation.endDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
-                        <div className="button-group">
-                            <button onClick={addEducationEntry}>{isEditingEducation ? 'Update Education' : 'Save Education'}</button>
-                            <button onClick={() => {
-                                setIsAddingEducation(false);
-                                setIsEditingEducation(false);
-                                setNewEducation({ school: '', startDate: '', endDate: '' }); // Reset form
-                            }}>Cancel</button>
-                        </div>
-                    </div>
-                )}
+    {(isAddingEducation || isEditingEducation) && (
+        <div className="new-education-form">
+            <div className="input-group">
+                <label htmlFor="school">School:</label>
+                <input type="text" id="school" value={newEducation.school} onChange={handleNewEducationChange} placeholder="Enter school name" />
             </div>
 
-            // Inside the return statement of your UserInfo component
+            <div className="input-group">
+                <label htmlFor="startDate">Start Date:</label>
+                <input type="text" id="startDate" value={newEducation.startDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
+            </div>
+
+            <div className="input-group">
+                <label htmlFor="endDate">End Date:</label>
+                <input type="text" id="endDate" value={newEducation.endDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
+            </div>
+            
+            <div className="input-group">
+                <label htmlFor="gpa">GPA:</label>
+                <input type="text" id="endDate" value={newEducation.endDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
+            </div>
+            
+            <div className="input-group">
+                <label htmlFor="major">Major:</label>
+                <input type="text" id="endDate" value={newEducation.endDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
+            </div>
+            <div className="button-group">
+                <button onClick={addEducationEntry}>{isEditingEducation ? 'Update Education' : 'Save Education'}</button>
+                <button onClick={() => {
+                    setIsAddingEducation(false);
+                    setIsEditingEducation(false);
+                    setNewEducation({ school: '', startDate: '', endDate: '' }); // Reset form
+                }}>Cancel</button>
+            </div>
+        </div>
+    )}
+</div>
+
 <h3>Work History</h3>
 <div className="work-section">
     {workEntries.map((entry, index) => (
@@ -189,17 +210,25 @@ export function UserInfo() {
 
     {(isAddingWork || isEditingWork) && (
         <div className="new-work-form">
-            <label htmlFor="company">Company:</label>
-            <input type="text" id="company" value={newWork.company} onChange={handleNewWorkChange} placeholder="Enter company name" />
+            <div className="input-group">
+                <label htmlFor="company">Company:</label>
+                <input type="text" id="company" value={newWork.company} onChange={handleNewWorkChange} placeholder="Enter company name" />
+            </div>
 
-            <label htmlFor="position">Position:</label>
-            <input type="text" id="position" value={newWork.position} onChange={handleNewWorkChange} placeholder="Enter position" />
+            <div className="input-group">
+                <label htmlFor="position">Position:</label>
+                <input type="text" id="position" value={newWork.position} onChange={handleNewWorkChange} placeholder="Enter position" />
+            </div>
 
-            <label htmlFor="workStartDate">Start Date:</label>
-            <input type="text" id="workStartDate" value={newWork.startDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
+            <div className="input-group">
+    <label htmlFor="startDate">Start Date:</label>
+    <input type="text" id="startDate" value={newWork.startDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
+</div>
 
-            <label htmlFor="workEndDate">End Date:</label>
-            <input type="text" id="workEndDate" value={newWork.endDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
+<div className="input-group">
+    <label htmlFor="endDate">End Date:</label>
+    <input type="text" id="endDate" value={newWork.endDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
+</div>
             <div className="button-group">
                 <button onClick={addWorkEntry}>{isEditingWork ? 'Update Work' : 'Save Work'}</button>
                 <button onClick={() => {
@@ -211,6 +240,7 @@ export function UserInfo() {
         </div>
     )}
 </div>
+
 
 
         </main>

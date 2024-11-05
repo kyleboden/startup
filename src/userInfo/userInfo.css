@@ -53,7 +53,7 @@ button:hover {
 }
 
 /* Education entry styles */
-.education-entry {
+.education-entry, .work-entry {
     background-color: #f9f9f9;
     padding: 15px;
     border: 1px solid #ccc;
@@ -61,39 +61,30 @@ button:hover {
     margin-bottom: 10px;
 }
 
-.new-education-form {
-    margin-top: 20px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 4px;
-}
-
-.new-education-form label {
-    display: block;
-    margin-top: 10px; /* Space between labels */
-}
-
-.new-education-form input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 5px; /* Space between label and input */
-}
+.new-education-form, 
 .new-work-form {
     margin-top: 20px;
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 4px;
 }
+
+.new-education-form label, 
+.new-work-form label {
+    display: block;
+    margin-top: 10px; /* Space between labels */
+}
+
+
+/* Ensure the input fields within both forms are styled similarly */
+.new-education-form input,
 .new-work-form input {
-    width: 100%;
+    width: 100%; /* Ensures both inputs are the same width */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    margin-top: 5px; /* Space between label and input */
+    margin-top: 5px; /* Consistent spacing above the input */
 }
 
 .contact-section {
@@ -114,15 +105,8 @@ button:hover {
     box-sizing: border-box; /* Ensures padding is included in the width */
 }
 
-.education-section {
-    margin-top: 20px;
-}
 
-.education-entry {
-    display: flex;
-    flex-direction: column; /* Stack the text and buttons */
-    margin-bottom: 10px; /* Space between education entries */
-}
+
 
 .button-group {
     display: flex; /* Use flexbox to align items horizontally */
