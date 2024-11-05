@@ -105,22 +105,135 @@ button:hover {
     box-sizing: border-box; /* Ensures padding is included in the width */
 }
 
+.date-container {
+    display: flex;
+    gap: 20px; /* Adjust gap as needed */
+    align-items: center;
+}
+
+.date-container div {
+    display: flex;
+    flex-direction: column;
+}
 
 
 
 .button-group {
+    justify-content: center; /* Centers the buttons horizontally */
     display: flex; /* Use flexbox to align items horizontally */
     gap: 10px; /* Optional: add space between buttons */
     margin-top: 10px; /* Optional: add some space above the button group */
 }
 
 .button-group button {
+
     width: 150px; /* Set a specific width */
     padding: 10px; /* Optional: add some padding for better appearance */
     font-size: 16px; /* Optional: increase font size */
+}
+
+.add-button {
+    background-color: #1784AC; /* Your logo color */
+    color: white;
+    border: none;
+    border-radius: 10px; /* Increased radius for a more rounded button */
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.add-button:hover {
+    background-color: #115b76; /* Darker blue for Edit button hover */
+}
+
+
+
+.edit-button, .remove-button, .cancel-button, .update-button {
+    background-color: #ffffff; /* Edit button color */
+    color: rgb(31, 31, 31);
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px !important; /* Ensure very small padding */
+    font-size: 12px !important; /* Ensure smaller font size */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 60px;
+    margin-top: 5px;
+}
+.edit-button, .update-button {
+    border: 1px solid #297fb9b2; /* Border with the same color */
+
+}
+.edit-button:hover, .update-button:hover {
+    background-color: #297fb9b2; /* Darker blue for Edit button hover */
+    color: white
+}
+
+
+.remove-button, .cancel-button {
+    border: 1px solid #e74d3c99; /* Border with the same color */
+}
+
+.remove-button:hover, .cancel-button:hover {
+    background-color: #e74d3c99; /* Darker red for Remove button hover */
+    color: white
 }
 
 
 
 
 
+.skill-entry {
+    position: relative;
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+.remove-skill {
+    position: absolute;
+    top: -10px;
+    right: 0px; 
+    font-size: 25px;
+    color: red;
+    display: none;
+    cursor: pointer;
+}
+
+.skill-entry:hover .remove-skill {
+    display: block;
+}
+
+
+.add-skill {
+    margin-top: 20px;
+    display: flex; /* Use flexbox to align items */
+    justify-content: flex-start; /* Align to the left */
+    align-items: center;
+}
+
+.add-skill input {
+    padding: 5px;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-skill button {
+    padding: 5px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #1784ac;
+    color: white;
+    border-radius: 5px;
+}
+
+.add-skill button:hover {
+    background-color: #0f5d7f;
+}

@@ -11,8 +11,11 @@ export function UserInfo() {
     });
     const [educationEntries, setEducationEntries] = useState([]);
     const [workEntries, setWorkEntries] = useState([]); // State for work history
+    const [skills, setSkills] = useState([]);  // State for skills
+
     const [isAddingEducation, setIsAddingEducation] = useState(false);
     const [isAddingWork, setIsAddingWork] = useState(false); // State for adding work
+    const [isAddingSkill, setIsAddingSkill] = useState(false);  // State for adding skills
     const [newEducation, setNewEducation] = useState({
         school: '',
         startDate: '',
@@ -25,7 +28,9 @@ export function UserInfo() {
         position: '',
         startDate: '',
         endDate: '',
+        keyRoles: '',
     });
+    const [newSkill, setNewSkill] = useState('');  // State for new skill
     const [isEditingEducation, setIsEditingEducation] = useState(false);
     const [currentEducationIndex, setCurrentEducationIndex] = useState(null);
     const [isEditingWork, setIsEditingWork] = useState(false); // State for editing work
@@ -78,7 +83,7 @@ export function UserInfo() {
     const addWorkEntry = () => {
         if (newWork.company && newWork.position && newWork.startDate && newWork.endDate) {
             setWorkEntries((prev) => [...prev, newWork]);
-            setNewWork({ company: '', position: '', startDate: '', endDate: '' });
+            setNewWork({ company: '', position: '', startDate: '', endDate: '', keyRoles: '' });
             setIsAddingWork(false);
         }
     };
@@ -95,6 +100,32 @@ export function UserInfo() {
         setIsEditingWork(true);
         setIsAddingWork(false);
     };
+
+
+    const handleSkillRemove = (index) => {
+        const updatedSkills = skills.filter((_, i) => i !== index);
+        setSkills(updatedSkills);
+    };
+
+    const handleAddSkill = () => {
+        if (newSkill && !skills.includes(newSkill)) { // Check if the skill is not empty and not already in the list
+            setSkills([...skills, newSkill]);
+            setNewSkill(''); // Clear the input field after adding
+        }
+    };
+
+    const handleNewSkillChange = (e) => {
+        setNewSkill(e.target.value); // Update the new skill input state
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {  // Check if Enter key is pressed
+            handleAddSkill();  // Add the skill
+            e.preventDefault(); // Prevent form submission or other default actions
+        }
+    };
+
+    
 
     return (
         <main className="user-info-main">
@@ -127,66 +158,69 @@ export function UserInfo() {
             </div>
 
             <h3>Education</h3>
-<div className="education-section">
-    {educationEntries.map((entry, index) => (
-        <div key={index} className="education-entry">
-            <p>School: {entry.school}</p>
-            <p>Start: {entry.startDate}</p>
-            <p>End: {entry.endDate}</p>
-            <p>GPA: {entry.school}</p>
-            <p>Major: {entry.school}</p>
+            <div className="education-section">
+                {educationEntries.map((entry, index) => (
+                    <div key={index} className="education-entry">
+                        <p>School: {entry.school}</p>
+                        <p>Start: {entry.startDate}</p>
+                        <p>End: {entry.endDate}</p>
+                        <p>GPA: {entry.school}</p>
+                        <p>Major: {entry.school}</p>
 
-            <div className="button-group">
-                <button onClick={() => removeEducationEntry(index)}>Remove</button>
-                <button onClick={() => editEducationEntry(index)}>Edit</button>
-            </div>
-        </div>
-    ))}
+                        <div className="button-group">
+                        <button className="edit-button" onClick={() => editEducationEntry(index)}>Edit</button>
+                        <button className="remove-button" onClick={() => removeEducationEntry(index)}>Remove</button>
+                        </div>
+                    </div>
+                ))}
 
-    <button onClick={() => {
-        setIsAddingEducation(true);
-        setIsEditingEducation(false); // Reset editing when adding new
-        setNewEducation({ school: '', startDate: '', endDate: '' }); // Reset form
-    }}>Add Education</button>
+                <button className="add-button"onClick={() => {
+                    setIsAddingEducation(true);
+                    setIsEditingEducation(false); // Reset editing when adding new
+                    setNewEducation({ school: '', startDate: '', endDate: '' }); // Reset form
+                }}>Add Education</button>
 
-    {(isAddingEducation || isEditingEducation) && (
-        <div className="new-education-form">
-            <div className="input-group">
+                {(isAddingEducation || isEditingEducation) && (
+                    <div className="new-education-form">
+                        <div className="input-group">
                 <label htmlFor="school">School:</label>
                 <input type="text" id="school" value={newEducation.school} onChange={handleNewEducationChange} placeholder="Enter school name" />
             </div>
 
-            <div className="input-group">
-                <label htmlFor="startDate">Start Date:</label>
-                <input type="text" id="startDate" value={newEducation.startDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
+            <div className="input-group date-container"> {/* New container for dates */}
+                <div>
+                    <label htmlFor="startDate">Start Date:</label>
+                    <input type="text" id="startDate" value={newEducation.startDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
+                </div>
+                <div>
+                    <label htmlFor="endDate">End Date:</label>
+                    <input type="text" id="endDate" value={newEducation.endDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
+                </div>
             </div>
 
-            <div className="input-group">
-                <label htmlFor="endDate">End Date:</label>
-                <input type="text" id="endDate" value={newEducation.endDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
-            </div>
-            
             <div className="input-group">
                 <label htmlFor="gpa">GPA:</label>
-                <input type="text" id="endDate" value={newEducation.endDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
+                <input type="text" id="gpa" value={newEducation.gpa} onChange={handleNewEducationChange} placeholder="Enter your GPA" />
             </div>
-            
+
             <div className="input-group">
                 <label htmlFor="major">Major:</label>
-                <input type="text" id="endDate" value={newEducation.endDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
+                <input type="text" id="major" value={newEducation.major} onChange={handleNewEducationChange} placeholder="Enter your major" />
             </div>
-            <div className="button-group">
-                <button onClick={addEducationEntry}>{isEditingEducation ? 'Update Education' : 'Save Education'}</button>
-                <button onClick={() => {
-                    setIsAddingEducation(false);
-                    setIsEditingEducation(false);
-                    setNewEducation({ school: '', startDate: '', endDate: '' }); // Reset form
-                }}>Cancel</button>
-            </div>
-        </div>
-    )}
-</div>
 
+                        <div className="button-group">
+                            <button className="update-button" onClick={addEducationEntry}>{isEditingEducation ? 'Update Education' : 'Save Education'}</button>
+                            <button className="cancel-button" onClick={() => {
+                                setIsAddingEducation(false);
+                                setIsEditingEducation(false);
+                                setNewEducation({ school: '', startDate: '', endDate: '' }); // Reset form
+                            }}>Cancel</button>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+<br></br>
 <h3>Work History</h3>
 <div className="work-section">
     {workEntries.map((entry, index) => (
@@ -195,17 +229,21 @@ export function UserInfo() {
             <p>Position: {entry.position}</p>
             <p>Start: {entry.startDate}</p>
             <p>End: {entry.endDate}</p>
+            <p>
+                Key Roles: <br />
+                <span dangerouslySetInnerHTML={{ __html: entry.keyRoles.replace(/\n/g, '<br />') }} />
+            </p>
             <div className="button-group">
-                <button onClick={() => removeWorkEntry(index)}>Remove</button>
-                <button onClick={() => editWorkEntry(index)}>Edit</button>
+            <button className="edit-button"onClick={() => editWorkEntry(index)}>Edit</button>
+            <button className="remove-button" onClick={() => removeWorkEntry(index)}>Remove</button>
             </div>
         </div>
     ))}
 
-    <button onClick={() => {
+    <button className="add-button"onClick={() => {
         setIsAddingWork(true);
         setIsEditingWork(false); // Reset editing when adding new
-        setNewWork({ company: '', position: '', startDate: '', endDate: '' }); // Reset form
+        setNewWork({ company: '', position: '', startDate: '', endDate: '', keyRoles: ''}); // Reset form
     }}>Add Work</button>
 
     {(isAddingWork || isEditingWork) && (
@@ -220,27 +258,57 @@ export function UserInfo() {
                 <input type="text" id="position" value={newWork.position} onChange={handleNewWorkChange} placeholder="Enter position" />
             </div>
 
-            <div className="input-group">
-    <label htmlFor="startDate">Start Date:</label>
-    <input type="text" id="startDate" value={newWork.startDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
-</div>
 
-<div className="input-group">
-    <label htmlFor="endDate">End Date:</label>
-    <input type="text" id="endDate" value={newWork.endDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
-</div>
+            <div className="input-group date-container">
+                <div>
+                    <label htmlFor="startDate">Start Date:</label>
+                    <input type="text" id="startDate" value={newWork.startDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
+                </div>
+                <div>
+                    <label htmlFor="endDate">End Date:</label>
+                    <input type="text" id="endDate" value={newWork.endDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
+                </div>
+            </div>
+
+            <div className="input-group">
+            <label htmlFor="keyRoles">Key Roles:</label><br />
+            <textarea id="keyRoles" value={newWork.keyRoles} onChange={handleNewWorkChange} placeholder="Enter key roles in your work history" rows="4" />
+            </div>
+
             <div className="button-group">
-                <button onClick={addWorkEntry}>{isEditingWork ? 'Update Work' : 'Save Work'}</button>
-                <button onClick={() => {
+                <button className="update-button" onClick={addWorkEntry}>{isEditingWork ? 'Update Work' : 'Save Work'}</button>
+                <button className="cancel-button" onClick={() => {
                     setIsAddingWork(false);
                     setIsEditingWork(false);
-                    setNewWork({ company: '', position: '', startDate: '', endDate: '' }); // Reset form
+                    setNewWork({ company: '', position: '', startDate: '', endDate: '', keyRoles: '' }); // Reset form
                 }}>Cancel</button>
             </div>
         </div>
     )}
 </div>
 
+        <br></br>
+        <h3>Skills</h3>
+        <div className="skills-section">
+            {skills.map((skill, index) => (
+                <div key={index} className="skill-entry">
+                    <span>{skill}</span>
+                    <span className="remove-skill" onClick={() => handleSkillRemove(index)}>×</span>
+                </div>
+            ))}
+        </div>
+
+        <div className="add-skill">
+            <input
+                type="text"
+                value={newSkill}
+                onChange={handleNewSkillChange}
+                placeholder="Add a new skill"
+                onKeyDown={(e) => handleKeyDown(e, 'skill')} // Use the existing handleKeyDown function
+
+            />
+            <button onClick={handleAddSkill}>Add Skill</button>
+        </div>
 
 
         </main>
