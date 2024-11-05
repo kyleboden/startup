@@ -25,7 +25,7 @@ header {
 }
 
 /* Main content styles */
-main {
+.main {
   flex: 1; /* Allow main content to grow and fill available space */
   padding: 20px; /* Add space inside the main content */
   background-color: #ffffff; /* White background for the main section */
@@ -33,8 +33,7 @@ main {
   border-radius: 5px; /* Round the corners */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   text-align: center; /* Center the image and text inside main */
-  margin-bottom: 110px; /* Add margin to avoid overlap with the footer */
-
+  margin-bottom: 120px; /* Add margin to avoid overlap with the footer */
 }
 
 /* Footer styles */

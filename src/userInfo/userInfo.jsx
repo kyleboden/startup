@@ -1,71 +1,64 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './userInfo.css';
 
-export function UserInfo () {
-    const [userInfo, setUserInfo] = useState({});
+export function UserInfo() {
+    const [contactInfo, setContactInfo] = useState({
+        fullName: '',
+        phoneNumber: '',
+        address: '',
+        email: '',
+        linkedIn: '',
+    });
     const [educationEntries, setEducationEntries] = useState([]);
-    const [workEntries, setWorkEntries] = useState([]);
-    const [languageEntries, setLanguageEntries] = useState([]);
-    const [awardEntries, setAwardEntries] = useState([]);
-    const [websiteEntries, setWebsiteEntries] = useState([]);
-    const [projectEntries, setProjectEntries] = useState([]);
-    const [username, setUsername] = useState('Guest');
+    const [workEntries, setWorkEntries] = useState([]); // State for work history
+    const [isAddingEducation, setIsAddingEducation] = useState(false);
+    const [isAddingWork, setIsAddingWork] = useState(false); // State for adding work
+    const [newEducation, setNewEducation] = useState({
+        school: '',
+        startDate: '',
+        endDate: '',
+    });
+    const [newWork, setNewWork] = useState({ // State for new work entry
+        company: '',
+        position: '',
+        startDate: '',
+        endDate: '',
+    });
+    const [isEditingEducation, setIsEditingEducation] = useState(false);
+    const [currentEducationIndex, setCurrentEducationIndex] = useState(null);
+    const [isEditingWork, setIsEditingWork] = useState(false); // State for editing work
+    const [currentWorkIndex, setCurrentWorkIndex] = useState(null); // Index for current work entry being edited
 
-    useEffect(() => {
-        loadUserInformation();
-        const params = new URLSearchParams(window.location.search);
-        const userParam = params.get('username');
-        setUsername(userParam || 'Guest');
-    }, []);
-
-    const saveUserInformation = () => {
-        const updatedUserInfo = { ...userInfo };
-
-        // Gather static section data
-        const sections = document.querySelectorAll('.user-info-section');
-        sections.forEach(section => {
-            const sectionValue = {};
-            const data = section.querySelectorAll('.user-info-data');
-            data.forEach(item => {
-                sectionValue[item.id] = item.type === 'checkbox' ? item.checked : item.value;
-            });
-            updatedUserInfo[section.id] = sectionValue;
-        });
-
-        // Gather dynamic section data
-        updatedUserInfo.education = educationEntries;
-        updatedUserInfo.workHistory = workEntries;
-        updatedUserInfo.languages = languageEntries;
-        updatedUserInfo.awards = awardEntries;
-        updatedUserInfo.websites = websiteEntries;
-        updatedUserInfo.projects = projectEntries;
-
-        localStorage.setItem('user-info', JSON.stringify(updatedUserInfo));
-        setUserInfo(updatedUserInfo);
-        window.location.href = 'generator.html';
+    const handleContactChange = (e) => {
+        const { id, value } = e.target;
+        setContactInfo((prevInfo) => ({
+            ...prevInfo,
+            [id]: value,
+        }));
     };
 
-    const loadUserInformation = () => {
-        const storedUserInfo = JSON.parse(localStorage.getItem('user-info')) || {};
-        setUserInfo(storedUserInfo);
+    const handleNewEducationChange = (e) => {
+        const { id, value } = e.target;
+        setNewEducation((prevEducation) => ({
+            ...prevEducation,
+            [id]: value,
+        }));
+    };
 
-        // Set form values from localStorage
-        const sections = document.querySelectorAll('.user-info-section');
-        sections.forEach(section => {
-            const data = section.querySelectorAll('.user-info-data');
-            const sectionData = storedUserInfo[section.id] || {};
-            data.forEach(item => {
-                if (item.type === 'checkbox') {
-                    item.checked = sectionData[item.id] || false;
-                } else {
-                    item.value = sectionData[item.id] || '';
-                }
-            });
-        });
+    const handleNewWorkChange = (e) => { // Handle changes for new work entry
+        const { id, value } = e.target;
+        setNewWork((prevWork) => ({
+            ...prevWork,
+            [id]: value,
+        }));
     };
 
     const addEducationEntry = () => {
-        setEducationEntries([...educationEntries, { school: '', startDate: '', endDate: '', gpa: '', major: '' }]);
+        if (newEducation.school && newEducation.startDate && newEducation.endDate) {
+            setEducationEntries((prev) => [...prev, newEducation]);
+            setNewEducation({ school: '', startDate: '', endDate: '' });
+            setIsAddingEducation(false);
+        }
     };
 
     const removeEducationEntry = (index) => {
@@ -73,90 +66,153 @@ export function UserInfo () {
         setEducationEntries(updatedEntries);
     };
 
-    const handleEducationChange = (index, field, value) => {
-        const updatedEntries = [...educationEntries];
-        updatedEntries[index][field] = value;
-        setEducationEntries(updatedEntries);
+    const editEducationEntry = (index) => {
+        setCurrentEducationIndex(index);
+        setNewEducation(educationEntries[index]);
+        setIsEditingEducation(true);
+        setIsAddingEducation(false);
     };
 
-    const renderEducationEntries = () => {
-        return educationEntries.map((entry, index) => (
-            <div className="education-entry user-info-dynamic-subsection" key={index}>
-                <label>School:</label>
-                <input type="text" className="user-info-data" value={entry.school} onChange={(e) => handleEducationChange(index, 'school', e.target.value)} placeholder="Enter your school name" /><br /><br />
-                
-                <label>Start Date:</label>
-                <input type="date" className="user-info-data" value={entry.startDate} onChange={(e) => handleEducationChange(index, 'startDate', e.target.value)} /><br /><br />
-                
-                <label>End Date:</label>
-                <input type="date" className="user-info-data" value={entry.endDate} onChange={(e) => handleEducationChange(index, 'endDate', e.target.value)} /><br /><br />
-                
-                <label>GPA:</label>
-                <input type="text" className="user-info-data" value={entry.gpa} onChange={(e) => handleEducationChange(index, 'gpa', e.target.value)} placeholder="Enter your GPA" /><br /><br />
-                
-                <label>Major:</label>
-                <input type="text" className="user-info-data" value={entry.major} onChange={(e) => handleEducationChange(index, 'major', e.target.value)} placeholder="Enter your major" /><br /><br />
-                <button type="button" onClick={() => removeEducationEntry(index)}>Remove</button>
-            </div>
-        ));
+    const addWorkEntry = () => { // Function to add work entry
+        if (newWork.company && newWork.position && newWork.startDate && newWork.endDate) {
+            setWorkEntries((prev) => [...prev, newWork]);
+            setNewWork({ company: '', position: '', startDate: '', endDate: '' });
+            setIsAddingWork(false);
+        }
+    };
+
+    const removeWorkEntry = (index) => { // Function to remove work entry
+        const updatedEntries = workEntries.filter((_, i) => i !== index);
+        setWorkEntries(updatedEntries);
+    };
+
+    const editWorkEntry = (index) => { // Function to set up editing work entry
+        setCurrentWorkIndex(index);
+        setNewWork(workEntries[index]);
+        setIsEditingWork(true);
+        setIsAddingWork(false);
     };
 
     return (
-        <div>
-            <header className="d-flex justify-content-between align-items-center fixed-top">
-                <a href="./index.html">
-                    <img src="ApplySmartTWhite.png" style={{ width: '200px', height: 'auto' }} alt="Logo" />
-                </a>
-                <nav className="navbar navbar-expand-lg">
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav ms-auto">
-                            <li className="nav-item"><a className="nav-link" href="index.html">Home</a></li>
-                            <li className="nav-item"><a className="nav-link" href="login.html">Login</a></li>
-                            <li className="nav-item"><a className="nav-link" href="generator.html">Resume Generator</a></li>
-                            <li className="nav-item"><a className="nav-link active" href="userInfo.html">Update Information</a></li>
-                        </ul>
+        <main className="user-info-main">
+            <h2>Welcome!</h2>
+
+            <h3>Contact Information</h3>
+            <div className="contact-section">
+                <div className="contact-grid">
+                    <div>
+                        <label htmlFor="fullName">Full Name:</label>
+                        <input type="text" id="fullName" className="user-info-data" placeholder="Enter your Full Name" onChange={handleContactChange} />
                     </div>
-                </nav>
-            </header>
-
-            <main>
-                <h2>Welcome, {username}!</h2>
-                <p>Please tell us more about you!</p>
-                <br />
-
-                <h3>Contact Information</h3>
-                <div className="user-info-section" id="contact-information">
-                    <label htmlFor="name">Full Name:</label>
-                    <input type="text" id="name" className="user-info-data" placeholder="Enter your Full Name" /><br /><br />
-
-                    <label htmlFor="phone">Phone Number:</label>
-                    <input type="text" id="phone" className="user-info-data" placeholder="Enter your phone number" /><br /><br />
-
-                    <label htmlFor="address">Address:</label>
-                    <input type="text" id="address" className="user-info-data" placeholder="Enter your address" /><br /><br />
-
-                    <label htmlFor="email">Email:</label>
-                    <input type="email" id="email" className="user-info-data" placeholder="Enter your email" /><br /><br />
-
-                    <label htmlFor="linkedIn">LinkedIn URL:</label>
-                    <input type="url" id="linkedIn" className="user-info-data" placeholder="Enter your LinkedIn URL" /><br /><br />
+                    <div>
+                        <label htmlFor="phone">Phone Number:</label>
+                        <input type="text" id="phone" className="user-info-data" placeholder="Enter your phone number" onChange={handleContactChange} />
+                    </div>
+                    <div>
+                        <label htmlFor="address">Address:</label>
+                        <input type="text" id="address" className="user-info-data" placeholder="Enter your address" onChange={handleContactChange} />
+                    </div>
+                    <div>
+                        <label htmlFor="email">Email:</label>
+                        <input type="email" id="email" className="user-info-data" placeholder="Enter your email" onChange={handleContactChange} />
+                    </div>
+                    <div>
+                        <label htmlFor="linkedIn">LinkedIn URL:</label>
+                        <input type="url" id="linkedIn" className="user-info-data" placeholder="Enter your LinkedIn URL" onChange={handleContactChange} />
+                    </div>
                 </div>
+            </div>
 
-                <h3>Education</h3>
-                <div id="education-information" className="user-info-dynamic-section">
-                    {renderEducationEntries()}
-                </div>
-                <button type="button" onClick={addEducationEntry}>Add Education</button>
+            <h3>Education</h3>
+            <div className="education-section">
+                {educationEntries.map((entry, index) => (
+                    <div key={index} className="education-entry">
+                        <p>School: {entry.school}</p>
+                        <p>Start: {entry.startDate}</p>
+                        <p>End: {entry.endDate}</p>
+                        <div className="button-group">
+                            <button onClick={() => removeEducationEntry(index)}>Remove</button>
+                            <button onClick={() => editEducationEntry(index)}>Edit</button>
+                        </div>
+                    </div>
+                ))}
 
-                {/* Similar sections for Work History, Skills, Languages, Awards, Websites, Projects can be added here */}
-                <button id="save-information" onClick={saveUserInformation}>Save Information and go to Resume Generator</button>
-            </main>
+                <button onClick={() => {
+                    setIsAddingEducation(true);
+                    setIsEditingEducation(false); // Reset editing when adding new
+                    setNewEducation({ school: '', startDate: '', endDate: '' }); // Reset form
+                }}>Add Education</button>
 
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+                {(isAddingEducation || isEditingEducation) && (
+                    <div className="new-education-form">
+                        <label htmlFor="school">School:</label>
+                        <input type="text" id="school" value={newEducation.school} onChange={handleNewEducationChange} placeholder="Enter school name" />
+
+                        <label htmlFor="startDate">Start Date:</label>
+                        <input type="text" id="startDate" value={newEducation.startDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
+
+                        <label htmlFor="endDate">End Date:</label>
+                        <input type="text" id="endDate" value={newEducation.endDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
+                        <div className="button-group">
+                            <button onClick={addEducationEntry}>{isEditingEducation ? 'Update Education' : 'Save Education'}</button>
+                            <button onClick={() => {
+                                setIsAddingEducation(false);
+                                setIsEditingEducation(false);
+                                setNewEducation({ school: '', startDate: '', endDate: '' }); // Reset form
+                            }}>Cancel</button>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            // Inside the return statement of your UserInfo component
+<h3>Work History</h3>
+<div className="work-section">
+    {workEntries.map((entry, index) => (
+        <div key={index} className="work-entry">
+            <p>Company: {entry.company}</p>
+            <p>Position: {entry.position}</p>
+            <p>Start: {entry.startDate}</p>
+            <p>End: {entry.endDate}</p>
+            <div className="button-group">
+                <button onClick={() => removeWorkEntry(index)}>Remove</button>
+                <button onClick={() => editWorkEntry(index)}>Edit</button>
+            </div>
         </div>
-    );
-};
+    ))}
 
+    <button onClick={() => {
+        setIsAddingWork(true);
+        setIsEditingWork(false); // Reset editing when adding new
+        setNewWork({ company: '', position: '', startDate: '', endDate: '' }); // Reset form
+    }}>Add Work</button>
+
+    {(isAddingWork || isEditingWork) && (
+        <div className="new-work-form">
+            <label htmlFor="company">Company:</label>
+            <input type="text" id="company" value={newWork.company} onChange={handleNewWorkChange} placeholder="Enter company name" />
+
+            <label htmlFor="position">Position:</label>
+            <input type="text" id="position" value={newWork.position} onChange={handleNewWorkChange} placeholder="Enter position" />
+
+            <label htmlFor="workStartDate">Start Date:</label>
+            <input type="text" id="workStartDate" value={newWork.startDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
+
+            <label htmlFor="workEndDate">End Date:</label>
+            <input type="text" id="workEndDate" value={newWork.endDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
+            <div className="button-group">
+                <button onClick={addWorkEntry}>{isEditingWork ? 'Update Work' : 'Save Work'}</button>
+                <button onClick={() => {
+                    setIsAddingWork(false);
+                    setIsEditingWork(false);
+                    setNewWork({ company: '', position: '', startDate: '', endDate: '' }); // Reset form
+                }}>Cancel</button>
+            </div>
+        </div>
+    )}
+</div>
+
+
+        </main>
+    );
+}

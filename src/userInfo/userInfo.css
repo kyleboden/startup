@@ -1,125 +1,142 @@
+/* userInfo.css */
+
+
+
+/* Headers */
 h2 {
-    color: #1784AC; /* Use your logo color for consistency */
-}
-main h3 {
-    color: #1784AC; /* Use your logo color for consistency */
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-
-
-
-/* Main content */
-.main-content {
-    display: flex; /* Use flexbox for layout only in the main content */
-    flex-direction: column;
-    align-items: center;
+h3 {
+    margin-top: 20px;
+    border-bottom: 2px solid #1784AC; /* Your logo color */
+    padding-bottom: 5px;
 }
 
-/* Form Container */
-.form-container {
-    display: flex; /* Use flexbox for layout */
-    flex-wrap: wrap; /* Allow items to wrap into the next line */
-    justify-content: center; /* Center items horizontally */
-    max-width: 800px; /* Set a max width for the form */
-    
+/* Contact section styles */
+.contact-section,
+.education-section {
+    margin-bottom: 20px;
 }
 
-#contact-information {
-    border: 1.5px solid #000000; /* Set border color and width */
-    padding: 20px; /* Add padding inside the border */
-    border-radius: 8px; /* Optional: Rounded corners */
-    max-width: 400px; /* Set a maximum width */
-    margin: 20px auto; /* Center the div with margin */
-    margin-bottom: 50px; /* Space below textareas */
-
+label {
+    display: block;
+    margin: 10px 0 5px;
 }
 
-textarea {
-    border-radius: 10px; /* Rounded edges */
-    border: 1px solid #ccc; /* Light border */
-    padding: 10px; /* Padding inside textareas */
-    width: 400px; /* Set a specific width for the textareas */
-    max-width: 100%; /* Allow responsiveness while keeping a max width */
-    margin-bottom: 50px; /* Space below textareas */
-    box-sizing: border-box; /* Include padding and border in the total width */
+input[type="text"],
+input[type="email"],
+input[type="url"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
 }
 
-/* Column Style */
-.column {
-    flex: 1 1 45%; /* Allow columns to grow and shrink with a base size */
-    margin: 10px; /* Space between columns */
-}
-
-
-
-
-/* Centering the buttons */
-.button-container {
-    display: flex;
-    flex-direction: column; /* Stack buttons vertically */
-    align-items: center; /* Center align buttons */
-    margin-top: 20px; /* Space above the container */
-}
-
+/* Button styles */
 button {
-    display: block; /* Make the button a block element */
-    margin: 0 auto; /* Automatically adjust margins to center it */
-    background-color: #1784AC;
+    background-color: #1784AC; /* Your logo color */
     color: white;
     border: none;
-    padding: 10px 20px;
     border-radius: 4px;
+    padding: 10px 15px;
     cursor: pointer;
-    width: 100%; /* Full width */
-    max-width: 250px; /* Set a max width */
-    margin-bottom: 50px;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #0f5f7a; /* Darker shade on hover */
-}
-main hr {
-    width: 50%; /* Adjust width as needed */
-    margin: 20px auto; /* Center and add vertical spacing */
-    border: 1px solid #ccc; /* Optional: Set border color */
+    background-color: #146f8e; /* Darker shade for hover effect */
 }
 
-/* Styles for the Save Information button */
-#save-information {
-    background-color: #1784AC; /* Set button color */
-    color: white; /* Button text color */
-    border: none; /* Remove border */
-    padding: 15px 30px; /* Increase padding for a larger button */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* Change cursor on hover */
-    font-size: 18px; /* Increase font size for better visibility */
-    margin-top: 20px; /* Optional: Add space above the button */
-    display: block; /* Ensure button is displayed as a block element */
-    width: 100%; /* Make the button take full width of the parent */
-    max-width: 400px; /* Set a max width for the button */
-    transition: background-color 0.3s; /* Smooth background color change on hover */
+/* Education entry styles */
+.education-entry {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
 }
 
-#save-information:hover {
-    background-color: #0f5f7a; /* Darker shade on hover */
+.new-education-form {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
 }
 
-/* Additional styling */
-input,
-textarea {
-    margin-left: 10px; /* Optional: Add margin to inputs for better spacing */
+.new-education-form label {
+    display: block;
+    margin-top: 10px; /* Space between labels */
 }
 
-.remove-button {
-    background-color: rgb(182, 112, 112); /* Set the background color to red */
-    color: white; /* Set text color to white for better contrast */
-    border: none; /* Remove border */
-    padding: 10px 20px; /* Padding for spacing */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* Change cursor to pointer on hover */
-    margin-top: 5px; /* Optional: Space above the button */
+.new-education-form input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px; /* Space between label and input */
+}
+.new-work-form {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+}
+.new-work-form input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px; /* Space between label and input */
 }
 
-.remove-button:hover {
-    background-color: darkred; /* Darker red on hover */
+.contact-section {
+    margin: 20px 0;
 }
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns */
+    gap: 20px; /* Space between the columns */
+}
+
+.user-info-data {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding is included in the width */
+}
+
+.education-section {
+    margin-top: 20px;
+}
+
+.education-entry {
+    display: flex;
+    flex-direction: column; /* Stack the text and buttons */
+    margin-bottom: 10px; /* Space between education entries */
+}
+
+.button-group {
+    display: flex; /* Use flexbox to align items horizontally */
+    gap: 10px; /* Optional: add space between buttons */
+    margin-top: 10px; /* Optional: add some space above the button group */
+}
+
+.button-group button {
+    width: 150px; /* Set a specific width */
+    padding: 10px; /* Optional: add some padding for better appearance */
+    font-size: 16px; /* Optional: increase font size */
+}
+
+
+
+
+
