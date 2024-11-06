@@ -12,10 +12,15 @@ export function UserInfo() {
     const [educationEntries, setEducationEntries] = useState([]);
     const [workEntries, setWorkEntries] = useState([]); // State for work history
     const [skills, setSkills] = useState([]);  // State for skills
+    const [languageEntries, setLanguageEntries] = useState([]);
 
     const [isAddingEducation, setIsAddingEducation] = useState(false);
     const [isAddingWork, setIsAddingWork] = useState(false); // State for adding work
     const [isAddingSkill, setIsAddingSkill] = useState(false);  // State for adding skills
+    const [isAddingLanguage, setIsAddingLanguage] = useState(false);
+
+
+
     const [newEducation, setNewEducation] = useState({
         school: '',
         startDate: '',
@@ -31,11 +36,16 @@ export function UserInfo() {
         keyRoles: '',
     });
     const [newSkill, setNewSkill] = useState('');  // State for new skill
-    const [isEditingEducation, setIsEditingEducation] = useState(false);
-    const [currentEducationIndex, setCurrentEducationIndex] = useState(null);
-    const [isEditingWork, setIsEditingWork] = useState(false); // State for editing work
-    const [currentWorkIndex, setCurrentWorkIndex] = useState(null); // Index for current work entry being edited
+    const [newLanguage, setNewLanguage] = useState({
+        language: '', 
+        proficiency: '' 
+    });
 
+    const [isEditingEducation, setIsEditingEducation] = useState(false);
+    const [isEditingWork, setIsEditingWork] = useState(false); // State for editing work
+    const [isEditingLanguage, setIsEditingLanguage] = useState(false);
+    
+// Handle Changes
     const handleContactChange = (e) => {
         const { id, value } = e.target;
         setContactInfo((prevInfo) => ({
@@ -60,24 +70,25 @@ export function UserInfo() {
         }));
     };
 
+    const handleNewSkillChange = (e) => {
+        setNewSkill(e.target.value); // Update the new skill input state
+    };
+
+    const handleNewLanguageChange = (e) => {
+        const { id, value } = e.target;
+        setNewLanguage((prevLanguage) => ({
+            ...prevLanguage,
+            [id]: value,
+        }));
+    };
+
+// Adding
     const addEducationEntry = () => {
         if (newEducation.school && newEducation.startDate && newEducation.endDate) {
             setEducationEntries((prev) => [...prev, newEducation]);
             setNewEducation({ school: '', startDate: '', endDate: '' });
             setIsAddingEducation(false);
         }
-    };
-
-    const removeEducationEntry = (index) => {
-        const updatedEntries = educationEntries.filter((_, i) => i !== index);
-        setEducationEntries(updatedEntries);
-    };
-
-    const editEducationEntry = (index) => {
-        setCurrentEducationIndex(index);
-        setNewEducation(educationEntries[index]);
-        setIsEditingEducation(true);
-        setIsAddingEducation(false);
     };
 
     const addWorkEntry = () => {
@@ -87,11 +98,51 @@ export function UserInfo() {
             setIsAddingWork(false);
         }
     };
-    
+
+    const handleAddSkill = () => {
+        if (newSkill && !skills.includes(newSkill)) { // Check if the skill is not empty and not already in the list
+            setSkills([...skills, newSkill]);
+            setNewSkill(''); // Clear the input field after adding
+        }
+    };
+
+    const addLanguageEntry = () => {
+        if (newLanguage.language && newLanguage.proficiency) {
+            setLanguageEntries([...languageEntries, newLanguage]);
+            setNewLanguage({ language: '', proficiency: '' });
+            setIsAddingLanguage(false);
+        } else {
+            alert("Please fill in both fields before saving.");
+        }
+    };
+
+// Removing
+    const removeEducationEntry = (index) => {
+            const updatedEntries = educationEntries.filter((_, i) => i !== index);
+            setEducationEntries(updatedEntries);
+        };
 
     const removeWorkEntry = (index) => { // Function to remove work entry
         const updatedEntries = workEntries.filter((_, i) => i !== index);
         setWorkEntries(updatedEntries);
+    };
+
+    const handleSkillRemove = (index) => {
+        const updatedSkills = skills.filter((_, i) => i !== index);
+        setSkills(updatedSkills);
+    };
+
+    const removeLanguageEntry = (index) => {
+        const updatedLanguageEntries = languageEntries.filter((_, i) => i !== index);
+        setLanguageEntries(updatedLanguageEntries);
+    };
+
+// Editing
+    const editEducationEntry = (index) => {
+        setCurrentEducationIndex(index);
+        setNewEducation(educationEntries[index]);
+        setIsEditingEducation(true);
+        setIsAddingEducation(false);
     };
 
     const editWorkEntry = (index) => { // Function to set up editing work entry
@@ -101,22 +152,22 @@ export function UserInfo() {
         setIsAddingWork(false);
     };
 
-
-    const handleSkillRemove = (index) => {
-        const updatedSkills = skills.filter((_, i) => i !== index);
-        setSkills(updatedSkills);
+    const editLanguageEntry = (index) => {
+        const entry = languageEntries[index];
+        setNewLanguage(entry); // Set the entry values for editing
+        setIsEditingLanguage(true);
+        setEditIndex(index); // Store the index of the entry being edited
     };
 
-    const handleAddSkill = () => {
-        if (newSkill && !skills.includes(newSkill)) { // Check if the skill is not empty and not already in the list
-            setSkills([...skills, newSkill]);
-            setNewSkill(''); // Clear the input field after adding
-        }
+    const saveEditedLanguageEntry = () => {
+        const updatedLanguageEntries = [...languageEntries];
+        updatedLanguageEntries[editIndex] = newLanguage; // Update the specific entry
+        setLanguageEntries(updatedLanguageEntries);
+        setNewLanguage({ language: '', proficiency: '' });
+        setIsEditingLanguage(false);
+        setEditIndex(null);
     };
 
-    const handleNewSkillChange = (e) => {
-        setNewSkill(e.target.value); // Update the new skill input state
-    };
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {  // Check if Enter key is pressed
@@ -125,12 +176,20 @@ export function UserInfo() {
         }
     };
 
+
+
+
+
+
+
+    
     
 
     return (
         <main className="user-info-main">
-            <h2>Welcome!</h2>
 
+            <h2>Welcome!</h2>
+            <br></br>
             <h3>Contact Information</h3>
             <div className="contact-section">
                 <div className="contact-grid">
@@ -220,95 +279,153 @@ export function UserInfo() {
                 )}
             </div>
 
-<br></br>
-<h3>Work History</h3>
-<div className="work-section">
-    {workEntries.map((entry, index) => (
-        <div key={index} className="work-entry">
-            <p>Company: {entry.company}</p>
-            <p>Position: {entry.position}</p>
-            <p>Start: {entry.startDate}</p>
-            <p>End: {entry.endDate}</p>
-            <p>
-                Key Roles: <br />
-                <span dangerouslySetInnerHTML={{ __html: entry.keyRoles.replace(/\n/g, '<br />') }} />
-            </p>
-            <div className="button-group">
-            <button className="edit-button"onClick={() => editWorkEntry(index)}>Edit</button>
-            <button className="remove-button" onClick={() => removeWorkEntry(index)}>Remove</button>
+            <br />
+            <h3>Work History</h3>
+            <div className="work-section">
+                {workEntries.map((entry, index) => (
+                    <div key={index} className="work-entry">
+                        <p>Company: {entry.company}</p>
+                        <p>Position: {entry.position}</p>
+                        <p>Start: {entry.startDate}</p>
+                        <p>End: {entry.endDate}</p>
+                        <p>
+                            Key Roles: <br />
+                            <span dangerouslySetInnerHTML={{ __html: entry.keyRoles.replace(/\n/g, '<br />') }} />
+                        </p>
+                        <div className="button-group">
+                        <button className="edit-button"onClick={() => editWorkEntry(index)}>Edit</button>
+                        <button className="remove-button" onClick={() => removeWorkEntry(index)}>Remove</button>
+                        </div>
+                    </div>
+                ))}
+
+                <button className="add-button"onClick={() => {
+                    setIsAddingWork(true);
+                    setIsEditingWork(false); // Reset editing when adding new
+                    setNewWork({ company: '', position: '', startDate: '', endDate: '', keyRoles: ''}); // Reset form
+                }}>Add Work</button>
+
+                {(isAddingWork || isEditingWork) && (
+                    <div className="new-work-form">
+                        <div className="input-group">
+                            <label htmlFor="company">Company:</label>
+                            <input type="text" id="company" value={newWork.company} onChange={handleNewWorkChange} placeholder="Enter company name" />
+                        </div>
+
+                        <div className="input-group">
+                            <label htmlFor="position">Position:</label>
+                            <input type="text" id="position" value={newWork.position} onChange={handleNewWorkChange} placeholder="Enter position" />
+                        </div>
+
+
+                        <div className="input-group date-container">
+                            <div>
+                                <label htmlFor="startDate">Start Date:</label>
+                                <input type="text" id="startDate" value={newWork.startDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
+                            </div>
+                            <div>
+                                <label htmlFor="endDate">End Date:</label>
+                                <input type="text" id="endDate" value={newWork.endDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
+                            </div>
+                        </div>
+
+                        <div className="input-group">
+                        <label htmlFor="keyRoles">Key Roles:</label><br />
+                        <textarea id="keyRoles" value={newWork.keyRoles} onChange={handleNewWorkChange} placeholder="Enter key roles in your work history" rows="4" />
+                        </div>
+
+                        <div className="button-group">
+                            <button className="update-button" onClick={addWorkEntry}>{isEditingWork ? 'Update Work' : 'Save Work'}</button>
+                            <button className="cancel-button" onClick={() => {
+                                setIsAddingWork(false);
+                                setIsEditingWork(false);
+                                setNewWork({ company: '', position: '', startDate: '', endDate: '', keyRoles: '' }); // Reset form
+                            }}>Cancel</button>
+                        </div>
+                    </div>
+                )}
             </div>
-        </div>
-    ))}
 
-    <button className="add-button"onClick={() => {
-        setIsAddingWork(true);
-        setIsEditingWork(false); // Reset editing when adding new
-        setNewWork({ company: '', position: '', startDate: '', endDate: '', keyRoles: ''}); // Reset form
-    }}>Add Work</button>
-
-    {(isAddingWork || isEditingWork) && (
-        <div className="new-work-form">
-            <div className="input-group">
-                <label htmlFor="company">Company:</label>
-                <input type="text" id="company" value={newWork.company} onChange={handleNewWorkChange} placeholder="Enter company name" />
+            <br />
+            <h3>Skills</h3>
+            <div className="skills-section">
+                {skills.map((skill, index) => (
+                    <div key={index} className="skill-entry">
+                        <span>{skill}</span>
+                        <span className="remove-skill" onClick={() => handleSkillRemove(index)}>×</span>
+                    </div>
+                ))}
             </div>
 
-            <div className="input-group">
-                <label htmlFor="position">Position:</label>
-                <input type="text" id="position" value={newWork.position} onChange={handleNewWorkChange} placeholder="Enter position" />
+            <div className="add-skill">
+                <input
+                    type="text"
+                    value={newSkill}
+                    onChange={handleNewSkillChange}
+                    placeholder="Add a new skill"
+                    onKeyDown={(e) => handleKeyDown(e, 'skill')} // Use the existing handleKeyDown function
+
+                />
+                <button onClick={handleAddSkill}>Add Skill</button>
+            </div>
+
+            <br />
+            <h3>Languages</h3>
+            <div className="language-section">
+                {languageEntries.map((entry, index) => (
+                    <div key={index} className="language-entry">
+                        <p>Language: {entry.language}</p>
+                        <p>Proficiency: {entry.proficiency}</p>
+                        <div className="button-group">
+                            <button className="edit-button" onClick={() => editLanguageEntry(index)}>Edit</button>
+                            <button className="remove-button" onClick={() => removeLanguageEntry(index)}>Remove</button>
+                        </div>
+                    </div>
+                ))}
+                <button className="add-button" onClick={() => setIsAddingLanguage(true)}>Add Language</button>
+
+                {(isAddingLanguage || isEditingLanguage) && (
+                    <div className="new-language-form">
+                        <div className="input-group">
+                            <label htmlFor="language">Language:</label>
+                            <input
+                                type="text"
+                                id="language"
+                                value={newLanguage.language}
+                                onChange={handleNewLanguageChange}
+                                placeholder="Enter language"
+                            />
+
+                            <select
+                                id="proficiency"
+                                value={newLanguage.proficiency}
+                                onChange={handleNewLanguageChange}
+                            >
+                                <option value="">Select proficiency</option>
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                                <option value="Fluent">Fluent</option>
+                                <option value="Native">Native</option>
+                            </select>
+                        </div>
+                        <div className="button-group">
+                            <button className="update-button"onClick={isEditingLanguage ? saveEditedLanguageEntry : addLanguageEntry}>
+                                {isEditingLanguage ? 'Save Changes' : 'Save Language'}
+                            </button>
+                            <button className="cancel-button" onClick={() => {
+                                setIsAddingLanguage(false);
+                                setIsEditingLanguage(false);
+                                setNewLanguage({ language: '', proficiency: ''}); // Reset form
+                            }}>Cancel</button>
+                        </div>
+                    </div>
+                )}
             </div>
 
 
-            <div className="input-group date-container">
-                <div>
-                    <label htmlFor="startDate">Start Date:</label>
-                    <input type="text" id="startDate" value={newWork.startDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
-                </div>
-                <div>
-                    <label htmlFor="endDate">End Date:</label>
-                    <input type="text" id="endDate" value={newWork.endDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
-                </div>
-            </div>
 
-            <div className="input-group">
-            <label htmlFor="keyRoles">Key Roles:</label><br />
-            <textarea id="keyRoles" value={newWork.keyRoles} onChange={handleNewWorkChange} placeholder="Enter key roles in your work history" rows="4" />
-            </div>
 
-            <div className="button-group">
-                <button className="update-button" onClick={addWorkEntry}>{isEditingWork ? 'Update Work' : 'Save Work'}</button>
-                <button className="cancel-button" onClick={() => {
-                    setIsAddingWork(false);
-                    setIsEditingWork(false);
-                    setNewWork({ company: '', position: '', startDate: '', endDate: '', keyRoles: '' }); // Reset form
-                }}>Cancel</button>
-            </div>
-        </div>
-    )}
-</div>
-
-        <br></br>
-        <h3>Skills</h3>
-        <div className="skills-section">
-            {skills.map((skill, index) => (
-                <div key={index} className="skill-entry">
-                    <span>{skill}</span>
-                    <span className="remove-skill" onClick={() => handleSkillRemove(index)}>×</span>
-                </div>
-            ))}
-        </div>
-
-        <div className="add-skill">
-            <input
-                type="text"
-                value={newSkill}
-                onChange={handleNewSkillChange}
-                placeholder="Add a new skill"
-                onKeyDown={(e) => handleKeyDown(e, 'skill')} // Use the existing handleKeyDown function
-
-            />
-            <button onClick={handleAddSkill}>Add Skill</button>
-        </div>
 
 
         </main>
