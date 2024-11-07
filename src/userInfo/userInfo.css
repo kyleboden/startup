@@ -54,7 +54,7 @@ button:hover {
 }
 
 /* Education entry styles */
-.education-entry, .work-entry, .language-entry, .award-entry {
+.education-entry, .work-entry, .language-entry, .award-entry, .website-entry {
     background-color: #f9f9f9;
     padding: 15px;
     border: 1px solid #ccc;
@@ -65,7 +65,8 @@ button:hover {
 .new-education-form, 
 .new-work-form, 
 .new-language-form,
-.new-award-form {
+.new-award-form,
+.new-website-form {
     margin-top: 20px;
     border: 1px solid #ccc;
     padding: 10px;
@@ -75,7 +76,8 @@ button:hover {
 .new-education-form label, 
 .new-work-form label,
 .new-language-form label,
-.new-award-form label {
+.new-award-form label,
+.new-website-form label {
     display: block;
     margin-top: 10px; /* Space between labels */
 }
@@ -146,7 +148,8 @@ button:hover {
     padding: 10px 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 10px;
+    margin: 10px;
+    margin-bottom: 20px;
 }
 
 .add-button:hover {
@@ -262,3 +265,16 @@ button:hover {
     margin-right: 10px; /* Space between label and input/select */
 }
 
+.description textarea,
+.tall-input {
+    width: 100%;  /* Ensures it takes full width of its container */
+    height: 100px; /* Set the initial height (can be adjusted) */
+    padding: 10px; /* Padding inside the textarea */
+    resize: both; /* Makes it resizable both horizontally and vertically */
+    box-sizing: border-box; /* Ensures padding doesn't affect the width */
+}
+
+/* For making input fields wider */
+.wide-input {
+    width: 100%; /* Full width */
+}

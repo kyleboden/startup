@@ -14,17 +14,21 @@ export function UserInfo() {
     const [skills, setSkills] = useState([]);  // State for skills
     const [languageEntries, setLanguageEntries] = useState([]);
     const [awardEntries, setAwardEntries] = useState([]);
+    const [websiteEntries, setwebsiteEntries] = useState([]);
+
 
     const [isAddingEducation, setIsAddingEducation] = useState(false);
     const [isAddingWork, setIsAddingWork] = useState(false); // State for adding work
     const [isAddingSkill, setIsAddingSkill] = useState(false);  // State for adding skills
     const [isAddingLanguage, setIsAddingLanguage] = useState(false);
     const [isAddingAward, setIsAddingAward] = useState(false);
+    const [isAddingWebsite, setIsAddingWebsite] = useState(false);
 
     const [currentEducationIndex, setCurrentEducationIndex] = useState(null);
     const [currentWorkIndex, setCurrentWorkIndex] = useState(null);
     const [currentLanguageIndex, setCurrentLanguageIndex] = useState(null);
     const [currentAwardIndex, setCurrentAwardIndex] = useState(null);
+    const [currentWebsiteIndex, setCurrentWebsiteIndex] = useState(null);
 
 
 
@@ -50,12 +54,15 @@ export function UserInfo() {
     const [newAward, setNewAward] = useState({
         title: '', date: '' 
     });
-
+    const [newWebsite, setNewWebsite] = useState({
+        website: '', description: '' 
+    });
 
     const [isEditingEducation, setIsEditingEducation] = useState(false);
     const [isEditingWork, setIsEditingWork] = useState(false); // State for editing work
     const [isEditingLanguage, setIsEditingLanguage] = useState(false);
     const [isEditingAward, setIsEditingAward] = useState(false);
+    const [isEditingWebsite, setIsEditingWebsite] = useState(false);
 
 
 
@@ -103,8 +110,15 @@ export function UserInfo() {
             ...prevAward,
             [id]: value,
         }));
+    };    
+    
+    const handleNewWebsiteChange = (e) => {
+        const { id, value } = e.target;
+        setNewWebsite((prevWebsite) => ({
+            ...prevWebsite,
+            [id]: value,
+        }));
     };
-    const isValidDate = (date) => /^\d{2}\/\d{4}$/.test(date);
 
 // Adding
     const addEducationEntry = () => {
@@ -179,7 +193,7 @@ export function UserInfo() {
         }
     };
     
-
+    const isValidDate = (date) => /^\d{2}\/\d{4}$/.test(date);
     const addAwardEntry = () => {
         if (newAward.title && isValidDate(newAward.date)) {
             if (isEditingAward && currentAwardIndex !== null) {
@@ -187,7 +201,7 @@ export function UserInfo() {
                 const updatedAwards = [...awardEntries];
                 updatedAwards[currentAwardIndex] = newAward;
                 setAwardEntries(updatedAwards);
-            } else {
+            } else {``
                 // Add a new award if not editing
                 setAwardEntries((prev) => [...prev, newAward]);
             }
@@ -198,6 +212,27 @@ export function UserInfo() {
             setIsEditingAward(false);
         } else {
             alert("Please enter a valid date in MM/YYYY format.");
+        }
+    };
+
+    const addWebsiteEntry = () => {
+        if (newWebsite.website && newWebsite.description) {
+            if (isEditingWebsite && currentWebsiteIndex !== null) {
+                // Update the language entry at the specific index
+                const updatedWebsiteEntries = [...websiteEntries];
+                updatedWebsiteEntries[currentWebsiteIndex] = newWebsite;
+                setwebsiteEntries(updatedWebsiteEntries);
+            } else {
+                // Add a new language entry if not editing
+                setwebsiteEntries((prev) => [...prev, newWebsite]);
+            }
+    
+            // Reset states after action
+            setNewWebsite({ website: '', description: '' });
+            setIsAddingWebsite(false);
+            setIsEditingWebsite(false);
+        } else {
+            alert("Please fill in both fields before saving.");
         }
     };
     
@@ -223,6 +258,9 @@ export function UserInfo() {
 
     const removeAwardEntry = (index) => {
         setAwardEntries((prev) => prev.filter((_, i) => i !== index));
+    };    
+    const removeWebsiteEntry = (index) => {
+        setwebsiteEntries((prev) => prev.filter((_, i) => i !== index));
     };
 
 // Editing
@@ -254,7 +292,12 @@ export function UserInfo() {
         setIsAddingAward(false);
     };
 
-
+    const editWebsiteEntry = (index) => {
+        setCurrentWebsiteIndex(index);
+        setNewWebsite(websiteEntries[index]);
+        setIsEditingWebsite(true);
+        setIsAddingWebsite(false);
+    };
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {  // Check if Enter key is pressed
@@ -506,53 +549,109 @@ export function UserInfo() {
                     </div>
                 )}
             </div>
-            <h3>Awards and Certifications</h3>
-<div className="award-section">
-    {awardEntries.map((entry, index) => (
-        <div key={index} className="award-entry">
-            <div className="award-details">
-                <p className="award-title">Title: {entry.title}</p>
-                <p className="award-date">Date: {entry.date}</p>
-            </div>
-            <div className="button-group">
-                <button className="edit-button" onClick={() => editAwardEntry(index)}>Edit</button>
-                <button className="remove-button" onClick={() => removeAwardEntry(index)}>Remove</button>
-            </div>
-        </div>
-    ))}
-    <button className="add-button" onClick={() => {
-        setIsAddingAward(true);
-        setIsEditingAward(false);
-        setNewAward({ title: '', date: '' });
-    }}>Add Award / Certification</button>
-
-    {(isAddingAward || isEditingAward) && (
-        <div className="new-award-form">
-            <div className = "centerAwards">
-                <div>
-                    <label htmlFor="title">Title:</label>
-                    <input type="text" id="title" value={newAward.title} onChange={handleNewAwardChange} placeholder="Enter award title" />
-                </div>
-                <div>
-                    <label htmlFor="date">Date:</label>
-                    <input type="text" id="date" value={newAward.date} onChange={handleNewAwardChange} placeholder="MM/YYYY" />
-                </div>
-            </div>
             
-            <div className="button-group">
-                <button className="update-button" onClick={addAwardEntry}>{isEditingAward ? 'Update Award' : 'Save Award'}</button>
-                <button className="cancel-button" onClick={() => {
-                    setIsAddingAward(false);
+            <h3>Awards and Certifications</h3>
+            <div className="award-section">
+                {awardEntries.map((entry, index) => (
+                    <div key={index} className="award-entry">
+                        <div className="award-details">
+                            <p className="award-title">Title: {entry.title}</p>
+                            <p className="award-date">Date: {entry.date}</p>
+                        </div>
+                        <div className="button-group">
+                            <button className="edit-button" onClick={() => editAwardEntry(index)}>Edit</button>
+                            <button className="remove-button" onClick={() => removeAwardEntry(index)}>Remove</button>
+                        </div>
+                    </div>
+                ))}
+                <button className="add-button" onClick={() => {
+                    setIsAddingAward(true);
                     setIsEditingAward(false);
                     setNewAward({ title: '', date: '' });
-                }}>Cancel</button>
+                }}>Add Award / Certification</button>
+
+                {(isAddingAward || isEditingAward) && (
+                    <div className="new-award-form">
+                        <div className = "centerAwards">
+                            <div>
+                                <label htmlFor="title">Title:</label>
+                                <input type="text" id="title" value={newAward.title} onChange={handleNewAwardChange} placeholder="Enter award title" />
+                            </div>
+                            <div>
+                                <label htmlFor="date">Date:</label>
+                                <input type="text" id="date" value={newAward.date} onChange={handleNewAwardChange} placeholder="MM/YYYY" />
+                            </div>
+                        </div>
+                        
+                        <div className="button-group">
+                            <button className="update-button" onClick={addAwardEntry}>{isEditingAward ? 'Update Award' : 'Save Award'}</button>
+                            <button className="cancel-button" onClick={() => {
+                                setIsAddingAward(false);
+                                setIsEditingAward(false);
+                                setNewAward({ title: '', date: '' });
+                            }}>Cancel</button>
+                        </div>
+                    </div>
+                )}
             </div>
-        </div>
-    )}
-</div>
 
 
-        
+            <h3>Relevant Websites</h3>
+            <div className="website-section">
+                {websiteEntries.map((entry, index) => (
+                    <div key={index} className="website-entry">
+                        <div className="website-details">
+                            <p className="website-website">Website: {entry.website}</p>
+                            <p className="website-description">Description: {entry.description}</p>
+                        </div>
+                        <div className="button-group">
+                            <button className="edit-button" onClick={() => editWebsiteEntry(index)}>Edit</button>
+                            <button className="remove-button" onClick={() => removeWebsiteEntry(index)}>Remove</button>
+                        </div>
+                    </div>
+                ))}
+                <button className="add-button" onClick={() => {
+                    setIsAddingWebsite(true);
+                    setIsEditingWebsite(false);
+                    setNewWebsite({ website: '', description: '' });
+                }}>Add Website</button>
+
+                {(isAddingWebsite || isEditingWebsite) && (
+                    <div className="new-website-form">
+                        <div>
+                            <input
+                                type="url"
+                                id="website"
+                                value={newWebsite.website}  // Corrected here
+                                onChange={handleNewWebsiteChange}
+                                placeholder="Enter website URL"
+                                className="wide-input"
+                            />
+                        </div>
+                        <div className="description">
+                            <textarea
+                                id="description"
+                                value={newWebsite.description}
+                                onChange={handleNewWebsiteChange}
+                                placeholder="Briefly describe the Website"
+                                className="wide-input tall-input"
+                            />
+                        </div>
+                        <div className="button-group">
+                            <button className="update-button" onClick={addWebsiteEntry}>
+                                {isEditingWebsite ? 'Update Website' : 'Save Website'}
+                            </button>
+                            <button className="cancel-button" onClick={() => {
+                                setIsAddingWebsite(false);
+                                setIsEditingWebsite(false);
+                                setNewWebsite({ website: '', description: '' });  // Corrected here
+                            }}>Cancel</button>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+
 
 
 
