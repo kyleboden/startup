@@ -13,11 +13,18 @@ export function UserInfo() {
     const [workEntries, setWorkEntries] = useState([]); // State for work history
     const [skills, setSkills] = useState([]);  // State for skills
     const [languageEntries, setLanguageEntries] = useState([]);
+    const [awardEntries, setAwardEntries] = useState([]);
 
     const [isAddingEducation, setIsAddingEducation] = useState(false);
     const [isAddingWork, setIsAddingWork] = useState(false); // State for adding work
     const [isAddingSkill, setIsAddingSkill] = useState(false);  // State for adding skills
     const [isAddingLanguage, setIsAddingLanguage] = useState(false);
+    const [isAddingAward, setIsAddingAward] = useState(false);
+
+    const [currentEducationIndex, setCurrentEducationIndex] = useState(null);
+    const [currentWorkIndex, setCurrentWorkIndex] = useState(null);
+    const [currentLanguageIndex, setCurrentLanguageIndex] = useState(null);
+    const [currentAwardIndex, setCurrentAwardIndex] = useState(null);
 
 
 
@@ -40,11 +47,19 @@ export function UserInfo() {
         language: '', 
         proficiency: '' 
     });
+    const [newAward, setNewAward] = useState({
+        title: '', date: '' 
+    });
+
 
     const [isEditingEducation, setIsEditingEducation] = useState(false);
     const [isEditingWork, setIsEditingWork] = useState(false); // State for editing work
     const [isEditingLanguage, setIsEditingLanguage] = useState(false);
-    
+    const [isEditingAward, setIsEditingAward] = useState(false);
+
+
+
+
 // Handle Changes
     const handleContactChange = (e) => {
         const { id, value } = e.target;
@@ -82,22 +97,59 @@ export function UserInfo() {
         }));
     };
 
+    const handleNewAwardChange = (e) => {
+        const { id, value } = e.target;
+        setNewAward((prevAward) => ({
+            ...prevAward,
+            [id]: value,
+        }));
+    };
+    const isValidDate = (date) => /^\d{2}\/\d{4}$/.test(date);
+
 // Adding
     const addEducationEntry = () => {
         if (newEducation.school && newEducation.startDate && newEducation.endDate) {
-            setEducationEntries((prev) => [...prev, newEducation]);
+            if (isEditingEducation && currentEducationIndex !== null) {
+                // Update the education entry at the specific index
+                const updatedEducationEntries = [...educationEntries];
+                updatedEducationEntries[currentEducationIndex] = newEducation;
+                setEducationEntries(updatedEducationEntries);
+            } else {
+                // Add a new education entry if not editing
+                setEducationEntries((prev) => [...prev, newEducation]);
+            }
+
+            // Reset states after action
             setNewEducation({ school: '', startDate: '', endDate: '' });
             setIsAddingEducation(false);
+            setIsEditingEducation(false);
+        } else {
+            alert("Please fill in all fields.");
         }
     };
 
+
     const addWorkEntry = () => {
         if (newWork.company && newWork.position && newWork.startDate && newWork.endDate) {
-            setWorkEntries((prev) => [...prev, newWork]);
+            if (isEditingWork && currentWorkIndex !== null) {
+                // Update the work entry at the specific index
+                const updatedWorkEntries = [...workEntries];
+                updatedWorkEntries[currentWorkIndex] = newWork;
+                setWorkEntries(updatedWorkEntries);
+            } else {
+                // Add a new work entry if not editing
+                setWorkEntries((prev) => [...prev, newWork]);
+            }
+    
+            // Reset states after action
             setNewWork({ company: '', position: '', startDate: '', endDate: '', keyRoles: '' });
             setIsAddingWork(false);
+            setIsEditingWork(false);
+        } else {
+            alert("Please fill in all fields.");
         }
     };
+    
 
     const handleAddSkill = () => {
         if (newSkill && !skills.includes(newSkill)) { // Check if the skill is not empty and not already in the list
@@ -108,23 +160,56 @@ export function UserInfo() {
 
     const addLanguageEntry = () => {
         if (newLanguage.language && newLanguage.proficiency) {
-            setLanguageEntries([...languageEntries, newLanguage]);
+            if (isEditingLanguage && currentLanguageIndex !== null) {
+                // Update the language entry at the specific index
+                const updatedLanguageEntries = [...languageEntries];
+                updatedLanguageEntries[currentLanguageIndex] = newLanguage;
+                setLanguageEntries(updatedLanguageEntries);
+            } else {
+                // Add a new language entry if not editing
+                setLanguageEntries((prev) => [...prev, newLanguage]);
+            }
+    
+            // Reset states after action
             setNewLanguage({ language: '', proficiency: '' });
             setIsAddingLanguage(false);
+            setIsEditingLanguage(false);
         } else {
             alert("Please fill in both fields before saving.");
         }
     };
+    
+
+    const addAwardEntry = () => {
+        if (newAward.title && isValidDate(newAward.date)) {
+            if (isEditingAward && currentAwardIndex !== null) {
+                // Update the award at the specific index
+                const updatedAwards = [...awardEntries];
+                updatedAwards[currentAwardIndex] = newAward;
+                setAwardEntries(updatedAwards);
+            } else {
+                // Add a new award if not editing
+                setAwardEntries((prev) => [...prev, newAward]);
+            }
+    
+            // Reset states after action
+            setNewAward({ title: '', date: '' });
+            setIsAddingAward(false);
+            setIsEditingAward(false);
+        } else {
+            alert("Please enter a valid date in MM/YYYY format.");
+        }
+    };
+    
+
 
 // Removing
     const removeEducationEntry = (index) => {
-            const updatedEntries = educationEntries.filter((_, i) => i !== index);
-            setEducationEntries(updatedEntries);
+            setEducationEntries((prev) => prev.filter((_, i) => i !== index));
         };
 
     const removeWorkEntry = (index) => { // Function to remove work entry
-        const updatedEntries = workEntries.filter((_, i) => i !== index);
-        setWorkEntries(updatedEntries);
+        setWorkEntries((prev) => prev.filter((_, i) => i !== index));
     };
 
     const handleSkillRemove = (index) => {
@@ -133,8 +218,11 @@ export function UserInfo() {
     };
 
     const removeLanguageEntry = (index) => {
-        const updatedLanguageEntries = languageEntries.filter((_, i) => i !== index);
-        setLanguageEntries(updatedLanguageEntries);
+        setLanguageEntries((prev) => prev.filter((_, i) => i !== index));
+    };
+
+    const removeAwardEntry = (index) => {
+        setAwardEntries((prev) => prev.filter((_, i) => i !== index));
     };
 
 // Editing
@@ -153,20 +241,19 @@ export function UserInfo() {
     };
 
     const editLanguageEntry = (index) => {
-        const entry = languageEntries[index];
-        setNewLanguage(entry); // Set the entry values for editing
+        setCurrentLanguageIndex(index);
+        setNewLanguage(languageEntries[index]); // Set the entry values for editing
         setIsEditingLanguage(true);
-        setEditIndex(index); // Store the index of the entry being edited
+        setIsAddingLanguage(false);
     };
 
-    const saveEditedLanguageEntry = () => {
-        const updatedLanguageEntries = [...languageEntries];
-        updatedLanguageEntries[editIndex] = newLanguage; // Update the specific entry
-        setLanguageEntries(updatedLanguageEntries);
-        setNewLanguage({ language: '', proficiency: '' });
-        setIsEditingLanguage(false);
-        setEditIndex(null);
+    const editAwardEntry = (index) => {
+        setCurrentAwardIndex(index);
+        setNewAward(awardEntries[index]);
+        setIsEditingAward(true);
+        setIsAddingAward(false);
     };
+
 
 
     const handleKeyDown = (e) => {
@@ -175,8 +262,6 @@ export function UserInfo() {
             e.preventDefault(); // Prevent form submission or other default actions
         }
     };
-
-
 
 
 
@@ -279,7 +364,7 @@ export function UserInfo() {
                 )}
             </div>
 
-            <br />
+
             <h3>Work History</h3>
             <div className="work-section">
                 {workEntries.map((entry, index) => (
@@ -346,7 +431,7 @@ export function UserInfo() {
                 )}
             </div>
 
-            <br />
+
             <h3>Skills</h3>
             <div className="skills-section">
                 {skills.map((skill, index) => (
@@ -369,7 +454,7 @@ export function UserInfo() {
                 <button onClick={handleAddSkill}>Add Skill</button>
             </div>
 
-            <br />
+
             <h3>Languages</h3>
             <div className="language-section">
                 {languageEntries.map((entry, index) => (
@@ -410,8 +495,7 @@ export function UserInfo() {
                             </select>
                         </div>
                         <div className="button-group">
-                            <button className="update-button"onClick={isEditingLanguage ? saveEditedLanguageEntry : addLanguageEntry}>
-                                {isEditingLanguage ? 'Save Changes' : 'Save Language'}
+                            <button className="update-button"onClick={addLanguageEntry}>{isEditingLanguage ? 'Save Changes' : 'Save Language'}
                             </button>
                             <button className="cancel-button" onClick={() => {
                                 setIsAddingLanguage(false);
@@ -422,6 +506,53 @@ export function UserInfo() {
                     </div>
                 )}
             </div>
+            <h3>Awards and Certifications</h3>
+<div className="award-section">
+    {awardEntries.map((entry, index) => (
+        <div key={index} className="award-entry">
+            <div className="award-details">
+                <p className="award-title">Title: {entry.title}</p>
+                <p className="award-date">Date: {entry.date}</p>
+            </div>
+            <div className="button-group">
+                <button className="edit-button" onClick={() => editAwardEntry(index)}>Edit</button>
+                <button className="remove-button" onClick={() => removeAwardEntry(index)}>Remove</button>
+            </div>
+        </div>
+    ))}
+    <button className="add-button" onClick={() => {
+        setIsAddingAward(true);
+        setIsEditingAward(false);
+        setNewAward({ title: '', date: '' });
+    }}>Add Award / Certification</button>
+
+    {(isAddingAward || isEditingAward) && (
+        <div className="new-award-form">
+            <div className = "centerAwards">
+                <div>
+                    <label htmlFor="title">Title:</label>
+                    <input type="text" id="title" value={newAward.title} onChange={handleNewAwardChange} placeholder="Enter award title" />
+                </div>
+                <div>
+                    <label htmlFor="date">Date:</label>
+                    <input type="text" id="date" value={newAward.date} onChange={handleNewAwardChange} placeholder="MM/YYYY" />
+                </div>
+            </div>
+            
+            <div className="button-group">
+                <button className="update-button" onClick={addAwardEntry}>{isEditingAward ? 'Update Award' : 'Save Award'}</button>
+                <button className="cancel-button" onClick={() => {
+                    setIsAddingAward(false);
+                    setIsEditingAward(false);
+                    setNewAward({ title: '', date: '' });
+                }}>Cancel</button>
+            </div>
+        </div>
+    )}
+</div>
+
+
+        
 
 
 
@@ -429,5 +560,6 @@ export function UserInfo() {
 
 
         </main>
+        
     );
 }

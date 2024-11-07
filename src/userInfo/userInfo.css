@@ -10,6 +10,7 @@ h2 {
 
 h3 {
     margin-top: 20px;
+    padding-top: 40px;
     border-bottom: 2px solid #1784AC; /* Your logo color */
     padding-bottom: 5px;
 }
@@ -53,7 +54,7 @@ button:hover {
 }
 
 /* Education entry styles */
-.education-entry, .work-entry, .language-entry {
+.education-entry, .work-entry, .language-entry, .award-entry {
     background-color: #f9f9f9;
     padding: 15px;
     border: 1px solid #ccc;
@@ -62,7 +63,9 @@ button:hover {
 }
 
 .new-education-form, 
-.new-work-form, .new-language-form {
+.new-work-form, 
+.new-language-form,
+.new-award-form {
     margin-top: 20px;
     border: 1px solid #ccc;
     padding: 10px;
@@ -71,7 +74,8 @@ button:hover {
 
 .new-education-form label, 
 .new-work-form label,
-.new-language-form label {
+.new-language-form label,
+.new-award-form label {
     display: block;
     margin-top: 10px; /* Space between labels */
 }
@@ -79,7 +83,8 @@ button:hover {
 
 /* Ensure the input fields within both forms are styled similarly */
 .new-education-form input,
-.new-work-form input {
+.new-work-form input,
+.new-award-form input {
     width: 100%; /* Ensures both inputs are the same width */
     padding: 8px;
     border: 1px solid #ccc;
@@ -106,7 +111,7 @@ button:hover {
     box-sizing: border-box; /* Ensures padding is included in the width */
 }
 
-.date-container {
+.date-container, .centerAwards {
     display: flex;
     gap: 20px; /* Adjust gap as needed */
     align-items: center;
@@ -256,3 +261,4 @@ button:hover {
 .language-section label {
     margin-right: 10px; /* Space between label and input/select */
 }
+
