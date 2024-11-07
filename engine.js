@@ -3,7 +3,7 @@ async function callOpenAIChatGPT(prompt) {
     const endpoint = 'https://api.openai.com/v1/chat/completions';
     // const apiKey = process.env.API_KEY;
     const apiKey = "PLACEHOLDER"
-
+    
     if (!apiKey) {
         console.error('API key or org ID is missing.');
         return null;
@@ -44,8 +44,14 @@ async function callOpenAIChatGPT(prompt) {
     }
 }
 
-async function queryEngine (jobData, userInfo) {
-    return await callOpenAIChatGPT("Job Description: " + JSON.stringify(jobData) + "\nUser Information: " + JSON.stringify(userInfo))
-}
-
+// async function queryEngine (jobData, userInfo) {
+//     return await callOpenAIChatGPT("Job Description: " + JSON.stringify(jobData) + "\nUser Information: " + JSON.stringify(userInfo))
+// }
+// engine.js
+export async function queryEngine(jobData, userInfo) {
+    return await callOpenAIChatGPT(
+      "Job Description: " + JSON.stringify(jobData) + "\nUser Information: " + JSON.stringify(userInfo)
+    );
+  }
+  
 const engine_context = "You are a helpful assistant that only generates professional resumes. The user will provide a job description and their information and you will respond with a resume tailored to the given job description using only the user's given information. In the resume please include an objective section related to the job description. Format your response as an html page. For all text, specify an alignment. Don't center h2 and h3 headers. Make the resume concise. Feel free to remove information that I input to make the resume more concise or if it's not relevant to the job."

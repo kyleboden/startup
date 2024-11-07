@@ -1,7 +1,30 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';  // Import Link for navigation
+
 import './userInfo.css';
 
 export function UserInfo() {
+    const [userInfo, setUserInfo] = useState({});
+
+    const handleSaveUserInformation = () => {
+      // Collect the user information from the form fields
+      const sections = document.querySelectorAll('.user-info-section');
+      const newUserInfo = {};
+  
+      sections.forEach((section) => {
+        const sectionValue = {};
+        const data = section.querySelectorAll('.user-info-data');
+        data.forEach((item) => {
+          sectionValue[item.id] = item.type === 'checkbox' ? item.checked : item.value;
+        });
+        newUserInfo[section.id] = sectionValue;
+      });
+  
+      // Store the information in localStorage
+      localStorage.setItem('user-info', JSON.stringify(newUserInfo));
+    };
+
+
     const [contactInfo, setContactInfo] = useState({
         fullName: '',
         phoneNumber: '',
@@ -305,13 +328,6 @@ export function UserInfo() {
             e.preventDefault(); // Prevent form submission or other default actions
         }
     };
-
-
-
-
-
-    
-    
 
     return (
         <main className="user-info-main">
@@ -652,7 +668,13 @@ export function UserInfo() {
             </div>
 
 
-
+            <div>
+                <Link to="/generator">
+                <button className = "save-resume-button" onClick={handleSaveUserInformation}>
+                    Save Information and Go to Resume Generator
+                </button>
+                </Link>
+            </div>
 
 
 

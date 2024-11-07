@@ -1,25 +1,31 @@
 import React, { useState } from 'react';
 import './generator.css';
+import { queryEngine } from '../../engine';
+import html2pdf from 'html2pdf.js'; // Import html2pdf
 
 export function Generator() {
   const [loading, setLoading] = useState(false);
   const [resumePreviewUrl, setResumePreviewUrl] = useState(null);
 
   const downloadPDF = () => {
-    if (localStorage.getItem('resume')) {
+    const resumeContent = localStorage.getItem('resume');
+    if (resumeContent) {
       const opt = {
         margin: 0.5,
         filename: 'ApplySmart-Resume.pdf',
         html2canvas: { scale: 4, logging: false },
         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
-        pagebreak: { mode: 'avoid-all' }
+        pagebreak: { mode: 'avoid-all' },
       };
-      html2pdf().set(opt).from(localStorage.getItem('resume')).save();
+      html2pdf().set(opt).from(resumeContent).save();
+    } else {
+      console.error('No resume content available to download.');
     }
   };
 
   const generateResume = () => {
     setLoading(true);
+    console.log("Started generating resume...");
 
     const userInfo = localStorage.getItem('user-info')
       ? JSON.parse(localStorage.getItem('user-info'))
@@ -40,8 +46,16 @@ export function Generator() {
       extraInfo: document.getElementById('extra-info').value
     };
 
+    if (!jobData.jobDescription.trim()) {
+      alert('Please provide a job description.');
+      setLoading(false);
+      return;
+    }
+
     queryEngine(jobData, userInfo)
-      .then(result => {
+      .then((result) => {
+        console.log("queryEngine result received", result);
+
         const modifiedResult = result.slice(7, -3);
         localStorage.setItem('resume', modifiedResult);
 
@@ -58,16 +72,16 @@ export function Generator() {
           .from(modifiedResult)
           .toPdf()
           .get('pdf')
-          .then(pdf => {
+          .then((pdf) => {
             const pdfBlob = pdf.output('blob');
             const blobUrl = URL.createObjectURL(pdfBlob);
             setResumePreviewUrl(blobUrl);
           })
-          .catch(error => {
+          .catch((error) => {
             console.error('Error generating PDF:', error);
           });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error generating resume:', error);
       })
       .finally(() => {
@@ -86,6 +100,7 @@ export function Generator() {
           placeholder="Paste your job description here"
         />
       </div>
+
       <div className="form-group">
         <label htmlFor="extra-info">Any Extra Information:</label>
         <textarea
@@ -95,20 +110,30 @@ export function Generator() {
           placeholder="Add any extra information that could be useful for this specific job, e.g., personal experiences, etc."
         />
       </div>
-      <button id="generate-resume" onClick={generateResume} disabled={loading}>
+
+      <button
+        id="generate-resume"
+        onClick={generateResume}
+        disabled={loading}
+      >
         {loading ? (
           <div id="loading-spinner" className="spinner"></div>
         ) : (
           <div id="generate-button-text">Generate and Preview Resume</div>
         )}
       </button>
+
       {resumePreviewUrl && (
         <>
           <button id="download-pdf-button" onClick={downloadPDF}>
             Download PDF
           </button>
           <div id="resume-preview">
-            <iframe id="isolated-frame" src={resumePreviewUrl} title="Resume Preview" />
+            <iframe
+              id="isolated-frame"
+              src={resumePreviewUrl}
+              title="Resume Preview"
+            />
           </div>
         </>
       )}
