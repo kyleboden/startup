@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';  // Import Link for navigation
 
 import './userInfo.css';
@@ -23,7 +23,7 @@ export function UserInfo() {
       // Store the information in localStorage
       localStorage.setItem('user-info', JSON.stringify(newUserInfo));
     };
-
+    
 
     const [contactInfo, setContactInfo] = useState({
         fullName: '',

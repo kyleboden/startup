@@ -47,6 +47,8 @@ button {
     font-size: 16px; /* Button text size */
     margin-top: 20px; /* Space above buttons */
     margin-bottom: 20px; /* Space below buttons */
+    width: 300px;
+
 }
 
 button:hover {

@@ -1,58 +1,39 @@
-h1{
-    padding-top: 20px;
-}
+/* Centers everything on the page */
 
-#username {
-    padding-top: 10px;
-}
-#password {
-    padding-bottom: 10px;
-}
-
-main {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-/* Adjusting form elements */
-form {
+  
+  form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ffffff;
-    gap: 10px; /* Space between form elements */
+    gap: 15px; /* Space between form elements */
     width: 100%;
-}
-
-form div {
-    display: flex;
-    flex-direction: column; /* Stack the elements vertically */
-    align-items: center;
-    gap: 5px;
+    max-width: 300px;
+  }
+  
+  .responsive-image {
+    margin-bottom: 20px; /* Space between image and form */
+  }
+  
+  #username, #password {
     width: 100%;
-}
+  }
+  
+  input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+  }
+  
 
-/* Ensure button styles are consistent with styles.css */
-button {
-    padding: 10px 15px; /* Match the padding from styles.css */
-    border: none; /* No border */
-    border-radius: 4px; /* Round edges */
-    background-color: #1784AC; /* Consistent button background color */
-    color: white; /* Consistent text color */
-    cursor: pointer; /* Pointer cursor on hover */
-    width: 100%; /* Ensure full width */
-    max-width: 250px; /* Control maximum width */
-    box-sizing: border-box; /* Include padding and border in element's total width */
-    margin-top: 10px; /* Space above the button */
-}
-
-button:hover {
-    background-color: #0f5f7a; /* Darker shade on hover */
-}
-label {
-    display: block; /* Makes each label take the full width, allowing for vertical alignment */
-    margin-bottom: 5px; /* Space between the label and textarea */
-    text-align: left; /* Align the text of the label to the left */
-    font-size: 16px; /* Optional: adjust the font size of the labels */
-}
+  
+  button:hover {
+    background-color: #0d6182;
+  }
+  
+  /* Space between the two buttons */
+  button + button {
+    margin-top: 5px;
+  }
+  
