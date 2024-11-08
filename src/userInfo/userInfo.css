@@ -160,7 +160,7 @@ button:hover {
 
 
 
-.edit-button, .remove-button, .cancel-button, .update-button,  {
+.edit-button, .remove-button, .cancel-button, .update-button  {
     background-color: #ffffff; /* Edit button color */
     color: rgb(31, 31, 31);
     border: none;

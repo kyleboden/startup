@@ -61,7 +61,7 @@ export default function App() {
         <footer>
           <div className="container-fluid">
             <span className="text-reset">Kyle Boden</span>
-            <a href="https://github.com/kyleboden/startup/tree/main/startup-html">
+            <a href="https://github.com/kyleboden/startup/tree/react-version">
               <br />
               Click here to see my GitHub
             </a>
