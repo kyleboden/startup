@@ -23,7 +23,6 @@ export function UserInfo() {
       // Store the information in localStorage
       localStorage.setItem('user-info', JSON.stringify(newUserInfo));
     };
-    
 
     const [contactInfo, setContactInfo] = useState({
         fullName: '',
