@@ -16,7 +16,7 @@ header {
   display: flex;
   align-items: center; /* Center-align the elements vertically */
   background-color: #1784AC; /* Match header background with logo color */
-  padding: 10px; /* Space inside the header */
+  padding: 5px; /* Space inside the header */
   position: fixed; /* Fix the header to the top */
   top: 0; /* Position it at the top of the page */
   left: 0; /* Align it to the left edge */
@@ -39,7 +39,7 @@ main {
 /* Footer styles */
 footer {
   text-align: center; /* Center-align footer text */
-  padding: 20px; /* Increase padding for the footer height */
+  padding: 5px; /* Increase padding for the footer height */
   background-color: #f0f0f0; /* Light grey for footer background */
   position: fixed; /* Fix the footer at the bottom */
   left: 0;

@@ -19,7 +19,7 @@ export default function App() {
       <div>
         <header className="d-flex justify-content-between align-items-center fixed-top">
           <a href="/">
-            <img src="ApplySmartTWhite.png" style={{ width: '200px', height: 'auto' }} alt="Logo" />
+            <img src="ApplySmartTWhite.png" style={{ width: '140px', height: 'auto' }} alt="Logo" />
           </a>
           <nav className="navbar navbar-expand-lg navbar-dark navbar-custom">
             <button
