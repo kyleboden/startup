@@ -83,3 +83,12 @@ For this deliverable I properly styled the application into its final appearance
 - [x] **Application elements** - Used good contrast and whitespace
 - [x] **Application text content** - Consistent fonts and colors
 - [x] **Application images** - My logo is displayed on multiple pages
+
+
+## React deliverable
+
+For this deliverable I used JavaScript and React so that the application completely works for a single user. I also added placeholders for future technology. There's still some funcionality I want to remember from my main branch, so I have my react-version as a seperate branch.
+
+- [x] **Bundled using vite** - done!-
+- [x] **The Navigation bar uses the router for different pages** - done!
+- [x] **The index.html file is hooked to App** - done!-
