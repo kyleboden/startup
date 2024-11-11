@@ -34,6 +34,10 @@ main {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   text-align: center; /* Center the image and text inside main */
   margin-bottom: 120px; /* Add margin to avoid overlap with the footer */
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
 }
 
 /* Footer styles */

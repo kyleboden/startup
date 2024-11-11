@@ -2,7 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './login.css'; 
 
-export function Login() {
+import { Unauthenticated } from './unauthenticated';
+import { Authenticated } from './authenticated';
+import { AuthState } from './authState';
+
+export function Login({ userName, authState, onAuthChange }) {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
@@ -11,7 +15,6 @@ export function Login() {
 
   return (
     <main>
-      {/* <h1>Sign in to Apply Smart</h1> */}
       <img
         src="ApplySmartT.png"
         style={{ width: '400px', height: 'auto' }}
@@ -20,18 +23,20 @@ export function Login() {
       />
       <br />
 
-      <form onSubmit={(e) => e.preventDefault()}>
-        <div id="username">
-          <input type="text" name="username" placeholder="username" />
-        </div>
-
-        <div id="password">
-          <input type="password" placeholder="password" />
-        </div>
-
-        <button type="button" onClick={handleNavigation}>Login</button>
-        <button type="button" onClick={handleNavigation}>Sign up!</button>
-      </form>
+      <div>
+        {authState !== AuthState.Unknown && <h1></h1>}
+        {authState === AuthState.Authenticated && (
+          <Authenticated userName={userName} onLogout={() => onAuthChange(userName, AuthState.Unauthenticated)} />
+        )}
+        {authState === AuthState.Unauthenticated && (
+          <Unauthenticated
+            userName={userName}
+            onLogin={(loginUserName) => {
+              onAuthChange(loginUserName, AuthState.Authenticated);
+            }}
+          />
+        )}
+      </div>
     </main>
   );
 }

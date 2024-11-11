@@ -4,10 +4,17 @@ import { HomePage } from './homePage/homePage';
 import { Login } from './login/login';
 import { Generator } from './generator/generator';
 import { UserInfo } from './userInfo/userInfo';
+import { AuthState } from './login/authState';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
 export default function App() {
+
+  const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+  const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+  const [authState, setAuthState] = React.useState(currentAuthState);
+
   const [isOpen, setIsOpen] = useState(false); // State to manage the toggle
 
   const toggleNavbar = () => {
@@ -39,20 +46,38 @@ export default function App() {
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/login">Login</NavLink>
                 </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/generator">Resume Generator</NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link" to="/userInfo">Update Information</NavLink>
-                </li>
+                {authState === AuthState.Authenticated && (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/generator">Resume Generator</NavLink>
+                  </li>
+                )}
+                {authState === AuthState.Authenticated && (
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/userInfo">Update Information</NavLink>
+                  </li>
+                )}
               </ul>
             </div>
           </nav>
         </header>
 
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<Login />} />
+        <Route path="/" element={<HomePage />} />
+        <Route
+            path='/login'
+            element={
+              <Login
+                userName={userName}
+                authState={authState}
+                onAuthChange={(userName, authState) => {
+                  setAuthState(authState);
+                  setUserName(userName);
+                }}
+              />
+            }
+            exact
+          />
+          {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/userInfo" element={<UserInfo />} />
           <Route path="/generator" element={<Generator />} />
           <Route path="*" element={<NotFound />} />
