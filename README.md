@@ -87,8 +87,10 @@ For this deliverable I properly styled the application into its final appearance
 
 ## React deliverable
 
-For this deliverable I used JavaScript and React so that the application completely works for a single user. I also added placeholders for future technology. There's still some funcionality I want to remember from my main branch, so I have my react-version as a seperate branch.
+For this deliverable I used JavaScript and React so that the application completely works for a single user. I also added placeholders for future technology. There's still some functionality I want to remember from my main branch, so I have my react-version as a seperate branch.
 
 - [x] **Bundled using vite** - done!-
 - [x] **The Navigation bar uses the router for different pages** - done!
 - [x] **The index.html file is hooked to App** - done!-
+- [x] **Components**
+  - [x] **login** - When you press login on the login button it takes you to the userInfo page.
