@@ -48,14 +48,15 @@ export default function App() {
                 </li>
                 {authState === AuthState.Authenticated && (
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/generator">Resume Generator</NavLink>
+                    <NavLink className="nav-link" to="/userInfo">Update Information</NavLink>
                   </li>
                 )}
                 {authState === AuthState.Authenticated && (
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/userInfo">Update Information</NavLink>
+                    <NavLink className="nav-link" to="/generator">Resume Generator</NavLink>
                   </li>
                 )}
+
               </ul>
             </div>
           </nav>
