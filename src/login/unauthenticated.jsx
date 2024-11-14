@@ -9,15 +9,30 @@ export function Unauthenticated(props) {
   const [displayError, setDisplayError] = React.useState(null);
 
   async function loginUser() {
-    localStorage.setItem('userName', userName);
-    props.onLogin(userName);
+    loginOrCreate(`/api/auth/login`);
   }
 
   async function createUser() {
-    localStorage.setItem('userName', userName);
-    props.onLogin(userName);
+    loginOrCreate(`/api/auth/create`);
   }
 
+  async function loginOrCreate(endpoint) {
+    const response = await fetch(endpoint, {
+      method: 'post',
+      body: JSON.stringify({ email: userName, password: password }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    });
+    if (response?.status === 200) {
+      localStorage.setItem('userName', userName);
+      props.onLogin(userName);
+    } else {
+      const body = await response.json();
+      setDisplayError(`⚠ Error: ${body.msg}`);
+    }
+  }
+  
   return (
     <div className="login-container">
       <div className="input-group mb-3">
@@ -40,14 +55,12 @@ export function Unauthenticated(props) {
         />
       </div>
 
-      {/* Login button first */}
-      <Button variant="primary" onClick={loginUser} disabled={!userName || !password}>
-        Login
+      <Button variant='primary' onClick={() => loginUser()} disabled={!userName || !password}>
+          Login
       </Button>
 
-      {/* Create button below */}
-      <Button variant="secondary" onClick={createUser} disabled={!userName || !password}>
-        Create
+      <Button variant='secondary' onClick={() => createUser()} disabled={!userName || !password}>
+          Create
       </Button>
 
       <MessageDialog message={displayError} onHide={() => setDisplayError(null)} />
