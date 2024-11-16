@@ -94,3 +94,13 @@ For this deliverable I used JavaScript and React so that the application complet
 - [x] **The index.html file is hooked to App** - done!-
 - [x] **Components**
   - [x] **login** - When you press login on the login button it takes you to the userInfo page.
+
+  ## Service deliverable
+
+For this deliverable I added backend endpoints that verify if a user can login. I also added backend endpoints for Education, Work History, Skills, and Languages.
+
+- [x] **Node.js/Express HTTP service** - done!
+- [x] **Static middleware for frontend** - done!
+- [x] **Calls to third party endpoints** - Using fetch request to call different api. I implemented the random quote of the day on my home page. 
+- [x] **Backend service endpoints** - Placeholders for login that stores the current user on the server. Endpoints for storing user information.
+- [x] **Frontend calls service endpoints** - Login Function.

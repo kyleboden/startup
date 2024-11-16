@@ -3,6 +3,20 @@ import { Link } from 'react-router-dom';
 import './homePage.css';
 
 export function HomePage() {
+  const [quote, setQuote] = React.useState('Loading...');
+  const [quoteAuthor, setQuoteAuthor] = React.useState('unknown');
+
+  React.useEffect(() => {
+    fetch('https://quote.cs260.click')
+      .then((response) => response.json())
+      .then((data) => {
+        setQuote(data.quote);
+        setQuoteAuthor(data.author);
+      })
+      .catch();
+  }, []);
+
+
   return (
     <main>
       <br />
@@ -35,6 +49,14 @@ export function HomePage() {
           <Link to="/login">Sign up</Link> or{' '}
           <Link to="/login">Login</Link> to get started.
         </h4>
+
+        <br />        <br />
+        <div className="quote-box bg-light text-dark">
+        <h3>Quote of the Day</h3>
+          <p className="quote">{quote}</p>
+          <p className="author">— {quoteAuthor}</p>
+        </div>
+        
       </div>
     </main>
   );
