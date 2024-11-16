@@ -1,5 +1,4 @@
 # ApplySmart
-#REACTTTTTTTTTTTTT
 
 ## Specification Deliverable
 
