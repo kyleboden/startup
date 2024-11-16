@@ -166,6 +166,7 @@ apiRouter.delete('/skills/:id', (req, res) => {
 
 // --- LANGUAGES ROUTES ---
 
+
 // Get all languages
 apiRouter.get('/languages', (req, res) => {
   res.send(languages);

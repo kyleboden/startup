@@ -188,7 +188,39 @@ export function UserInfo() {
         })
         .catch(console.error);
     };
+    const saveLanguage = () => {
+        const method = isEditingLanguage ? 'PUT' : 'POST';
+        const endpoint = isEditingLanguage
+            ? `/api/languages/${languageEntries[currentLanguageIndex].id}`
+            : '/api/languages';
 
+        fetch(endpoint, {
+        method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newLanguage)
+        })
+        .then((res) => res.json())
+        .then((savedLanguage) => {
+            if (isEditingLanguage) {
+                setLanguageEntries((prev) =>
+                prev.map((language, index) =>
+                index === currentLanguageIndex ? savedLanguage : language
+                )
+            );
+            } else {
+                setLanguageEntries((prev) => [...prev, savedLanguage]);
+            }
+
+            // Reset states
+            setNewLanguage({
+                language: '', 
+                proficiency: ''
+            });
+            setIsAddingLanguage(false);
+            setIsEditingLanguage(false);
+        })
+        .catch(console.error);
+    };
 
 // Handle Changes
     const handleContactChange = (e) => {
@@ -220,7 +252,11 @@ export function UserInfo() {
     };
 
     const handleNewLanguageChange = (e) => {
-        setNewLanguage({ ...newLanguage, [e.target.id]: e.target.value });
+        const { id, value } = e.target;
+        setNewLanguage((prevLanguage) => ({
+            ...prevLanguage,
+            [id]: value,
+        }));    
     };
 
     const handleNewAwardChange = (e) => {
@@ -255,29 +291,6 @@ export function UserInfo() {
         })
         .catch(console.error);
     };
-
-    const addLanguageEntry = () => {
-        const method = isEditingLanguage ? 'PUT' : 'POST';
-        const url = isEditingLanguage
-          ? `/api/languages/${languageEntries[editIndex].id}`
-          : '/api/languages';
-    
-        fetch(url, {
-          method,
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newLanguage),
-        })
-          .then((res) => res.json())
-          .then((newLang) => {
-            if (isEditingLanguage) {
-              setLanguageEntries((prev) => prev.map((entry, idx) => (idx === editIndex ? newLang : entry)));
-            } else {
-              setLanguageEntries((prev) => [...prev, newLang]);
-            }
-            resetForm();
-          })
-          .catch(console.error);
-      };
     
     const isValidDate = (date) => /^\d{2}\/\d{4}$/.test(date);
     const addAwardEntry = () => {
@@ -389,11 +402,14 @@ export function UserInfo() {
     };
 
     const editLanguageEntry = (index) => {
+        console.log('Editing index:', index);  // Debugging line
+        console.log('Language entry:', languageEntries[currentLanguageIndex]);
+
         setCurrentLanguageIndex(index);
-        setNewLanguage(languageEntries[index]); // Set the entry values for editing
+        setNewLanguage(languageEntries[index]); // Ensure this sets the correct language object with an id
         setIsEditingLanguage(true);
         setIsAddingLanguage(false);
-    };
+    };    
 
     const editAwardEntry = (index) => {
         setCurrentAwardIndex(index);
@@ -722,16 +738,35 @@ export function UserInfo() {
             <h3>Languages</h3>
             <div className="language-section">
                 {languageEntries.map((entry, index) => (
-                    <div key={index} className="language-entry">
+                    <div key={entry.id} className="language-entry">
                         <p>Language: {entry.language}</p>
                         <p>Proficiency: {entry.proficiency}</p>
                         <div className="button-group">
-                            <button className="edit-button" onClick={() => editLanguageEntry(index)}>Edit</button>
-                            <button className="remove-button" onClick={() => removeLanguageEntry(index)}>Remove</button>
+                            <button className="edit-button" 
+                            onClick={() => editLanguageEntry(index)}>
+                                Edit
+                            </button>
+                            
+                            <button className="remove-button" 
+                            onClick={() => removeLanguageEntry(index)}>
+                                Remove
+                            </button>
                         </div>
                     </div>
                 ))}
-                <button className="add-button" onClick={() => setIsAddingLanguage(true)}>Add Language</button>
+                <button
+                    className="add-button"
+                    onClick={() => {
+                        setIsAddingLanguage(true);
+                        setIsEditingLanguage(false); // Reset editing when adding new
+                        setNewLanguage({
+                            language: '', 
+                            proficiency: '' 
+                        }); // Reset form
+                    }}
+                >
+                    Add Language
+                </button>
 
                 {(isAddingLanguage || isEditingLanguage) && (
                     <div className="new-language-form">
@@ -758,14 +793,26 @@ export function UserInfo() {
                                 <option value="Native">Native</option>
                             </select>
                         </div>
+
                         <div className="button-group">
-                            <button className="update-button"onClick={addLanguageEntry}>{isEditingLanguage ? 'Save Changes' : 'Save Language'}
+                            <button 
+                                className="update-button"
+                                onClick={saveLanguage}
+                            >
+                                {isEditingLanguage ? 'Update Language' : 'Save Language'}
                             </button>
-                            <button className="cancel-button" onClick={() => {
+                            <button className="cancel-button" 
+                            onClick={() => {
                                 setIsAddingLanguage(false);
                                 setIsEditingLanguage(false);
-                                setNewLanguage({ language: '', proficiency: ''}); // Reset form
-                            }}>Cancel</button>
+                                setNewLanguage({ 
+                                    language: '', 
+                                    proficiency: ''
+                                }); // Reset form
+                            }}
+                        >
+                            Cancel
+                        </button>
                         </div>
                     </div>
                 )}
@@ -872,7 +919,6 @@ export function UserInfo() {
                 )}
             </div>
 
-
             <div>
                 <Link to="/generator">
                 <button className = "save-resume-button" onClick={handleSaveUserInformation}>
@@ -880,10 +926,6 @@ export function UserInfo() {
                 </button>
                 </Link>
             </div>
-
-
-
-
 
         </main>
         

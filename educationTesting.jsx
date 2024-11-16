@@ -267,3 +267,38 @@ export function UserInfo() {
         
     );
 }
+
+
+
+// --- EDUCATION --- 
+
+// Get all education entries
+apiRouter.get('/education', (req, res) => {
+    res.send(educations);
+  });
+  
+  // Add a new education entry
+  apiRouter.post('/education', (req, res) => {
+    const newEducation = { id: uuid.v4(), ...req.body };
+    educations.push(newEducation);
+    res.send(newEducation);
+  });
+  
+  // Update an existing education entry
+  apiRouter.put('/education/:id', (req, res) => {
+    const { id } = req.params;
+    const index = educations.findIndex((edu) => edu.id === id);
+    if (index !== -1) {
+      educations[index] = { ...educations[index], ...req.body };
+      res.send(educations[index]);
+    } else {
+      res.status(404).send({ msg: 'Education entry not found' });
+    }
+  });
+  
+  // Delete an education entry
+  apiRouter.delete('/education/:id', (req, res) => {
+    const { id } = req.params;
+    educations = educations.filter((edu) => edu.id !== id);
+    res.status(204).end();
+  });
