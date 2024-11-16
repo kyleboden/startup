@@ -33,11 +33,10 @@ export function UserInfo() {
     });
     const [educationEntries, setEducationEntries] = useState([]);
     const [workEntries, setWorkEntries] = useState([]); // State for work history
-    const [skills, setSkills] = useState([]);  // State for skills
+    const [skillsEntries, setSkillsEntries] = useState([]);  // State for skills
     const [languageEntries, setLanguageEntries] = useState([]);
     const [awardEntries, setAwardEntries] = useState([]);
     const [websiteEntries, setwebsiteEntries] = useState([]);
-
 
     const [isAddingEducation, setIsAddingEducation] = useState(false);
     const [isAddingWork, setIsAddingWork] = useState(false); // State for adding work
@@ -51,7 +50,6 @@ export function UserInfo() {
     const [currentLanguageIndex, setCurrentLanguageIndex] = useState(null);
     const [currentAwardIndex, setCurrentAwardIndex] = useState(null);
     const [currentWebsiteIndex, setCurrentWebsiteIndex] = useState(null);
-
 
 
     const [newEducation, setNewEducation] = useState({
@@ -86,7 +84,110 @@ export function UserInfo() {
     const [isEditingAward, setIsEditingAward] = useState(false);
     const [isEditingWebsite, setIsEditingWebsite] = useState(false);
 
+//useEffect, testing
+    useEffect(() => {
+        // Fetch all education entries from the backend
+        fetch('/api/education')
+            .then((res) => res.json())
+            .then(setEducationEntries)
+            .catch(console.error);
+    }, []);
 
+    useEffect(() => {
+        fetch('/api/work-history')
+          .then((res) => res.json())
+          .then(setWorkEntries)
+          .catch(console.error);
+      }, []);
+
+    useEffect(() => {
+    fetch('/api/skills')
+        .then((res) => res.json())
+        .then(setSkillsEntries)
+        .catch(console.error);
+    }, []);
+    useEffect(() => {
+        // Fetch existing languages from backend
+        fetch('/api/languages')
+          .then((res) => res.json())
+          .then(setLanguageEntries)
+          .catch(console.error);
+      }, []);
+    
+
+    const saveEducation = () => {
+        const method = isEditingEducation ? 'PUT' : 'POST';
+        const endpoint = isEditingEducation
+            ? `/api/education/${educationEntries[currentEducationIndex].id}`
+            : '/api/education';
+
+        fetch(endpoint, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newEducation),
+        })
+            .then((res) => res.json())
+            .then((savedEducation) => {
+                if (isEditingEducation) {
+                    setEducationEntries((prev) =>
+                        prev.map((edu, index) =>
+                            index === currentEducationIndex ? savedEducation : edu
+                        )
+                    );
+                } else {
+                    setEducationEntries((prev) => [...prev, savedEducation]);
+                }
+
+                // Reset states
+                setNewEducation({
+                    school: '',
+                    startDate: '',
+                    endDate: '',
+                    gpa: '',
+                    major: '',
+                });
+                setIsAddingEducation(false);
+                setIsEditingEducation(false);
+            })
+            .catch(console.error);
+    };
+
+    const saveWork = () => {
+        const method = isEditingWork ? 'PUT' : 'POST';
+        const endpoint = isEditingWork
+            ? `/api/work-history/${workEntries[currentWorkIndex].id}`
+            : '/api/work-history';
+
+        fetch(endpoint, {
+        method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newWork)
+        })
+        .then((res) => res.json())
+        .then((savedWork) => {
+            if (isEditingWork) {
+                setWorkEntries((prev) =>
+                prev.map((work, index) =>
+                index === currentWorkIndex ? savedWork : work
+                )
+            );
+            } else {
+                setWorkEntries((prev) => [...prev, savedWork]);
+            }
+
+            // Reset states
+            setNewWork({
+                company: '',
+                position: '',
+                startDate: '',
+                endDate: '',
+                responsibilities: ''
+            });
+            setIsAddingWork(false);
+            setIsEditingWork(false);
+        })
+        .catch(console.error);
+    };
 
 
 // Handle Changes
@@ -119,11 +220,7 @@ export function UserInfo() {
     };
 
     const handleNewLanguageChange = (e) => {
-        const { id, value } = e.target;
-        setNewLanguage((prevLanguage) => ({
-            ...prevLanguage,
-            [id]: value,
-        }));
+        setNewLanguage({ ...newLanguage, [e.target.id]: e.target.value });
     };
 
     const handleNewAwardChange = (e) => {
@@ -143,77 +240,44 @@ export function UserInfo() {
     };
 
 // Adding
-    const addEducationEntry = () => {
-        if (newEducation.school && newEducation.startDate && newEducation.endDate) {
-            if (isEditingEducation && currentEducationIndex !== null) {
-                // Update the education entry at the specific index
-                const updatedEducationEntries = [...educationEntries];
-                updatedEducationEntries[currentEducationIndex] = newEducation;
-                setEducationEntries(updatedEducationEntries);
-            } else {
-                // Add a new education entry if not editing
-                setEducationEntries((prev) => [...prev, newEducation]);
-            }
-
-            // Reset states after action
-            setNewEducation({ school: '', startDate: '', endDate: '' });
-            setIsAddingEducation(false);
-            setIsEditingEducation(false);
-        } else {
-            alert("Please fill in all fields.");
-        }
-    };
-
-
-    const addWorkEntry = () => {
-        if (newWork.company && newWork.position && newWork.startDate && newWork.endDate) {
-            if (isEditingWork && currentWorkIndex !== null) {
-                // Update the work entry at the specific index
-                const updatedWorkEntries = [...workEntries];
-                updatedWorkEntries[currentWorkIndex] = newWork;
-                setWorkEntries(updatedWorkEntries);
-            } else {
-                // Add a new work entry if not editing
-                setWorkEntries((prev) => [...prev, newWork]);
-            }
-    
-            // Reset states after action
-            setNewWork({ company: '', position: '', startDate: '', endDate: '', keyRoles: '' });
-            setIsAddingWork(false);
-            setIsEditingWork(false);
-        } else {
-            alert("Please fill in all fields.");
-        }
-    };
-    
-
     const handleAddSkill = () => {
-        if (newSkill && !skills.includes(newSkill)) { // Check if the skill is not empty and not already in the list
-            setSkills([...skills, newSkill]);
-            setNewSkill(''); // Clear the input field after adding
-        }
+        if (newSkill.trim() === '') return;
+    
+        fetch('/api/skills', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ skill: newSkill }),
+        })
+        .then((res) => res.json())
+        .then((newSkillData) => {
+            setSkillsEntries((prev) => [...prev, newSkillData]);  // Add the new skill to the state
+            setNewSkill('');  // Reset the input
+        })
+        .catch(console.error);
     };
 
     const addLanguageEntry = () => {
-        if (newLanguage.language && newLanguage.proficiency) {
-            if (isEditingLanguage && currentLanguageIndex !== null) {
-                // Update the language entry at the specific index
-                const updatedLanguageEntries = [...languageEntries];
-                updatedLanguageEntries[currentLanguageIndex] = newLanguage;
-                setLanguageEntries(updatedLanguageEntries);
-            } else {
-                // Add a new language entry if not editing
-                setLanguageEntries((prev) => [...prev, newLanguage]);
-            }
+        const method = isEditingLanguage ? 'PUT' : 'POST';
+        const url = isEditingLanguage
+          ? `/api/languages/${languageEntries[editIndex].id}`
+          : '/api/languages';
     
-            // Reset states after action
-            setNewLanguage({ language: '', proficiency: '' });
-            setIsAddingLanguage(false);
-            setIsEditingLanguage(false);
-        } else {
-            alert("Please fill in both fields before saving.");
-        }
-    };
+        fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newLanguage),
+        })
+          .then((res) => res.json())
+          .then((newLang) => {
+            if (isEditingLanguage) {
+              setLanguageEntries((prev) => prev.map((entry, idx) => (idx === editIndex ? newLang : entry)));
+            } else {
+              setLanguageEntries((prev) => [...prev, newLang]);
+            }
+            resetForm();
+          })
+          .catch(console.error);
+      };
     
     const isValidDate = (date) => /^\d{2}\/\d{4}$/.test(date);
     const addAwardEntry = () => {
@@ -262,21 +326,45 @@ export function UserInfo() {
 
 // Removing
     const removeEducationEntry = (index) => {
-            setEducationEntries((prev) => prev.filter((_, i) => i !== index));
-        };
+        const educationId = educationEntries[index].id;
 
-    const removeWorkEntry = (index) => { // Function to remove work entry
-        setWorkEntries((prev) => prev.filter((_, i) => i !== index));
+        fetch(`/api/education/${educationId}`, { method: 'DELETE' })
+            .then(() => {
+                setEducationEntries((prev) =>
+                    prev.filter((_, i) => i !== index)
+                );
+            })
+            .catch(console.error);
+    };
+
+    const removeWorkEntry = (index) => {
+        const workId = workEntries[index].id;
+
+        fetch(`/api/work-history/${workId}`, { method: 'DELETE' })
+        .then(() => {
+            setWorkEntries((prev) => prev.filter((_, i) => i !== index));
+        })
+        .catch(console.error);
     };
 
     const handleSkillRemove = (index) => {
-        const updatedSkills = skills.filter((_, i) => i !== index);
-        setSkills(updatedSkills);
-    };
+        const skillId = skillsEntries[index].id;  // Assuming each skill has a unique `id`
+      
+        fetch(`/api/skills/${skillId}`, { method: 'DELETE' })
+          .then(() => {
+            setSkillsEntries((prev) => prev.filter((_, i) => i !== index));  // Remove the skill from the state
+          })
+          .catch(console.error);
+      };
 
-    const removeLanguageEntry = (index) => {
-        setLanguageEntries((prev) => prev.filter((_, i) => i !== index));
-    };
+      const removeLanguageEntry = (index) => {
+        const langId = languageEntries[index].id;
+        fetch(`/api/languages/${langId}`, { method: 'DELETE' })
+          .then(() => {
+            setLanguageEntries((prev) => prev.filter((_, i) => i !== index));
+          })
+          .catch(console.error);
+      };
 
     const removeAwardEntry = (index) => {
         setAwardEntries((prev) => prev.filter((_, i) => i !== index));
@@ -321,12 +409,14 @@ export function UserInfo() {
         setIsAddingWebsite(false);
     };
 
-    const handleKeyDown = (e) => {
-        if (e.key === 'Enter') {  // Check if Enter key is pressed
-            handleAddSkill();  // Add the skill
-            e.preventDefault(); // Prevent form submission or other default actions
-        }
-    };
+
+  
+  // Handle key press event for adding a skill
+  const handleKeyDown = (e, type) => {
+    if (e.key === 'Enter' && type === 'skill') {
+      handleAddSkill();
+    }
+  };
 
     return (
         <main className="user-info-main">
@@ -362,61 +452,128 @@ export function UserInfo() {
             <h3>Education</h3>
             <div className="education-section">
                 {educationEntries.map((entry, index) => (
-                    <div key={index} className="education-entry">
+                    <div key={entry.id} className="education-entry">
                         <p>School: {entry.school}</p>
                         <p>Start: {entry.startDate}</p>
                         <p>End: {entry.endDate}</p>
-                        <p>GPA: {entry.school}</p>
-                        <p>Major: {entry.school}</p>
+                        <p>GPA: {entry.gpa}</p>
+                        <p>Major: {entry.major}</p>
 
                         <div className="button-group">
-                        <button className="edit-button" onClick={() => editEducationEntry(index)}>Edit</button>
-                        <button className="remove-button" onClick={() => removeEducationEntry(index)}>Remove</button>
+                            <button
+                                className="edit-button"
+                                onClick={() => editEducationEntry(index)}
+                            >
+                                Edit
+                            </button>
+                            <button
+                                className="remove-button"
+                                onClick={() => removeEducationEntry(index)}
+                            >
+                                Remove
+                            </button>
                         </div>
                     </div>
                 ))}
 
-                <button className="add-button"onClick={() => {
-                    setIsAddingEducation(true);
-                    setIsEditingEducation(false); // Reset editing when adding new
-                    setNewEducation({ school: '', startDate: '', endDate: '' }); // Reset form
-                }}>Add Education</button>
+                <button
+                    className="add-button"
+                    onClick={() => {
+                        setIsAddingEducation(true);
+                        setIsEditingEducation(false); // Reset editing when adding new
+                        setNewEducation({
+                            school: '',
+                            startDate: '',
+                            endDate: '',
+                            gpa: '',
+                            major: '',
+                        }); // Reset form
+                    }}
+                >
+                    Add Education
+                </button>
 
                 {(isAddingEducation || isEditingEducation) && (
                     <div className="new-education-form">
                         <div className="input-group">
-                <label htmlFor="school">School:</label>
-                <input type="text" id="school" value={newEducation.school} onChange={handleNewEducationChange} placeholder="Enter school name" />
-            </div>
+                            <label htmlFor="school">School:</label>
+                            <input
+                                type="text"
+                                id="school"
+                                value={newEducation.school}
+                                onChange={handleNewEducationChange}
+                                placeholder="Enter school name"
+                            />
+                        </div>
 
-            <div className="input-group date-container"> {/* New container for dates */}
-                <div>
-                    <label htmlFor="startDate">Start Date:</label>
-                    <input type="text" id="startDate" value={newEducation.startDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
-                </div>
-                <div>
-                    <label htmlFor="endDate">End Date:</label>
-                    <input type="text" id="endDate" value={newEducation.endDate} onChange={handleNewEducationChange} placeholder="MM/YYYY" />
-                </div>
-            </div>
+                        <div className="input-group date-container">
+                            <div>
+                                <label htmlFor="startDate">Start Date:</label>
+                                <input
+                                    type="text"
+                                    id="startDate"
+                                    value={newEducation.startDate}
+                                    onChange={handleNewEducationChange}
+                                    placeholder="MM/YYYY"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="endDate">End Date:</label>
+                                <input
+                                    type="text"
+                                    id="endDate"
+                                    value={newEducation.endDate}
+                                    onChange={handleNewEducationChange}
+                                    placeholder="MM/YYYY"
+                                />
+                            </div>
+                        </div>
 
-            <div className="input-group">
-                <label htmlFor="gpa">GPA:</label>
-                <input type="text" id="gpa" value={newEducation.gpa} onChange={handleNewEducationChange} placeholder="Enter your GPA" />
-            </div>
+                        <div className="input-group">
+                            <label htmlFor="gpa">GPA:</label>
+                            <input
+                                type="text"
+                                id="gpa"
+                                value={newEducation.gpa}
+                                onChange={handleNewEducationChange}
+                                placeholder="Enter your GPA"
+                            />
+                        </div>
 
-            <div className="input-group">
-                <label htmlFor="major">Major:</label>
-                <input type="text" id="major" value={newEducation.major} onChange={handleNewEducationChange} placeholder="Enter your major" />
-            </div>
+                        <div className="input-group">
+                            <label htmlFor="major">Major:</label>
+                            <input
+                                type="text"
+                                id="major"
+                                value={newEducation.major}
+                                onChange={handleNewEducationChange}
+                                placeholder="Enter your major"
+                            />
+                        </div>
 
                         <div className="button-group">
-                            <button className="update-button" onClick={addEducationEntry}>{isEditingEducation ? 'Update Education' : 'Save Education'}</button>
-                            <button className="cancel-button" onClick={() => {
-                                setIsAddingEducation(false);
-                                setIsEditingEducation(false);
-                                setNewEducation({ school: '', startDate: '', endDate: '' }); // Reset form
-                            }}>Cancel</button>
+                            <button
+                                className="update-button"
+                                onClick={saveEducation}
+                            >
+                                {isEditingEducation ? 'Update Education' : 'Save Education'}
+                            </button>
+                            <button
+                                className="cancel-button"
+                                onClick={() => {
+                                    setIsAddingEducation(false);
+                                    setIsEditingEducation(false);
+                                    setNewEducation({
+                                        school: '',
+                                        startDate: '',
+                                        endDate: '',
+                                        gpa: '',
+                                        major: '',
+                                    }); // Reset form
+                                }}
+                            >
+                                Cancel
+                            </button>
                         </div>
                     </div>
                 )}
@@ -426,90 +583,139 @@ export function UserInfo() {
             <h3>Work History</h3>
             <div className="work-section">
                 {workEntries.map((entry, index) => (
-                    <div key={index} className="work-entry">
-                        <p>Company: {entry.company}</p>
-                        <p>Position: {entry.position}</p>
-                        <p>Start: {entry.startDate}</p>
-                        <p>End: {entry.endDate}</p>
-                        <p>
-                            Key Roles: <br />
-                            <span dangerouslySetInnerHTML={{ __html: entry.keyRoles.replace(/\n/g, '<br />') }} />
-                        </p>
-                        <div className="button-group">
-                        <button className="edit-button"onClick={() => editWorkEntry(index)}>Edit</button>
-                        <button className="remove-button" onClick={() => removeWorkEntry(index)}>Remove</button>
-                        </div>
-                    </div>
-                ))}
+                <div key={index} className="work-entry">
+                    <p>Company: {entry.company}</p>
+                    <p>Position: {entry.position}</p>
+                    <p>Start: {entry.startDate}</p>
+                    <p>End: {entry.endDate}</p>
+                    <p>
+                    Key Roles: <br />
+                    <span dangerouslySetInnerHTML={{ __html: entry.keyRoles.replace(/\n/g, '<br />') }} />
+                    </p>
+                    <div className="button-group">
+                                    <button
+                                        className="edit-button"
+                                        onClick={() => editWorkEntry(index)}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        className="remove-button"
+                                        onClick={() => removeWorkEntry(index)}
+                                    >
+                                        Remove
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
 
-                <button className="add-button"onClick={() => {
-                    setIsAddingWork(true);
-                    setIsEditingWork(false); // Reset editing when adding new
-                    setNewWork({ company: '', position: '', startDate: '', endDate: '', keyRoles: ''}); // Reset form
-                }}>Add Work</button>
+                <button className="add-button" onClick={() => {
+                setIsAddingWork(true);
+                setIsEditingWork(false); // Reset editing when adding new
+                setNewWork({ company: '', position: '', startDate: '', endDate: '', keyRoles: '' }); // Reset form
+                }}>Add Work
+                </button>
 
                 {(isAddingWork || isEditingWork) && (
-                    <div className="new-work-form">
-                        <div className="input-group">
-                            <label htmlFor="company">Company:</label>
-                            <input type="text" id="company" value={newWork.company} onChange={handleNewWorkChange} placeholder="Enter company name" />
-                        </div>
-
-                        <div className="input-group">
-                            <label htmlFor="position">Position:</label>
-                            <input type="text" id="position" value={newWork.position} onChange={handleNewWorkChange} placeholder="Enter position" />
-                        </div>
-
-
-                        <div className="input-group date-container">
-                            <div>
-                                <label htmlFor="startDate">Start Date:</label>
-                                <input type="text" id="startDate" value={newWork.startDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
-                            </div>
-                            <div>
-                                <label htmlFor="endDate">End Date:</label>
-                                <input type="text" id="endDate" value={newWork.endDate} onChange={handleNewWorkChange} placeholder="MM/YYYY" />
-                            </div>
-                        </div>
-
-                        <div className="input-group">
-                        <label htmlFor="keyRoles">Key Roles:</label><br />
-                        <textarea id="keyRoles" value={newWork.keyRoles} onChange={handleNewWorkChange} placeholder="Enter key roles in your work history" rows="4" />
-                        </div>
-
-                        <div className="button-group">
-                            <button className="update-button" onClick={addWorkEntry}>{isEditingWork ? 'Update Work' : 'Save Work'}</button>
-                            <button className="cancel-button" onClick={() => {
-                                setIsAddingWork(false);
-                                setIsEditingWork(false);
-                                setNewWork({ company: '', position: '', startDate: '', endDate: '', keyRoles: '' }); // Reset form
-                            }}>Cancel</button>
-                        </div>
+                <div className="new-work-form">
+                    <div className="input-group">
+                    <label htmlFor="company">Company:</label>
+                    <input
+                        type="text"
+                        id="company"
+                        value={newWork.company}
+                        onChange={handleNewWorkChange}
+                        placeholder="Enter company name"
+                    />
                     </div>
+
+                    <div className="input-group">
+                    <label htmlFor="position">Position:</label>
+                    <input
+                        type="text"
+                        id="position"
+                        value={newWork.position}
+                        onChange={handleNewWorkChange}
+                        placeholder="Enter position"
+                    />
+                    </div>
+
+                    <div className="input-group date-container">
+                    <div>
+                        <label htmlFor="startDate">Start Date:</label>
+                        <input
+                        type="text"
+                        id="startDate"
+                        value={newWork.startDate}
+                        onChange={handleNewWorkChange}
+                        placeholder="MM/YYYY"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="endDate">End Date:</label>
+                        <input
+                        type="text"
+                        id="endDate"
+                        value={newWork.endDate}
+                        onChange={handleNewWorkChange}
+                        placeholder="MM/YYYY"
+                        />
+                    </div>
+                    </div>
+
+                    <div className="input-group">
+                    <label htmlFor="keyRoles">Key Roles:</label><br />
+                    <textarea
+                        id="keyRoles"
+                        value={newWork.keyRoles}
+                        onChange={handleNewWorkChange}
+                        placeholder="Enter key roles in your work history"
+                        rows="4"
+                    />
+                    </div>
+
+                    <div className="button-group">
+                    <button
+                        className="update-button"
+                        onClick={saveWork}
+                    >
+                        {isEditingWork ? 'Update Work' : 'Save Work'}
+                    </button>
+                    <button
+                        className="cancel-button"
+                        onClick={() => {
+                        setIsAddingWork(false);
+                        setIsEditingWork(false);
+                        setNewWork({ company: '', position: '', startDate: '', endDate: '', keyRoles: '' }); // Reset form
+                        }}
+                    >
+                        Cancel
+                    </button>
+                    </div>
+                </div>
                 )}
             </div>
 
 
             <h3>Skills</h3>
             <div className="skills-section">
-                {skills.map((skill, index) => (
-                    <div key={index} className="skill-entry">
-                        <span>{skill}</span>
-                        <span className="remove-skill" onClick={() => handleSkillRemove(index)}>×</span>
-                    </div>
-                ))}
+            {skillsEntries.map((skill, index) => (
+                <div key={index} className="skill-entry">
+                <span>{skill.skill}</span> {/* Assuming the skill is an object with a `skill` property */}
+                <span className="remove-skill" onClick={() => handleSkillRemove(index)}>×</span>
+                </div>
+            ))}
             </div>
 
             <div className="add-skill">
-                <input
-                    type="text"
-                    value={newSkill}
-                    onChange={handleNewSkillChange}
-                    placeholder="Add a new skill"
-                    onKeyDown={(e) => handleKeyDown(e, 'skill')} // Use the existing handleKeyDown function
-
-                />
-                <button onClick={handleAddSkill}>Add Skill</button>
+            <input
+                type="text"
+                value={newSkill}
+                onChange={handleNewSkillChange}
+                placeholder="Add a new skill"
+                onKeyDown={(e) => handleKeyDown(e, 'skill')}
+            />
+            <button onClick={handleAddSkill}>Add Skill</button>
             </div>
 
 

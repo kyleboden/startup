@@ -140,3 +140,42 @@ export function Generator() {
     </main>
   );
 }
+
+
+
+// import React, { useEffect, useState } from 'react';
+
+// export function Generator() {
+//     const [educationEntries, setEducationEntries] = useState([]);
+
+//     // Fetch the education data when the component mounts
+//     useEffect(() => {
+//         fetch('/api/education') // Replace with your actual API endpoint
+//             .then((response) => response.json())
+//             .then((data) => setEducationEntries(data))
+//             .catch((error) => console.error('Error fetching education data:', error));
+//     }, []);
+
+//     return (
+//         <main className="generator-main">
+//             <h2>Your Resume</h2>
+
+//             <section className="education-section">
+//                 <h3>Education</h3>
+//                 {educationEntries.length > 0 ? (
+//                     educationEntries.map((entry) => (
+//                         <div key={entry.id} className="education-entry">
+//                             <p><strong>School:</strong> {entry.school}</p>
+//                             <p><strong>Start Date:</strong> {entry.startDate}</p>
+//                             <p><strong>End Date:</strong> {entry.endDate}</p>
+//                             <p><strong>GPA:</strong> {entry.gpa}</p>
+//                             <p><strong>Major:</strong> {entry.major}</p>
+//                         </div>
+//                     ))
+//                 ) : (
+//                     <p>No education entries found.</p>
+//                 )}
+//             </section>
+//         </main>
+//     );
+// }
