@@ -85,72 +85,111 @@ export function UserInfo() {
     const [isEditingWebsite, setIsEditingWebsite] = useState(false);
 
 //useEffect, testing
-    useEffect(() => {
-        // Fetch all education entries from the backend
-        fetch('/api/education')
-            .then((res) => res.json())
-            .then(setEducationEntries)
-            .catch(console.error);
-    }, []);
+React.useEffect(() => {
+    fetch('/api/education')
+      .then((response) => response.json())
+      .then((education) => {
+        console.log('Fetched education entries:', education); // Check the actual data from the backend
+        setEducationEntries(education);
+      });
+  }, []);
 
-    useEffect(() => {
-        fetch('/api/work-history')
-          .then((res) => res.json())
-          .then(setWorkEntries)
-          .catch(console.error);
-      }, []);
 
-    useEffect(() => {
-    fetch('/api/skills')
-        .then((res) => res.json())
-        .then(setSkillsEntries)
-        .catch(console.error);
-    }, []);
-    useEffect(() => {
-        // Fetch existing languages from backend
-        fetch('/api/languages')
-          .then((res) => res.json())
-          .then(setLanguageEntries)
-          .catch(console.error);
-      }, []);
+    // useEffect(() => {
+    //     fetch('/api/work-history')
+    //       .then((res) => res.json())
+    //       .then(setWorkEntries)
+    //       .catch(console.error);
+    //   }, []);
+
+    // useEffect(() => {
+    // fetch('/api/skills')
+    //     .then((res) => res.json())
+    //     .then(setSkillsEntries)
+    //     .catch(console.error);
+    // }, []);
+    // useEffect(() => {
+    //     // Fetch existing languages from backend
+    //     fetch('/api/languages')
+    //       .then((res) => res.json())
+    //       .then(setLanguageEntries)
+    //       .catch(console.error);
+    //   }, []);
     
 
-    const saveEducation = () => {
-        const method = isEditingEducation ? 'PUT' : 'POST';
-        const endpoint = isEditingEducation
-            ? `/api/education/${educationEntries[currentEducationIndex].id}`
-            : '/api/education';
+    // const saveEducation = () => {
+    //     const method = isEditingEducation ? 'PUT' : 'POST';
+    //     const endpoint = isEditingEducation
+    //         ? `/api/education/${educationEntries[currentEducationIndex].id}`
+    //         : '/api/education';
 
-        fetch(endpoint, {
-            method,
-            headers: { 'Content-Type': 'application/json' },
+    //     fetch(endpoint, {
+    //         method,
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify(newEducation),
+    //     })
+    //         .then((res) => res.json())
+    //         .then((savedEducation) => {
+    //             if (isEditingEducation) {
+    //                 setEducationEntries((prev) =>
+    //                     prev.map((edu, index) =>
+    //                         index === currentEducationIndex ? savedEducation : edu
+    //                     )
+    //                 );
+    //             } else {
+    //                 setEducationEntries((prev) => [...prev, savedEducation]);
+    //             }
+
+    //             // Reset states
+    //             setNewEducation({
+    //                 school: '',
+    //                 startDate: '',
+    //                 endDate: '',
+    //                 gpa: '',
+    //                 major: '',
+    //             });
+    //             setIsAddingEducation(false);
+    //             setIsEditingEducation(false);
+    //         })
+    //         .catch(console.error);
+    // };
+    function saveEducation(newEducation) {
+        console.log('Saving education:', newEducation); // Ensure the education is being passed correctly
+    
+        // Send the education data to the backend to be saved in MongoDB
+        fetch('/api/education', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify(newEducation),
         })
-            .then((res) => res.json())
-            .then((savedEducation) => {
-                if (isEditingEducation) {
-                    setEducationEntries((prev) =>
-                        prev.map((edu, index) =>
-                            index === currentEducationIndex ? savedEducation : edu
-                        )
-                    );
-                } else {
-                    setEducationEntries((prev) => [...prev, savedEducation]);
-                }
+        .then(response => response.json())
+        .then(data => {
+            // Assuming the backend returns the new education entry or a success message
+            console.log('Education saved:', data);
+    
+            // Optionally, update the state to reflect the new education entry
+            setEducationEntries(prevEntries => [...prevEntries, data]);  // Assuming `data` is the saved education entry
+    
+            // Reset form
+            setNewEducation({
+                school: '',
+                startDate: '',
+                endDate: '',
+                gpa: '',
+                major: '',
+            });
+        })
+        .catch(error => {
+            console.error('Error saving education:', error);
+        });
+    }
+    
+      
+    
+      
 
-                // Reset states
-                setNewEducation({
-                    school: '',
-                    startDate: '',
-                    endDate: '',
-                    gpa: '',
-                    major: '',
-                });
-                setIsAddingEducation(false);
-                setIsEditingEducation(false);
-            })
-            .catch(console.error);
-    };
 
     const saveWork = () => {
         const method = isEditingWork ? 'PUT' : 'POST';
@@ -231,13 +270,14 @@ export function UserInfo() {
         }));
     };
 
-    const handleNewEducationChange = (e) => {
-        const { id, value } = e.target;
-        setNewEducation((prevEducation) => ({
-            ...prevEducation,
-            [id]: value,
+    function handleNewEducationChange(event) {
+        const { id, value } = event.target;
+        setNewEducation((prev) => ({
+          ...prev,
+          [id]: value, // Dynamically update the field based on its id
         }));
-    };
+      }
+      
 
     const handleNewWorkChange = (e) => { // Handle changes for new work entry
         const { id, value } = e.target;
@@ -468,7 +508,8 @@ export function UserInfo() {
             <h3>Education</h3>
             <div className="education-section">
                 {educationEntries.map((entry, index) => (
-                    <div key={entry.id} className="education-entry">
+                    
+                    <div key={index} className="education-entry">
                         <p>School: {entry.school}</p>
                         <p>Start: {entry.startDate}</p>
                         <p>End: {entry.endDate}</p>
@@ -568,29 +609,30 @@ export function UserInfo() {
                         </div>
 
                         <div className="button-group">
-                            <button
-                                className="update-button"
-                                onClick={saveEducation}
-                            >
-                                {isEditingEducation ? 'Update Education' : 'Save Education'}
-                            </button>
-                            <button
-                                className="cancel-button"
-                                onClick={() => {
-                                    setIsAddingEducation(false);
-                                    setIsEditingEducation(false);
-                                    setNewEducation({
-                                        school: '',
-                                        startDate: '',
-                                        endDate: '',
-                                        gpa: '',
-                                        major: '',
-                                    }); // Reset form
-                                }}
-                            >
-                                Cancel
-                            </button>
-                        </div>
+                        <button
+                            className="update-button"
+                            onClick={() => saveEducation(newEducation)} // Pass newEducation when calling saveEducation
+                        >
+                            {isEditingEducation ? 'Update Education' : 'Save Education'}
+                        </button>
+                        <button
+                            className="cancel-button"
+                            onClick={() => {
+                                setIsAddingEducation(false);
+                                setIsEditingEducation(false);
+                                setNewEducation({
+                                    school: '',
+                                    startDate: '',
+                                    endDate: '',
+                                    gpa: '',
+                                    major: '',
+                                }); // Reset form
+                            }}
+                        >
+                            Cancel
+                        </button>
+                    </div>
+
                     </div>
                 )}
             </div>
