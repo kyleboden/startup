@@ -38,7 +38,7 @@ scp -r -i "$key" build/* ubuntu@$hostname:services/$service
 
 # Step 4
 printf "\n----> Deploy the service on the target\n"
-ssh -i "$key" ubuntu@$hostname << ENDSSH
+ssh -i "$key" ubuntu@$hostname << ENDSSHs
 bash -i
 cd services/${service}
 npm install

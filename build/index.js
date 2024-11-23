@@ -112,12 +112,12 @@ app.use(function (err, req, res, next) {
 });
 
 // Return the application's default page if the path is unknown
-app.use((_req, res) => {
-  res.sendFile('index.html', { root: 'public' });
-});
 // app.use((_req, res) => {
-//   res.sendFile('C:/Users/boden/CS260/startup/index.html');
+//   res.sendFile('index.html', { root: 'public' });
 // });
+app.use((_req, res) => {
+  res.sendFile('C:/Users/boden/CS260/startup/index.html');
+});
 // setAuthCookie in the HTTP response
 function setAuthCookie(res, authToken) {
   res.cookie(authCookieName, authToken, {
