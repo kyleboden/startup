@@ -103,3 +103,14 @@ For this deliverable I added backend endpoints that verify if a user can login. 
 - [x] **Calls to third party endpoints** - Using fetch request to call different api. I implemented the random quote of the day on my home page. 
 - [x] **Backend service endpoints** - Placeholders for login that stores the current user on the server. Endpoints for storing user information.
 - [x] **Frontend calls service endpoints** - Login Function.
+
+## DB/Login deliverable
+
+For this deliverable I associate the education entries with the logged in user. I stored the education entries in the database.
+
+- [x] **MongoDB Atlas database created** - done!
+- [x] **Stores data in MongoDB** - done!
+- [x] **User registration** - Creates a new account in the database.
+- [x] **existing user** - Stores the education entries under the same user if the user already exists.
+- [x] **Use MongoDB to store credentials** - Stores both user and their education entries.
+- [x] **Restricts functionality** - You cannot edit any user info or view the resume generator page until you have logged in.
