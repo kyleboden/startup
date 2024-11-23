@@ -168,7 +168,8 @@ React.useEffect(() => {
         .then(data => {
             // Assuming the backend returns the new education entry or a success message
             console.log('Education saved:', data);
-    
+            window.location.reload();
+
             // Optionally, update the state to reflect the new education entry
             setEducationEntries(prevEntries => [...prevEntries, data]);  // Assuming `data` is the saved education entry
     
