@@ -216,31 +216,94 @@ async function makeWorkHistoryEntry(req) {
   };
   
 }
-// apiRouter.post('/work-history', (req, res) => {
-//   const newWorkHistory = { id: uuid.v4(), ...req.body };
-//   workHistories.push(newWorkHistory);
-//   res.send(newWorkHistory);
-// });
 
-// // Update an existing work history entry
-// apiRouter.put('/work-history/:id', (req, res) => {
-//   const { id } = req.params;
-//   const index = workHistories.findIndex((work) => work.id === id);
-//   if (index !== -1) {
-//     workHistories[index] = { ...workHistories[index], ...req.body };
-//     res.send(workHistories[index]);
-//   } else {
-//     res.status(404).send({ msg: 'Work history entry not found' });
+// --- SKILLS ROUTES ---
+
+// Get all skills
+apiRouter.get('/skills', async (req, res) => {
+  try {
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+
+    if (!user) {
+      return res.status(400).send({ msg: 'User not authenticated' });
+    }
+
+    const userId = user._id;
+    const skills = await DB.getSkills(userId);
+    res.send(skills);
+  } catch (error) {
+    console.error('Error fetching skills:', error);
+    res.status(500).send({ error: 'Failed to fetch skills' });
+  }
+});
+
+// Add a new skill
+// apiRouter.post('/skills', async (req, res) => {
+//   try {
+//     const { skill } = req.body;
+//     if (!skill) {
+//       return res.status(400).send({ msg: 'Skill is required' });
+//     }
+
+//     const authToken = req.cookies[authCookieName];
+//     const user = await DB.getUserByToken(authToken);
+
+//     if (!user) {
+//       return res.status(400).send({ msg: 'User not authenticated' });
+//     }
+
+//     const userId = user._id;
+
+//     // Assuming you have a function to add skills to a user's record
+//     await DB.addSkill(userId, skill);
+
+//     const skills = await DB.getSkills(userId);
+//     res.send(skills);
+//   } catch (error) {
+//     console.error('Error adding skill:', error);
+//     res.status(500).send({ error: 'Failed to add skill' });
 //   }
 // });
+secureApiRouter.post('/skills', async (req, res) => {
+  try {
+    // Ensure makeWorkHistoriEntry is passed the required parameters
+    const skill = await makeSkillEntry(req);
+    await DB.addSkill(skill);
 
-// // Delete a work history entry
-// apiRouter.delete('/work-history/:id', (req, res) => {
-//   const { id } = req.params;
-//   workHistories = workHistories.filter((work) => work.id !== id);
-//   res.status(204).end();
-// });
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    const userId = user._id;
 
+    const skills = await DB.getSkills(userId);
+    res.send(skills);
+  } catch (error) {
+    console.error('Error adding skills entry:', error.message); // Log error
+    res.status(500).send({ error: error.message });
+  }
+});
+async function makeSkillEntry(req) {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+
+  const userId = user._id; // Ensure this is properly retrieved
+
+  const { skill } = req.body;
+
+  if (!skill) {
+    throw new Error('Incomplete work history entry');
+  }
+  
+  return {
+    ownerId: userId,
+    skill
+  };
+  
+}
 
 
 

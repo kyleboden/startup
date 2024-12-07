@@ -103,6 +103,16 @@ fetch('/api/work-history')
     });
 }, []);
 
+React.useEffect(() => {
+    fetch('/api/skills')
+        .then((response) => response.json())
+        .then((skill) => {
+        console.log('Fetched skill entries:', skill); // Check the actual data from the backend
+        setSkillsEntries(skill);
+        });
+    }, []);
+
+
     // useEffect(() => {
     // fetch('/api/skills')
     //     .then((res) => res.json())
@@ -184,83 +194,74 @@ fetch('/api/work-history')
           });
       }
       
-      function saveWork(newWork) {
-        console.log('Saving Work:', newWork);
-      
-        fetch('/api/work-history', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            ...newWork,
-            keyRoles: newWork.keyRoles, // Ensure this matches the backend field name
-          }),
+    function saveWork(newWork) {
+    console.log('Saving Work:', newWork);
+    
+    fetch('/api/work-history', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+        ...newWork,
+        keyRoles: newWork.keyRoles, // Ensure this matches the backend field name
+        }),
+    })
+        .then(response => {
+        if (!response.ok) {
+            return response.json().then(err => {
+            throw new Error(err.error || 'Failed to save work history entry');
+            });
+        }
+        return response.json();
         })
-          .then(response => {
+        .then(data => {
+        console.log('Work history saved:', data);
+        setWorkEntries(data); // Backend sends the full list of entries
+        setNewWork({
+            company: '',
+            position: '',
+            startDate: '',
+            endDate: '',
+            keyRoles: ''
+        });
+        })
+        .catch(error => {
+        console.error('Error saving work history:', error.message);
+        alert(error.message);
+        });
+    }
+    function saveSkill(newSkill) {
+        console.log('Saving Skill:', newSkill);
+    
+        fetch('/api/skills', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ skill: newSkill }),
+        })
+        .then(response => {
             if (!response.ok) {
-              return response.json().then(err => {
-                throw new Error(err.error || 'Failed to save work history entry');
-              });
+                return response.json().then(err => {
+                    throw new Error(err.error || 'Failed to save skill');
+                });
             }
             return response.json();
-          })
-          .then(data => {
-            console.log('Work history saved:', data);
-            setWorkEntries(data); // Backend sends the full list of entries
-            setNewWork({
-              company: '',
-              position: '',
-              startDate: '',
-              endDate: '',
-              keyRoles: ''
-            });
-          })
-          .catch(error => {
-            console.error('Error saving work history:', error.message);
-            alert(error.message);
-          });
-      }
-      
+        })
+        .then(data => {
+            console.log('Skills saved:', data);
+            setSkillsEntries(data); // Assuming `data` is an array of skills
+            setNewSkill(''); // Clear the input field
+        })
+        .catch(error => {
+            console.error('Error saving skill:', error.message);
+            alert(error.message); // Display the error message
+        });
+    }
+    
       
 
-
-    // const saveWork = () => {
-    //     const method = isEditingWork ? 'PUT' : 'POST';
-    //     const endpoint = isEditingWork
-    //         ? `/api/work-history/${workEntries[currentWorkIndex].id}`
-    //         : '/api/work-history';
-
-    //     fetch(endpoint, {
-    //     method,
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify(newWork)
-    //     })
-    //     .then((res) => res.json())
-    //     .then((savedWork) => {
-    //         if (isEditingWork) {
-    //             setWorkEntries((prev) =>
-    //             prev.map((work, index) =>
-    //             index === currentWorkIndex ? savedWork : work
-    //             )
-    //         );
-    //         } else {
-    //             setWorkEntries((prev) => [...prev, savedWork]);
-    //         }
-
-    //         // Reset states
-    //         setNewWork({
-    //             company: '',
-    //             position: '',
-    //             startDate: '',
-    //             endDate: '',
-    //             responsibilities: ''
-    //         });
-    //         setIsAddingWork(false);
-    //         setIsEditingWork(false);
-    //     })
-    //     .catch(console.error);
-    // };
     // const saveLanguage = () => {
     //     const method = isEditingLanguage ? 'PUT' : 'POST';
     //     const endpoint = isEditingLanguage
@@ -434,15 +435,40 @@ fetch('/api/work-history')
         .catch(console.error);
     };
 
-    const handleSkillRemove = (index) => {
-        const skillId = skillsEntries[index].id;  // Assuming each skill has a unique `id`
+    // const handleSkillRemove = (index) => {
+    //     const skillId = skillsEntries[index].id;  // Assuming each skill has a unique `id`
       
-        fetch(`/api/skills/${skillId}`, { method: 'DELETE' })
-          .then(() => {
-            setSkillsEntries((prev) => prev.filter((_, i) => i !== index));  // Remove the skill from the state
+    //     fetch(`/api/skills/${skillId}`, { method: 'DELETE' })
+    //       .then(() => {
+    //         setSkillsEntries((prev) => prev.filter((_, i) => i !== index));  // Remove the skill from the state
+    //       })
+    //       .catch(console.error);
+    //   };
+    function handleSkillRemove(index) {
+        const skillToRemove = skillsEntries[index];
+      
+        // Send a request to remove the skill (you can handle this in your backend)
+        fetch(`/api/skills/${skillToRemove._id}`, {
+          method: 'DELETE', // Assume you have a delete endpoint to remove a skill by ID
+        })
+          .then(response => {
+            if (!response.ok) {
+              return response.json().then(err => {
+                throw new Error(err.error || 'Failed to remove skill');
+              });
+            }
+            return response.json();
           })
-          .catch(console.error);
-      };
+          .then(data => {
+            console.log('Skills after removal:', data);
+            setSkillsEntries(data); // Update the state with the remaining skills
+          })
+          .catch(error => {
+            console.error('Error removing skill:', error.message);
+            alert(error.message);
+          });
+      }
+      
 
       const removeLanguageEntry = (index) => {
         const langId = languageEntries[index].id;
@@ -504,9 +530,10 @@ fetch('/api/work-history')
   // Handle key press event for adding a skill
   const handleKeyDown = (e, type) => {
     if (e.key === 'Enter' && type === 'skill') {
-      handleAddSkill();
+      saveSkill(newSkill);  // Pass the newSkill value to the saveSkill function
     }
   };
+  
 
     return (
         <main className="user-info-main">
@@ -793,12 +820,12 @@ fetch('/api/work-history')
 
             <h3>Skills</h3>
             <div className="skills-section">
-            {skillsEntries.map((skill, index) => (
-                <div key={index} className="skill-entry">
-                <span>{skill.skill}</span> {/* Assuming the skill is an object with a `skill` property */}
-                <span className="remove-skill" onClick={() => handleSkillRemove(index)}>×</span>
-                </div>
-            ))}
+                {skillsEntries.map((skill, index) => (
+                    <div key={index} className="skill-entry">
+                    <span>{skill.skill}</span>
+                    <span className="remove-skill" onClick={() => handleSkillRemove(index)}>×</span>
+                    </div>
+                ))}
             </div>
 
             <div className="add-skill">
@@ -809,8 +836,9 @@ fetch('/api/work-history')
                 placeholder="Add a new skill"
                 onKeyDown={(e) => handleKeyDown(e, 'skill')}
             />
-            <button onClick={handleAddSkill}>Add Skill</button>
+            <button onClick={() => saveSkill(newSkill)}>Add Skill</button>
             </div>
+
 
 
             <h3>Languages</h3>

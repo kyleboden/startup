@@ -12,6 +12,7 @@ const userCollection = db.collection('user');
 const scoreCollection = db.collection('score');
 const educationCollection = db.collection('education');
 const workHistoryCollection = db.collection('workHistory');
+const skillCollection = db.collection('skill');
 
 
 // This will asynchronously test the connection and exit the process if it fails
@@ -63,7 +64,6 @@ function getHighScores() {
 async function addEducation(education) {
   return educationCollection.insertOne(education);
 }
-
 async function getEducations(userId) {
   const query = { ownerId: userId }; // Correct query syntax
   const cursor = educationCollection.find(query);
@@ -73,12 +73,26 @@ async function getEducations(userId) {
 async function addWorkHistory(workHistory) {
   return workHistoryCollection.insertOne(workHistory);
 }
-
 async function getWorkHistories(userId) {
   const query = { ownerId: userId }; // Correct query syntax
   const cursor = workHistoryCollection.find(query);
   return cursor.toArray();
 }
+
+async function addSkill(skill) {
+  return skillCollection.insertOne(skill);
+
+}
+async function getSkills(userId) {
+  const query = { ownerId: userId }; // Make sure this is correct
+  console.log('Fetching skills for userId:', userId);  // Log userId
+  const cursor = skillCollection.find(query);
+
+  const skills = await cursor.toArray();
+  console.log('Fetched skills:', skills);  // Log the returned skills
+  return skills;
+}
+
 
 
 
@@ -91,5 +105,7 @@ module.exports = {
   addEducation,
   getEducations,
   addWorkHistory,
-  getWorkHistories
+  getWorkHistories,
+  addSkill,
+  getSkills
 };
