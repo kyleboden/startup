@@ -94,13 +94,14 @@ React.useEffect(() => {
       });
   }, []);
 
-
-    // useEffect(() => {
-    //     fetch('/api/work-history')
-    //       .then((res) => res.json())
-    //       .then(setWorkEntries)
-    //       .catch(console.error);
-    //   }, []);
+React.useEffect(() => {
+fetch('/api/work-history')
+    .then((response) => response.json())
+    .then((workHistory) => {
+    console.log('Fetched work-history entries:', workHistory); // Check the actual data from the backend
+    setWorkEntries(workHistory);
+    });
+}, []);
 
     // useEffect(() => {
     // fetch('/api/skills')
@@ -183,82 +184,116 @@ React.useEffect(() => {
           });
       }
       
+      function saveWork(newWork) {
+        console.log('Saving Work:', newWork);
       
-    
-      
-    
-      
-
-
-    const saveWork = () => {
-        const method = isEditingWork ? 'PUT' : 'POST';
-        const endpoint = isEditingWork
-            ? `/api/work-history/${workEntries[currentWorkIndex].id}`
-            : '/api/work-history';
-
-        fetch(endpoint, {
-        method,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newWork)
+        fetch('/api/work-history', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...newWork,
+            keyRoles: newWork.keyRoles, // Ensure this matches the backend field name
+          }),
         })
-        .then((res) => res.json())
-        .then((savedWork) => {
-            if (isEditingWork) {
-                setWorkEntries((prev) =>
-                prev.map((work, index) =>
-                index === currentWorkIndex ? savedWork : work
-                )
-            );
-            } else {
-                setWorkEntries((prev) => [...prev, savedWork]);
+          .then(response => {
+            if (!response.ok) {
+              return response.json().then(err => {
+                throw new Error(err.error || 'Failed to save work history entry');
+              });
             }
-
-            // Reset states
+            return response.json();
+          })
+          .then(data => {
+            console.log('Work history saved:', data);
+            setWorkEntries(data); // Backend sends the full list of entries
             setNewWork({
-                company: '',
-                position: '',
-                startDate: '',
-                endDate: '',
-                responsibilities: ''
+              company: '',
+              position: '',
+              startDate: '',
+              endDate: '',
+              keyRoles: ''
             });
-            setIsAddingWork(false);
-            setIsEditingWork(false);
-        })
-        .catch(console.error);
-    };
-    const saveLanguage = () => {
-        const method = isEditingLanguage ? 'PUT' : 'POST';
-        const endpoint = isEditingLanguage
-            ? `/api/languages/${languageEntries[currentLanguageIndex].id}`
-            : '/api/languages';
+          })
+          .catch(error => {
+            console.error('Error saving work history:', error.message);
+            alert(error.message);
+          });
+      }
+      
+      
 
-        fetch(endpoint, {
-        method,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newLanguage)
-        })
-        .then((res) => res.json())
-        .then((savedLanguage) => {
-            if (isEditingLanguage) {
-                setLanguageEntries((prev) =>
-                prev.map((language, index) =>
-                index === currentLanguageIndex ? savedLanguage : language
-                )
-            );
-            } else {
-                setLanguageEntries((prev) => [...prev, savedLanguage]);
-            }
 
-            // Reset states
-            setNewLanguage({
-                language: '', 
-                proficiency: ''
-            });
-            setIsAddingLanguage(false);
-            setIsEditingLanguage(false);
-        })
-        .catch(console.error);
-    };
+    // const saveWork = () => {
+    //     const method = isEditingWork ? 'PUT' : 'POST';
+    //     const endpoint = isEditingWork
+    //         ? `/api/work-history/${workEntries[currentWorkIndex].id}`
+    //         : '/api/work-history';
+
+    //     fetch(endpoint, {
+    //     method,
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify(newWork)
+    //     })
+    //     .then((res) => res.json())
+    //     .then((savedWork) => {
+    //         if (isEditingWork) {
+    //             setWorkEntries((prev) =>
+    //             prev.map((work, index) =>
+    //             index === currentWorkIndex ? savedWork : work
+    //             )
+    //         );
+    //         } else {
+    //             setWorkEntries((prev) => [...prev, savedWork]);
+    //         }
+
+    //         // Reset states
+    //         setNewWork({
+    //             company: '',
+    //             position: '',
+    //             startDate: '',
+    //             endDate: '',
+    //             responsibilities: ''
+    //         });
+    //         setIsAddingWork(false);
+    //         setIsEditingWork(false);
+    //     })
+    //     .catch(console.error);
+    // };
+    // const saveLanguage = () => {
+    //     const method = isEditingLanguage ? 'PUT' : 'POST';
+    //     const endpoint = isEditingLanguage
+    //         ? `/api/languages/${languageEntries[currentLanguageIndex].id}`
+    //         : '/api/languages';
+
+    //     fetch(endpoint, {
+    //     method,
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify(newLanguage)
+    //     })
+    //     .then((res) => res.json())
+    //     .then((savedLanguage) => {
+    //         if (isEditingLanguage) {
+    //             setLanguageEntries((prev) =>
+    //             prev.map((language, index) =>
+    //             index === currentLanguageIndex ? savedLanguage : language
+    //             )
+    //         );
+    //         } else {
+    //             setLanguageEntries((prev) => [...prev, savedLanguage]);
+    //         }
+
+    //         // Reset states
+    //         setNewLanguage({
+    //             language: '', 
+    //             proficiency: ''
+    //         });
+    //         setIsAddingLanguage(false);
+    //         setIsEditingLanguage(false);
+    //     })
+    //     .catch(console.error);
+    // };
 
 // Handle Changes
     const handleContactChange = (e) => {
@@ -645,10 +680,11 @@ React.useEffect(() => {
                     <p>Position: {entry.position}</p>
                     <p>Start: {entry.startDate}</p>
                     <p>End: {entry.endDate}</p>
-                    <p>
-                    Key Roles: <br />
-                    <span dangerouslySetInnerHTML={{ __html: entry.keyRoles.replace(/\n/g, '<br />') }} />
-                    </p>
+                    <p>Key Roles: {entry.keyRoles}</p>
+                    {/* <p>Key Roles: <br />
+                    <span dangerouslySetInnerHTML={{ __html: (entry.keyRoles || '').replace(/\n/g, '<br />') }} />
+                    </p> */}
+
                     <div className="button-group">
                                     <button
                                         className="edit-button"
@@ -734,7 +770,8 @@ React.useEffect(() => {
                     <div className="button-group">
                     <button
                         className="update-button"
-                        onClick={saveWork}
+                        onClick={() => saveWork(newWork)} // Pass newEducation when calling saveEducation
+
                     >
                         {isEditingWork ? 'Update Work' : 'Save Work'}
                     </button>

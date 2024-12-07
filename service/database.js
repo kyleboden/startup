@@ -11,6 +11,7 @@ const db = client.db('startup');
 const userCollection = db.collection('user');
 const scoreCollection = db.collection('score');
 const educationCollection = db.collection('education');
+const workHistoryCollection = db.collection('workHistory');
 
 
 // This will asynchronously test the connection and exit the process if it fails
@@ -69,6 +70,16 @@ async function getEducations(userId) {
   return cursor.toArray();
 }
 
+async function addWorkHistory(workHistory) {
+  return workHistoryCollection.insertOne(workHistory);
+}
+
+async function getWorkHistories(userId) {
+  const query = { ownerId: userId }; // Correct query syntax
+  const cursor = workHistoryCollection.find(query);
+  return cursor.toArray();
+}
+
 
 
 module.exports = {
@@ -78,5 +89,7 @@ module.exports = {
   addScore,
   getHighScores,
   addEducation,
-  getEducations
+  getEducations,
+  addWorkHistory,
+  getWorkHistories
 };

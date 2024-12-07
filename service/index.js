@@ -154,6 +154,98 @@ async function makeEducationEntry(req) {
   };
 }
 
+// --- WORK --- 
+
+// Get all work history entries
+secureApiRouter.get('/work-history', async (req, res) => {
+  try {
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+
+    const userId = user._id; // Ensure it's a string
+    const workHistories = await DB.getWorkHistories(userId);
+    res.send(workHistories);
+  } catch (error) {
+    console.error('Error fetching workHistories entries:', error);
+    res.status(500).send({ error: 'Failed to fetch workHistories entries' });
+  }
+});
+
+// Add a new work history entry
+secureApiRouter.post('/work-history', async (req, res) => {
+  try {
+    // Ensure makeWorkHistoriEntry is passed the required parameters
+    const workHistory = await makeWorkHistoryEntry(req);
+    await DB.addWorkHistory(workHistory);
+
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    const userId = user._id;
+
+    const workHistories = await DB.getWorkHistories(userId);
+    res.send(workHistories);
+  } catch (error) {
+    console.error('Error adding workHistories entry:', error.message); // Log error
+    res.status(500).send({ error: error.message });
+  }
+});
+
+async function makeWorkHistoryEntry(req) {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+
+  const userId = user._id; // Ensure this is properly retrieved
+
+  const { company, position, startDate, endDate, keyRoles } = req.body;
+
+  if (!company || !position || !startDate || !endDate || !keyRoles) {
+    throw new Error('Incomplete work history entry');
+  }
+  
+  return {
+    ownerId: userId,
+    company,
+    position,
+    startDate,
+    endDate,
+    keyRoles
+  };
+  
+}
+// apiRouter.post('/work-history', (req, res) => {
+//   const newWorkHistory = { id: uuid.v4(), ...req.body };
+//   workHistories.push(newWorkHistory);
+//   res.send(newWorkHistory);
+// });
+
+// // Update an existing work history entry
+// apiRouter.put('/work-history/:id', (req, res) => {
+//   const { id } = req.params;
+//   const index = workHistories.findIndex((work) => work.id === id);
+//   if (index !== -1) {
+//     workHistories[index] = { ...workHistories[index], ...req.body };
+//     res.send(workHistories[index]);
+//   } else {
+//     res.status(404).send({ msg: 'Work history entry not found' });
+//   }
+// });
+
+// // Delete a work history entry
+// apiRouter.delete('/work-history/:id', (req, res) => {
+//   const { id } = req.params;
+//   workHistories = workHistories.filter((work) => work.id !== id);
+//   res.status(204).end();
+// });
+
+
+
+
+
+
 
 // Default error handler
 app.use(function (err, req, res, next) {
