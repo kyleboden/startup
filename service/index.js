@@ -238,33 +238,6 @@ apiRouter.get('/skills', async (req, res) => {
   }
 });
 
-// Add a new skill
-// apiRouter.post('/skills', async (req, res) => {
-//   try {
-//     const { skill } = req.body;
-//     if (!skill) {
-//       return res.status(400).send({ msg: 'Skill is required' });
-//     }
-
-//     const authToken = req.cookies[authCookieName];
-//     const user = await DB.getUserByToken(authToken);
-
-//     if (!user) {
-//       return res.status(400).send({ msg: 'User not authenticated' });
-//     }
-
-//     const userId = user._id;
-
-//     // Assuming you have a function to add skills to a user's record
-//     await DB.addSkill(userId, skill);
-
-//     const skills = await DB.getSkills(userId);
-//     res.send(skills);
-//   } catch (error) {
-//     console.error('Error adding skill:', error);
-//     res.status(500).send({ error: 'Failed to add skill' });
-//   }
-// });
 secureApiRouter.post('/skills', async (req, res) => {
   try {
     // Ensure makeWorkHistoriEntry is passed the required parameters
@@ -305,7 +278,67 @@ async function makeSkillEntry(req) {
   
 }
 
+// // --- LANGUAGES ROUTES ---
 
+// Get all languages
+apiRouter.get('/languages', async (req, res) => {
+  try {
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+
+    if (!user) {
+      return res.status(400).send({ msg: 'User not authenticated' });
+    }
+
+    const userId = user._id;
+    const languages = await DB.getLanguages(userId);
+    res.send(languages);
+  } catch (error) {
+    console.error('Error fetching languages:', error);
+    res.status(500).send({ error: 'Failed to fetch languages' });
+  }
+});
+
+secureApiRouter.post('/languages', async (req, res) => {
+  try {
+    // Ensure language is passed the required parameters
+    const language = await makeLanguageEntry(req);
+    await DB.addLanguage(language);
+
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    const userId = user._id;
+
+    const languages = await DB.getLanguages(userId);
+    res.send(languages);
+  } catch (error) {
+    console.error('Error adding language entry:', error.message); // Log error
+    res.status(500).send({ error: error.message });
+  }
+});
+
+async function makeLanguageEntry(req) {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+
+  const userId = user._id;
+
+  const { language, proficiency } = req.body; // Get both language and proficiency
+
+  if (!language || !proficiency) {
+    throw new Error('Incomplete language entry');
+  }
+  
+  return {
+    ownerId: userId,
+    language,
+    proficiency
+  };
+}
 
 
 

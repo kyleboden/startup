@@ -112,13 +112,14 @@ React.useEffect(() => {
         });
     }, []);
 
-
-    // useEffect(() => {
-    // fetch('/api/skills')
-    //     .then((res) => res.json())
-    //     .then(setSkillsEntries)
-    //     .catch(console.error);
-    // }, []);
+React.useEffect(() => {
+    fetch('/api/languages')
+        .then((response) => response.json())
+        .then((language) => {
+        console.log('Fetched languages entries:', language); // Check the actual data from the backend
+        setLanguageEntries(language);
+        });
+    }, []);
     // useEffect(() => {
     //     // Fetch existing languages from backend
     //     fetch('/api/languages')
@@ -259,7 +260,35 @@ React.useEffect(() => {
             alert(error.message); // Display the error message
         });
     }
-    
+    function saveLanguage() {
+        console.log('Saving language:', newLanguage);
+        
+        fetch('/api/languages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newLanguage),
+        })
+          .then(response => {
+            if (!response.ok) {
+              // If the response is not OK (status 500, etc.), throw an error
+              return response.json().then(err => {
+                throw new Error(err.error || 'Failed to save newLanguage entry');
+              });
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Language saved:', data);
+            setLanguageEntries(prevEntries => [...prevEntries, ...data]); // Assuming `data` is an array
+            setNewLanguage({ language: '', proficiency: '' }); // Reset form
+          })
+          .catch(error => {
+            console.error('Error saving language:', error.message); // Log the error message
+            alert(error.message); // Optionally, display an error message to the user
+          });
+      }
       
 
     // const saveLanguage = () => {
@@ -844,7 +873,7 @@ React.useEffect(() => {
             <h3>Languages</h3>
             <div className="language-section">
                 {languageEntries.map((entry, index) => (
-                    <div key={entry.id} className="language-entry">
+                    <div key={index} className="language-entry">
                         <p>Language: {entry.language}</p>
                         <p>Proficiency: {entry.proficiency}</p>
                         <div className="button-group">
@@ -903,8 +932,8 @@ React.useEffect(() => {
                         <div className="button-group">
                             <button 
                                 className="update-button"
-                                onClick={saveLanguage}
-                            >
+                                onClick={() => saveLanguage(newLanguage)} // Pass newEducation when calling saveEducation
+                                >
                                 {isEditingLanguage ? 'Update Language' : 'Save Language'}
                             </button>
                             <button className="cancel-button" 
