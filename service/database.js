@@ -63,9 +63,10 @@ async function addEducation(education) {
   return educationCollection.insertOne(education);
 }
 
-function getEducations() {
-  const cursor = educationCollection.find(); // Fetch all documents without filters
-  return cursor.toArray(); // Convert the cursor to an array and return it
+async function getEducations(userId) {
+  const query = { ownerId: userId }; // Correct query syntax
+  const cursor = educationCollection.find(query);
+  return cursor.toArray();
 }
 
 

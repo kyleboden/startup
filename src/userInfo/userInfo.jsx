@@ -154,38 +154,36 @@ React.useEffect(() => {
     //         .catch(console.error);
     // };
     function saveEducation(newEducation) {
-        console.log('Saving education:', newEducation); // Ensure the education is being passed correctly
-    
-        // Send the education data to the backend to be saved in MongoDB
+        console.log('Saving education:', newEducation);
+      
         fetch('/api/education', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newEducation),
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newEducation),
         })
-        .then(response => response.json())
-        .then(data => {
-            // Assuming the backend returns the new education entry or a success message
+          .then(response => {
+            if (!response.ok) {
+              // If the response is not OK (status 500, etc.), throw an error
+              return response.json().then(err => {
+                throw new Error(err.error || 'Failed to save education entry');
+              });
+            }
+            return response.json();
+          })
+          .then(data => {
             console.log('Education saved:', data);
-            window.location.reload();
-
-            // Optionally, update the state to reflect the new education entry
-            setEducationEntries(prevEntries => [...prevEntries, data]);  // Assuming `data` is the saved education entry
-    
-            // Reset form
-            setNewEducation({
-                school: '',
-                startDate: '',
-                endDate: '',
-                gpa: '',
-                major: '',
-            });
-        })
-        .catch(error => {
-            console.error('Error saving education:', error);
-        });
-    }
+            setEducationEntries(prevEntries => [...prevEntries, ...data]); // Assuming `data` is an array
+            setNewEducation({ school: '', startDate: '', endDate: '', gpa: '', major: '' }); // Reset form
+          })
+          .catch(error => {
+            console.error('Error saving education:', error.message); // Log the error message
+            alert(error.message); // Optionally, display an error message to the user
+          });
+      }
+      
+      
     
       
     

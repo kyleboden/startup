@@ -90,20 +90,69 @@ secureApiRouter.post('/score', async (req, res) => {
   res.send(scores);
 });
 
+
+
 // Get all education entries
 secureApiRouter.get('/education', async (req, res) => {
-  const educations = await DB.getEducations();
-  res.send(educations);
+  try {
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+
+    const userId = user._id; // Ensure it's a string
+    const educations = await DB.getEducations(userId);
+    res.send(educations);
+  } catch (error) {
+    console.error('Error fetching education entries:', error);
+    res.status(500).send({ error: 'Failed to fetch education entries' });
+  }
 });
 
 // Add a new education entry
 secureApiRouter.post('/education', async (req, res) => {
-  const education = { ...req.body, ip: req.ip };
-  await DB.addEducation(education);
-  const educations = await DB.getEducations();
-  res.send(educations);
+  try {
+    // Ensure makeEducationEntry is passed the required parameters
+    const education = await makeEducationEntry(req);
+    await DB.addEducation(education);
+
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    const userId = user._id;
+
+    const educations = await DB.getEducations(userId);
+    res.send(educations);
+  } catch (error) {
+    console.error('Error adding education entry:', error.message); // Log error
+    res.status(500).send({ error: error.message });
+  }
 });
 
+
+
+async function makeEducationEntry(req) {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+
+  const userId = user._id; // Ensure this is properly retrieved
+
+  const { school, startDate, endDate, gpa, major } = req.body;
+
+  if (!school || !startDate || !endDate || !gpa || !major) {
+    throw new Error('Incomplete education entry');
+  }
+
+  return {
+    ownerId: userId,
+    school,
+    startDate,
+    endDate,
+    gpa,
+    major,
+  };
+}
 
 
 // Default error handler
