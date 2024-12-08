@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import { MessageDialog } from './messageDialog';
+import { UserNotifier, UserEvent } from './webSocket'; // Import the notifier and events
 import './login.css';  // Ensure login.css is correctly imported
 
 export function Unauthenticated(props) {
@@ -26,6 +27,7 @@ export function Unauthenticated(props) {
     });
     if (response?.status === 200) {
       localStorage.setItem('userName', userName);
+      UserNotifier.broadcastEvent(userName, UserEvent.Login, { msg: `${userName} has logged in` }); // Notify login
       props.onLogin(userName);
     } else {
       const body = await response.json();

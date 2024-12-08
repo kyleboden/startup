@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import Button from 'react-bootstrap/Button';
+import { UserNotifier, UserEvent } from './webSocket'; // Import the notifier and events
 
 import './authenticated.css';
 
@@ -17,6 +17,7 @@ export function Authenticated(props) {
       })
       .finally(() => {
         localStorage.removeItem('userName');
+        UserNotifier.broadcastEvent(props.userName, UserEvent.Logout, { msg: `${props.userName} has logged out` }); // Notify logout
         props.onLogout();
       });
   }
