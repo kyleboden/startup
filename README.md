@@ -114,3 +114,12 @@ For this deliverable I associate the education entries with the logged in user. 
 - [x] **existing user** - Stores the education entries under the same user if the user already exists.
 - [x] **Use MongoDB to store credentials** - Stores both user and their education entries.
 - [x] **Restricts functionality** - You cannot edit any user info or view the resume generator page until you have logged in.
+
+## WebSocket deliverable
+
+For this deliverable I used webSocket to let users know when someone else has logged into the app.
+
+- [x] **Backend listens for WebSocket connection** - done!
+- [x] **Frontend makes WebSocket connection** - done!
+- [x] **Data sent over WebSocket connection** - done!
+- [x] **WebSocket data displayed** - Any time someone logs in, a message will be displayed.

@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const app = express();
 const DB = require('./database.js');
+const { peerProxy } = require('./peerProxy.js');
+
 
 const authCookieName = 'token';
 
@@ -90,19 +92,256 @@ secureApiRouter.post('/score', async (req, res) => {
   res.send(scores);
 });
 
+
+
 // Get all education entries
 secureApiRouter.get('/education', async (req, res) => {
-  const educations = await DB.getEducations();
-  res.send(educations);
+  try {
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+
+    const userId = user._id; // Ensure it's a string
+    const educations = await DB.getEducations(userId);
+    res.send(educations);
+  } catch (error) {
+    console.error('Error fetching education entries:', error);
+    res.status(500).send({ error: 'Failed to fetch education entries' });
+  }
 });
 
 // Add a new education entry
 secureApiRouter.post('/education', async (req, res) => {
-  const education = { ...req.body, ip: req.ip };
-  await DB.addEducation(education);
-  const educations = await DB.getEducations();
-  res.send(educations);
+  try {
+    // Ensure makeEducationEntry is passed the required parameters
+    const education = await makeEducationEntry(req);
+    await DB.addEducation(education);
+
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    const userId = user._id;
+
+    const educations = await DB.getEducations(userId);
+    res.send(educations);
+  } catch (error) {
+    console.error('Error adding education entry:', error.message); // Log error
+    res.status(500).send({ error: error.message });
+  }
 });
+
+
+
+async function makeEducationEntry(req) {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+
+  const userId = user._id; // Ensure this is properly retrieved
+
+  const { school, startDate, endDate, gpa, major } = req.body;
+
+  if (!school || !startDate || !endDate || !gpa || !major) {
+    throw new Error('Incomplete education entry');
+  }
+
+  return {
+    ownerId: userId,
+    school,
+    startDate,
+    endDate,
+    gpa,
+    major,
+  };
+}
+
+// --- WORK --- 
+
+// Get all work history entries
+secureApiRouter.get('/work-history', async (req, res) => {
+  try {
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+
+    const userId = user._id; // Ensure it's a string
+    const workHistories = await DB.getWorkHistories(userId);
+    res.send(workHistories);
+  } catch (error) {
+    console.error('Error fetching workHistories entries:', error);
+    res.status(500).send({ error: 'Failed to fetch workHistories entries' });
+  }
+});
+
+// Add a new work history entry
+secureApiRouter.post('/work-history', async (req, res) => {
+  try {
+    // Ensure makeWorkHistoriEntry is passed the required parameters
+    const workHistory = await makeWorkHistoryEntry(req);
+    await DB.addWorkHistory(workHistory);
+
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    const userId = user._id;
+
+    const workHistories = await DB.getWorkHistories(userId);
+    res.send(workHistories);
+  } catch (error) {
+    console.error('Error adding workHistories entry:', error.message); // Log error
+    res.status(500).send({ error: error.message });
+  }
+});
+
+async function makeWorkHistoryEntry(req) {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+
+  const userId = user._id; // Ensure this is properly retrieved
+
+  const { company, position, startDate, endDate, keyRoles } = req.body;
+
+  if (!company || !position || !startDate || !endDate || !keyRoles) {
+    throw new Error('Incomplete work history entry');
+  }
+  
+  return {
+    ownerId: userId,
+    company,
+    position,
+    startDate,
+    endDate,
+    keyRoles
+  };
+  
+}
+
+// --- SKILLS ROUTES ---
+
+// Get all skills
+apiRouter.get('/skills', async (req, res) => {
+  try {
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+
+    if (!user) {
+      return res.status(400).send({ msg: 'User not authenticated' });
+    }
+
+    const userId = user._id;
+    const skills = await DB.getSkills(userId);
+    res.send(skills);
+  } catch (error) {
+    console.error('Error fetching skills:', error);
+    res.status(500).send({ error: 'Failed to fetch skills' });
+  }
+});
+
+secureApiRouter.post('/skills', async (req, res) => {
+  try {
+    // Ensure makeWorkHistoriEntry is passed the required parameters
+    const skill = await makeSkillEntry(req);
+    await DB.addSkill(skill);
+
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    const userId = user._id;
+
+    const skills = await DB.getSkills(userId);
+    res.send(skills);
+  } catch (error) {
+    console.error('Error adding skills entry:', error.message); // Log error
+    res.status(500).send({ error: error.message });
+  }
+});
+async function makeSkillEntry(req) {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+
+  const userId = user._id; // Ensure this is properly retrieved
+
+  const { skill } = req.body;
+
+  if (!skill) {
+    throw new Error('Incomplete work history entry');
+  }
+  
+  return {
+    ownerId: userId,
+    skill
+  };
+  
+}
+
+// // --- LANGUAGES ROUTES ---
+
+// Get all languages
+apiRouter.get('/languages', async (req, res) => {
+  try {
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+
+    if (!user) {
+      return res.status(400).send({ msg: 'User not authenticated' });
+    }
+
+    const userId = user._id;
+    const languages = await DB.getLanguages(userId);
+    res.send(languages);
+  } catch (error) {
+    console.error('Error fetching languages:', error);
+    res.status(500).send({ error: 'Failed to fetch languages' });
+  }
+});
+
+secureApiRouter.post('/languages', async (req, res) => {
+  try {
+    // Ensure language is passed the required parameters
+    const language = await makeLanguageEntry(req);
+    await DB.addLanguage(language);
+
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    const userId = user._id;
+
+    const languages = await DB.getLanguages(userId);
+    res.send(languages);
+  } catch (error) {
+    console.error('Error adding language entry:', error.message); // Log error
+    res.status(500).send({ error: error.message });
+  }
+});
+
+async function makeLanguageEntry(req) {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+
+  const userId = user._id;
+
+  const { language, proficiency } = req.body; // Get both language and proficiency
+
+  if (!language || !proficiency) {
+    throw new Error('Incomplete language entry');
+  }
+  
+  return {
+    ownerId: userId,
+    language,
+    proficiency
+  };
+}
+
 
 
 
@@ -131,6 +370,7 @@ const httpService = app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
 
+peerProxy(httpService);
 
 
 

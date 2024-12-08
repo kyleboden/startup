@@ -11,6 +11,9 @@ const db = client.db('startup');
 const userCollection = db.collection('user');
 const scoreCollection = db.collection('score');
 const educationCollection = db.collection('education');
+const workHistoryCollection = db.collection('workHistory');
+const skillCollection = db.collection('skill');
+const languageCollection = db.collection('language');
 
 
 // This will asynchronously test the connection and exit the process if it fails
@@ -62,12 +65,43 @@ function getHighScores() {
 async function addEducation(education) {
   return educationCollection.insertOne(education);
 }
-
-function getEducations() {
-  const cursor = educationCollection.find(); // Fetch all documents without filters
-  return cursor.toArray(); // Convert the cursor to an array and return it
+async function getEducations(userId) {
+  const query = { ownerId: userId }; // Correct query syntax
+  const cursor = educationCollection.find(query);
+  return cursor.toArray();
 }
 
+async function addWorkHistory(workHistory) {
+  return workHistoryCollection.insertOne(workHistory);
+}
+async function getWorkHistories(userId) {
+  const query = { ownerId: userId }; // Correct query syntax
+  const cursor = workHistoryCollection.find(query);
+  return cursor.toArray();
+}
+
+async function addSkill(skill) {
+  return skillCollection.insertOne(skill);
+
+}
+async function getSkills(userId) {
+  const query = { ownerId: userId }; // Make sure this is correct
+  console.log('Fetching skills for userId:', userId);  // Log userId
+  const cursor = skillCollection.find(query);
+
+  const skills = await cursor.toArray();
+  console.log('Fetched skills:', skills);  // Log the returned skills
+  return skills;
+}
+
+async function addLanguage(language) {
+  return languageCollection.insertOne(language);
+}
+async function getLanguages(userId) {
+  const query = { ownerId: userId }; // Correct query syntax
+  const cursor = languageCollection.find(query);
+  return cursor.toArray();
+}
 
 
 module.exports = {
@@ -77,5 +111,11 @@ module.exports = {
   addScore,
   getHighScores,
   addEducation,
-  getEducations
+  getEducations,
+  addWorkHistory,
+  getWorkHistories,
+  addSkill,
+  getSkills,
+  addLanguage,
+  getLanguages
 };
