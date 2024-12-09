@@ -149,6 +149,31 @@ export function UserInfo() {
             setAwardEntries(website);
             });
         }, []);
+    React.useEffect(() => {
+        fetch('/api/contact')
+            .then((response) => response.json())
+            .then((contact) => {
+                console.log('Fetched contact info:', contact); // Debugging
+                setContactInfo(contact || {});
+            });
+    }, []);
+    useEffect(() => {
+        fetchContactInfo();
+    }, []);
+
+    const fetchContactInfo = async () => {
+        try {
+            const response = await fetch("/api/contact");
+            if (response.ok) {
+                const data = await response.json();
+                setContactInfo(data); // Populate state with fetched data
+            } else {
+                console.error("Failed to fetch contact information");
+            }
+        } catch (error) {
+            console.error("Error fetching contact information:", error);
+        }
+    };
 
     // const saveEducation = () => {
     //     const method = isEditingEducation ? 'PUT' : 'POST';
@@ -186,6 +211,36 @@ export function UserInfo() {
     //         })
     //         .catch(console.error);
     // };
+
+
+    function saveContact() {
+        console.log('Saving contact info:', contactInfo);
+    
+        fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(contactInfo),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        throw new Error(err.error || 'Failed to save contact information');
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Contact info saved:', data);
+                alert('Contact information updated successfully');
+            })
+            .catch(error => {
+                console.error('Error saving contact info:', error.message);
+                alert(error.message);
+            });
+    }
+    
     function saveEducation(newEducation) {
         console.log('Saving education:', newEducation);
       
@@ -214,8 +269,7 @@ export function UserInfo() {
             console.error('Error saving education:', error.message); // Log the error message
             alert(error.message); // Optionally, display an error message to the user
           });
-      }
-      
+    }
     function saveWork(newWork) {
     console.log('Saving Work:', newWork);
     
@@ -404,13 +458,14 @@ export function UserInfo() {
     // };
 
 // Handle Changes
-    const handleContactChange = (e) => {
-        const { id, value } = e.target;
-        setContactInfo((prevInfo) => ({
-            ...prevInfo,
-            [id]: value,
+    function handleContactChange(event) {
+        const { id, value } = event.target;
+        setContactInfo(prevState => ({
+            ...prevState,
+            [id]: value, // Dynamically update based on input ID
         }));
-    };
+    }
+
 
     function handleNewEducationChange(event) {
         const { id, value } = event.target;
@@ -649,30 +704,70 @@ export function UserInfo() {
 
 
             <h2>Welcome!</h2>
-            <br></br>
+            <br />
             <h3>Contact Information</h3>
             <div className="contact-section">
                 <div className="contact-grid">
                     <div>
                         <label htmlFor="fullName">Full Name:</label>
-                        <input type="text" id="fullName" className="user-info-data" placeholder="Enter your Full Name" onChange={handleContactChange} />
+                        <input
+                            type="text"
+                            id="fullName"
+                            className="user-info-data"
+                            placeholder="Enter your Full Name"
+                            value={contactInfo.fullName}
+                            onChange={handleContactChange}
+                        />
                     </div>
                     <div>
                         <label htmlFor="phone">Phone Number:</label>
-                        <input type="text" id="phone" className="user-info-data" placeholder="Enter your phone number" onChange={handleContactChange} />
+                        <input
+                            type="text"
+                            id="phone"
+                            className="user-info-data"
+                            placeholder="Enter your phone number"
+                            value={contactInfo.phone}
+                            onChange={handleContactChange}
+                        />
                     </div>
                     <div>
                         <label htmlFor="address">Address:</label>
-                        <input type="text" id="address" className="user-info-data" placeholder="Enter your address" onChange={handleContactChange} />
+                        <input
+                            type="text"
+                            id="address"
+                            className="user-info-data"
+                            placeholder="Enter your address"
+                            value={contactInfo.address}
+                            onChange={handleContactChange}
+                        />
                     </div>
                     <div>
                         <label htmlFor="email">Email:</label>
-                        <input type="email" id="email" className="user-info-data" placeholder="Enter your email" onChange={handleContactChange} />
+                        <input
+                            type="email"
+                            id="email"
+                            className="user-info-data"
+                            placeholder="Enter your email"
+                            value={contactInfo.email}
+                            onChange={handleContactChange}
+                        />
                     </div>
                     <div>
                         <label htmlFor="linkedIn">LinkedIn URL:</label>
-                        <input type="url" id="linkedIn" className="user-info-data" placeholder="Enter your LinkedIn URL" onChange={handleContactChange} />
+                        <input
+                            type="url"
+                            id="linkedIn"
+                            className="user-info-data"
+                            placeholder="Enter your LinkedIn URL"
+                            value={contactInfo.linkedIn}
+                            onChange={handleContactChange}
+                        />
                     </div>
+
+                    <button className="contact-button" onClick={saveContact}>
+                        Save Contact Information
+                    </button>
+
                 </div>
             </div>
 

@@ -92,6 +92,60 @@ secureApiRouter.post('/score', async (req, res) => {
   res.send(scores);
 });
 
+// --- CONTACT ROUTES ---
+
+// Get contact information
+apiRouter.get('/contact', async (req, res) => {
+  try {
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+
+    const userId = user._id;
+    const contactInfo = await DB.getContactInfo(userId);
+    res.send(contactInfo);
+  } catch (error) {
+    console.error('Error fetching contact information:', error);
+    res.status(500).send({ error: 'Failed to fetch contact information' });
+  }
+});
+
+// Add or update contact information
+secureApiRouter.post('/contact', async (req, res) => {
+  try {
+    const contactInfo = await makeContactEntry(req);
+    await DB.upsertContactInfo(contactInfo);
+
+    res.send({ msg: 'Contact information updated successfully' });
+  } catch (error) {
+    console.error('Error updating contact information:', error.message);
+    res.status(500).send({ error: error.message });
+  }
+});
+
+async function makeContactEntry(req) {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+
+  const userId = user._id;
+  const { fullName, phone, address, email, linkedIn } = req.body;
+
+  if (!fullName || !phone || !email) {
+    throw new Error('Missing required contact fields');
+  }
+
+  return {
+    userId,
+    fullName,
+    phone,
+    address,
+    email,
+    linkedIn,
+  };
+}
 
 
 // Get all education entries
@@ -465,6 +519,10 @@ async function makeWebsiteEntry(req) {
     description
   };
 }
+
+
+
+
 
 // Default error handler
 app.use(function (err, req, res, next) {

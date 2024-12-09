@@ -10,6 +10,7 @@ const db = client.db('startup');
 
 const userCollection = db.collection('user');
 const scoreCollection = db.collection('score');
+const contactCollection = db.collection('contact');
 const educationCollection = db.collection('education');
 const workHistoryCollection = db.collection('workHistory');
 const skillCollection = db.collection('skill');
@@ -123,6 +124,17 @@ async function getWebsites(userId) {
   return cursor.toArray();
 }
 
+async function getContactInfo(userId) {
+  const query = { userId };
+  return contactCollection.findOne(query);
+}
+
+async function upsertContactInfo(contactInfo) {
+  const query = { userId: contactInfo.userId };
+  const update = { $set: contactInfo };
+  const options = { upsert: true }; // If not found, create a new entry
+  return contactCollection.updateOne(query, update, options);
+}
 
 module.exports = {
   getUser,
@@ -141,5 +153,7 @@ module.exports = {
   addAward,
   getAwards,
   addWebsite,
-  getWebsites
+  getWebsites,
+  getContactInfo,
+  upsertContactInfo
   };
