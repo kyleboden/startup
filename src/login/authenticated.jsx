@@ -17,8 +17,11 @@ export function Authenticated(props) {
       })
       .finally(() => {
         localStorage.removeItem('userName');
-        UserNotifier.broadcastEvent(props.userName, UserEvent.Logout, { msg: `${props.userName} has logged out` }); // Notify logout
-        props.onLogout();
+        UserNotifier.broadcastEvent(props.userName, UserEvent.Logout, { msg: `${props.userName} has logged out` }); // Notify Logout
+        props.onLogout(props.userName);
+        const pleaseWork  = 'someone'
+        // UserNotifier.broadcastEvent(pleaseWork, UserEvent.Logout, { msg: ` has logged out` }); // Notify logout
+        // props.onLogout();
       });
   }
 

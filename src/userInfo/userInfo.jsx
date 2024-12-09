@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';  // Import Link for navigation
-
+import {Users} from './users';
 import './userInfo.css';
 
 export function UserInfo() {
@@ -566,6 +566,9 @@ React.useEffect(() => {
 
     return (
         <main className="user-info-main">
+            {/* <Users userName={props.userName} /> */}
+            <Users/>
+
 
             <h2>Welcome!</h2>
             <br></br>

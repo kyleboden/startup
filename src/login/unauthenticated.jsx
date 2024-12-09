@@ -29,6 +29,10 @@ export function Unauthenticated(props) {
       localStorage.setItem('userName', userName);
       UserNotifier.broadcastEvent(userName, UserEvent.Login, { msg: `${userName} has logged in` }); // Notify login
       props.onLogin(userName);
+      // const pleaseWork  = 'someone'
+      // UserNotifier.broadcastEvent(pleaseWork, UserEvent.Login, { msg: ` has logged in` }); // Notify login
+      // props.onLogin(userName);
+
     } else {
       const body = await response.json();
       setDisplayError(`⚠ Error: ${body.msg}`);
