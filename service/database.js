@@ -15,6 +15,7 @@ const workHistoryCollection = db.collection('workHistory');
 const skillCollection = db.collection('skill');
 const languageCollection = db.collection('language');
 const awardCollection = db.collection('award');
+const websiteCollection = db.collection('website');
 
 
 // This will asynchronously test the connection and exit the process if it fails
@@ -113,6 +114,16 @@ async function getAwards(userId) {
   return cursor.toArray();
 }
 
+async function addWebsite(website) {
+  return websiteCollection.insertOne(website);
+}
+async function getWebsites(userId) {
+  const query = { ownerId: userId }; // Correct query syntax
+  const cursor = websiteCollection.find(query);
+  return cursor.toArray();
+}
+
+
 module.exports = {
   getUser,
   getUserByToken,
@@ -128,5 +139,7 @@ module.exports = {
   addLanguage,
   getLanguages,
   addAward,
-  getAwards
-};
+  getAwards,
+  addWebsite,
+  getWebsites
+  };

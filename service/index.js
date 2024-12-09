@@ -404,6 +404,67 @@ async function makeAwardEntry(req) {
   };
 }
 
+// // --- WEBSITES ROUTES ---
+
+// Get all websites
+apiRouter.get('/websites', async (req, res) => {
+  try {
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+
+    if (!user) {
+      return res.status(400).send({ msg: 'User not authenticated' });
+    }
+
+    const userId = user._id;
+    const websites = await DB.getWebsites(userId);
+    res.send(websites);
+  } catch (error) {
+    console.error('Error fetching websites:', error);
+    res.status(500).send({ error: 'Failed to fetch websites' });
+  }
+});
+
+secureApiRouter.post('/websites', async (req, res) => {
+  try {
+    // Ensure website is passed the required parameters
+    const website = await makeWebsiteEntry(req);
+    await DB.addWebsite(website);
+
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    const userId = user._id;
+
+    const websites = await DB.getWebsites(userId);
+    res.send(websites);
+  } catch (error) {
+    console.error('Error adding website entry:', error.message); // Log error
+    res.status(500).send({ error: error.message });
+  }
+});
+
+async function makeWebsiteEntry(req) {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+
+  const userId = user._id;
+
+  const { website, description } = req.body; 
+
+  if (!website || !description) {
+    throw new Error('Incomplete award entry');
+  }
+  
+  return {
+    ownerId: userId,
+    website,
+    description
+  };
+}
 
 // Default error handler
 app.use(function (err, req, res, next) {

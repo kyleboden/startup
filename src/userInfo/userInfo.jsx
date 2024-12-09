@@ -141,6 +141,14 @@ export function UserInfo() {
             setAwardEntries(award);
             });
         }, []);
+    React.useEffect(() => {
+        fetch('/api/websites')
+            .then((response) => response.json())
+            .then((website) => {
+            console.log('Fetched websites entries:', website); // Check the actual data from the backend
+            setAwardEntries(website);
+            });
+        }, []);
 
     // const saveEducation = () => {
     //     const method = isEditingEducation ? 'PUT' : 'POST';
@@ -332,7 +340,35 @@ export function UserInfo() {
         alert(error.message); // Optionally, display an error message to the user
         });
     }
-
+    function saveWebsite() {
+        console.log('Saving website:', newWebsite);
+        
+        fetch('/api/websites', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newWebsite),
+        })
+            .then(response => {
+            if (!response.ok) {
+                // If the response is not OK (status 500, etc.), throw an error
+                return response.json().then(err => {
+                throw new Error(err.error || 'Failed to save newWebsite entry');
+                });
+            }
+            return response.json();
+            })
+            .then(data => {
+            console.log('Website saved:', data);
+            setwebsiteEntries(prevEntries => [...prevEntries, ...data]); // Assuming `data` is an array
+            setNewWebsite({ website: '', description: '' }); // Reset form
+            })
+            .catch(error => {
+            console.error('Error saving website:', error.message); // Log the error message
+            alert(error.message); // Optionally, display an error message to the user
+            });
+        }
     // const saveLanguage = () => {
     //     const method = isEditingLanguage ? 'PUT' : 'POST';
     //     const endpoint = isEditingLanguage
@@ -1090,7 +1126,10 @@ export function UserInfo() {
                             />
                         </div>
                         <div className="button-group">
-                            <button className="update-button" onClick={addWebsiteEntry}>
+                            <button 
+                                className="update-button" 
+                                onClick={() => saveWebsite(newWebsite)}
+                                >
                                 {isEditingWebsite ? 'Update Website' : 'Save Website'}
                             </button>
                             <button className="cancel-button" onClick={() => {
