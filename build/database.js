@@ -14,6 +14,7 @@ const educationCollection = db.collection('education');
 const workHistoryCollection = db.collection('workHistory');
 const skillCollection = db.collection('skill');
 const languageCollection = db.collection('language');
+const awardCollection = db.collection('award');
 
 
 // This will asynchronously test the connection and exit the process if it fails
@@ -103,6 +104,14 @@ async function getLanguages(userId) {
   return cursor.toArray();
 }
 
+async function addAward(language) {
+  return awardCollection.insertOne(language);
+}
+async function getAwards(userId) {
+  const query = { ownerId: userId }; // Correct query syntax
+  const cursor = awardCollection.find(query);
+  return cursor.toArray();
+}
 
 module.exports = {
   getUser,
@@ -117,5 +126,7 @@ module.exports = {
   addSkill,
   getSkills,
   addLanguage,
-  getLanguages
+  getLanguages,
+  addAward,
+  getAwards
 };

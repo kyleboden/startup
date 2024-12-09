@@ -1,3 +1,4 @@
+
 async function callOpenAIChatGPT(prompt) {
     // const apiKey = process.env.API_KEY;
     const endpoint = 'https://api.openai.com/v1/chat/completions';

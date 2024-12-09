@@ -342,7 +342,67 @@ async function makeLanguageEntry(req) {
   };
 }
 
+// // --- AWARDS ROUTES ---
 
+// Get all awards
+apiRouter.get('/awards', async (req, res) => {
+  try {
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+
+    if (!user) {
+      return res.status(400).send({ msg: 'User not authenticated' });
+    }
+
+    const userId = user._id;
+    const awards = await DB.getAwards(userId);
+    res.send(awards);
+  } catch (error) {
+    console.error('Error fetching awards:', error);
+    res.status(500).send({ error: 'Failed to fetch awards' });
+  }
+});
+
+secureApiRouter.post('/awards', async (req, res) => {
+  try {
+    // Ensure award is passed the required parameters
+    const award = await makeAwardEntry(req);
+    await DB.addAward(award);
+
+    const authToken = req.cookies[authCookieName];
+    const user = await DB.getUserByToken(authToken);
+    const userId = user._id;
+
+    const awards = await DB.getAwards(userId);
+    res.send(awards);
+  } catch (error) {
+    console.error('Error adding award entry:', error.message); // Log error
+    res.status(500).send({ error: error.message });
+  }
+});
+
+async function makeAwardEntry(req) {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+
+  if (!user) {
+    throw new Error('User not authenticated');
+  }
+
+  const userId = user._id;
+
+  const { title, date } = req.body; 
+
+  if (!title || !date) {
+    throw new Error('Incomplete award entry');
+  }
+  
+  return {
+    ownerId: userId,
+    title,
+    date
+  };
+}
 
 
 // Default error handler

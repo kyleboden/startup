@@ -6,7 +6,7 @@ import './userInfo.css';
 export function UserInfo() {
     const [userInfo, setUserInfo] = useState({});
 
-    const handleSaveUserInformation = () => {
+`    const handleSaveUserInformation = () => {
       // Collect the user information from the form fields
       const sections = document.querySelectorAll('.user-info-section');
       const newUserInfo = {};
@@ -22,8 +22,20 @@ export function UserInfo() {
   
       // Store the information in localStorage
       localStorage.setItem('user-info', JSON.stringify(newUserInfo));
-    };
+    };`
+    const handleSaveUserInformation = () => {
+        const userInfo = {
+            workHistory: workEntries,
+            education: educationEntries,
+            skills: skillsEntries,
+            language: languageEntries,
+        };
 
+        // Convert to JSON and store in localStorage
+        localStorage.setItem('user-info', JSON.stringify(userInfo));
+        console.log('Saved user info:', userInfo); // Debugging
+    };
+    
     const [contactInfo, setContactInfo] = useState({
         fullName: '',
         phoneNumber: '',
@@ -84,50 +96,51 @@ export function UserInfo() {
     const [isEditingAward, setIsEditingAward] = useState(false);
     const [isEditingWebsite, setIsEditingWebsite] = useState(false);
 
-//useEffect, testing
-React.useEffect(() => {
-    fetch('/api/education')
-      .then((response) => response.json())
-      .then((education) => {
-        console.log('Fetched education entries:', education); // Check the actual data from the backend
-        setEducationEntries(education);
-      });
-  }, []);
-
-React.useEffect(() => {
-fetch('/api/work-history')
-    .then((response) => response.json())
-    .then((workHistory) => {
-    console.log('Fetched work-history entries:', workHistory); // Check the actual data from the backend
-    setWorkEntries(workHistory);
-    });
-}, []);
-
-React.useEffect(() => {
-    fetch('/api/skills')
+    //useEffect, testing
+    React.useEffect(() => {
+        fetch('/api/education')
         .then((response) => response.json())
-        .then((skill) => {
-        console.log('Fetched skill entries:', skill); // Check the actual data from the backend
-        setSkillsEntries(skill);
+        .then((education) => {
+            console.log('Fetched education entries:', education); // Check the actual data from the backend
+            setEducationEntries(education);
         });
     }, []);
 
-React.useEffect(() => {
-    fetch('/api/languages')
+    React.useEffect(() => {
+    fetch('/api/work-history')
         .then((response) => response.json())
-        .then((language) => {
-        console.log('Fetched languages entries:', language); // Check the actual data from the backend
-        setLanguageEntries(language);
+        .then((workHistory) => {
+        console.log('Fetched work-history entries:', workHistory); // Check the actual data from the backend
+        setWorkEntries(workHistory);
         });
     }, []);
-    // useEffect(() => {
-    //     // Fetch existing languages from backend
-    //     fetch('/api/languages')
-    //       .then((res) => res.json())
-    //       .then(setLanguageEntries)
-    //       .catch(console.error);
-    //   }, []);
-    
+
+    React.useEffect(() => {
+        fetch('/api/skills')
+            .then((response) => response.json())
+            .then((skill) => {
+            console.log('Fetched skill entries:', skill); // Check the actual data from the backend
+            setSkillsEntries(skill);
+            });
+        }, []);
+
+    React.useEffect(() => {
+        fetch('/api/languages')
+            .then((response) => response.json())
+            .then((language) => {
+            console.log('Fetched languages entries:', language); // Check the actual data from the backend
+            setLanguageEntries(language);
+            });
+        }, []);
+
+    React.useEffect(() => {
+        fetch('/api/awards')
+            .then((response) => response.json())
+            .then((award) => {
+            console.log('Fetched awards entries:', award); // Check the actual data from the backend
+            setAwardEntries(award);
+            });
+        }, []);
 
     // const saveEducation = () => {
     //     const method = isEditingEducation ? 'PUT' : 'POST';
@@ -289,7 +302,36 @@ React.useEffect(() => {
             alert(error.message); // Optionally, display an error message to the user
           });
       }
-      
+
+    function saveAward() {
+    console.log('Saving award:', newAward);
+    
+    fetch('/api/awards', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newAward),
+    })
+        .then(response => {
+        if (!response.ok) {
+            // If the response is not OK (status 500, etc.), throw an error
+            return response.json().then(err => {
+            throw new Error(err.error || 'Failed to save newAward entry');
+            });
+        }
+        return response.json();
+        })
+        .then(data => {
+        console.log('Award saved:', data);
+        setAwardEntries(prevEntries => [...prevEntries, ...data]); // Assuming `data` is an array
+        setNewAward({ title: '', date: '' }); // Reset form
+        })
+        .catch(error => {
+        console.error('Error saving award:', error.message); // Log the error message
+        alert(error.message); // Optionally, display an error message to the user
+        });
+    }
 
     // const saveLanguage = () => {
     //     const method = isEditingLanguage ? 'PUT' : 'POST';
@@ -990,7 +1032,11 @@ React.useEffect(() => {
                         </div>
                         
                         <div className="button-group">
-                            <button className="update-button" onClick={addAwardEntry}>{isEditingAward ? 'Update Award' : 'Save Award'}</button>
+                            <button 
+                            className="update-button" 
+                            onClick={() => saveAward(newAward)}
+                            >
+                            {isEditingAward ? 'Update Award' : 'Save Award'}</button>
                             <button className="cancel-button" onClick={() => {
                                 setIsAddingAward(false);
                                 setIsEditingAward(false);
