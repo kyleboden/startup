@@ -779,7 +779,25 @@ Answer:
   Strict: Only sent with same-site requests.
   None: Sent with all requests, but requires the Secure flag.
 
+5. Assuming the following Express middleware, what would be the console.log output for an HTTP GET request with a URL path of /api/document?
+Answer: For this, I would need the exact middleware code to provide a specific answer. However, based on general knowledge of how middleware works in Express, here’s a typical example:
 
+js
+Copy code
+app.use((req, res, next) => {
+  console.log('Request URL:', req.url);
+  next();
+});
+
+app.get('/api/document', (req, res) => {
+  res.send('Document');
+});
+For an HTTP GET request with the URL path /api/document, the console.log output would be:
+
+javascript
+Copy code
+Request URL: /api/document
+If you have specific middleware code, feel free to provide it and I can give a more precise answer.
 
 
   
