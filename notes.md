@@ -740,6 +740,12 @@ Here’s a brief description of each command:
 
 # FINAL EXAM:
 
+### 1 What is the default port for HTTP/HTTPS/SSH?
+  Answer:
+  HTTP: Port 80
+  HTTPS: Port 443
+  SSH: Port 22
+
 
 
 
