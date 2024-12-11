@@ -780,6 +780,15 @@ Answer:
   None: Sent with all requests, but requires the Secure flag.
 
 ![image](https://github.com/user-attachments/assets/5ec20760-d1ea-47b9-a659-71a61d256dd0)
+![image](https://github.com/user-attachments/assets/7a3c7f4f-adaf-421c-8880-bd7c67a6fb51)
+![image](https://github.com/user-attachments/assets/e50c52ec-e4a5-49fb-987f-b392b31d3bfb)
+![image](https://github.com/user-attachments/assets/48d272d9-8397-4056-9cb1-dc5670015f1c)
+![image](https://github.com/user-attachments/assets/e037e2ed-7c74-4eeb-bbcb-0b31905d428f)
+![image](https://github.com/user-attachments/assets/247d27cd-b65f-42cb-9c47-a918c9a8e65d)
+![image](https://github.com/user-attachments/assets/cc435bab-5164-4cea-8097-b015181c6288)
+![image](https://github.com/user-attachments/assets/c88a35f1-9df7-4239-ad23-3d513ba72582)
+![image](https://github.com/user-attachments/assets/51ee5dcc-79e9-46a9-a015-cf4136d5651d)
+![image](https://github.com/user-attachments/assets/8382b0cb-208d-4c0c-9c1e-2d4f77f2da7d)
 
 
   
