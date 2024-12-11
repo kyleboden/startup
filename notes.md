@@ -743,15 +743,41 @@ Here’s a brief description of each command:
 1. What is the default port for HTTP/HTTPS/SSH?
 Answer:
 
-HTTP: Port 80
-HTTPS: Port 443
-SSH: Port 22
+  HTTP: Port 80
+  HTTPS: Port 443
+  SSH: Port 22
 
+2. What does an HTTP status code in the range of 300/400/500 indicate?
+Answer:
 
+  300 Range (Redirection): Indicates further action is required to complete the request.
+  301 Moved Permanently: The resource has been permanently moved.
+  302 Found: The resource is temporarily moved.
+  400 Range (Client Errors): Indicates a problem with the client’s request.
+  400 Bad Request: Invalid request syntax.
+  404 Not Found: The resource could not be found.
+  500 Range (Server Errors): Indicates an error on the server’s side.
+  500 Internal Server Error: A generic server error.
+  503 Service Unavailable: The server is temporarily unable to process the request.
 
+3. What does the HTTP header Content-Type allow you to do?
+  Answer:
+  
+  The Content-Type header tells the client or server what type of data is being sent. This allows the recipient to interpret the data correctly.
+  Examples:
+  Content-Type: text/html → The content is HTML.
+  Content-Type: application/json → The content is JSON.
+  Content-Type: image/png → The content is a PNG image.
 
-
-
+4. What does a “Secure cookie”/”Http-only cookie”/”Same-site cookie” do?
+  Answer:
+  
+  Secure Cookie: Ensures the cookie is only sent over HTTPS connections, preventing it from being exposed over HTTP.
+  Http-Only Cookie: Prevents the cookie from being accessed by JavaScript, helping protect against XSS attacks.
+  Same-Site Cookie: Controls when cookies are sent with cross-site requests to protect against CSRF attacks.
+  Lax: Sent with same-site and top-level navigation requests.
+  Strict: Only sent with same-site requests.
+  None: Sent with all requests, but requires the Secure flag.
 
 
 
