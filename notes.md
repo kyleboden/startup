@@ -808,10 +808,27 @@ Answer:
 4. Cookies allow: **A server to store data on the client**
    
 ![image](https://github.com/user-attachments/assets/16e899c7-c1f7-4b9e-94b6-a6879834a532)
+
 5. For the request [GET] /fav/george what is logged: paul george john
+
+
 ![image](https://github.com/user-attachments/assets/bd7e4f02-5213-46da-9a24-d14f205921ba)
-6. Which Express middleware will math this fetch request: **app.delete(/fav\/(.*)/, () => {})**
+
+6. Which Express middleware will math this fetch request: **app.delete(/fav\/(.*)/, () => 
+
 ![image](https://github.com/user-attachments/assets/24c656c7-ae8a-4814-a555-44acb7febe6a)
 7. What document matches this MongoDB query: **{ name: "Walke", score: -55 }**
 
+8. Why is hashing stored passwords important: **It improves security by making the password unreadable**
+9. ![image](https://github.com/user-attachments/assets/11b49b1c-7520-40f1-af60-f30661c79b4b)
+    Given this code, what does console.log print: **Client:Server:Hello**
+10. What value does WebSocket add to HTTP: **It is peer to peer instead of client to server**
+11. What is NOT a purpose of JSX? **To combine CSS, HTML, and JavaScript**, To render HTML from JavaScript, To componentize your HTML, To allow for composability of your HTML
+12. ![image](https://github.com/user-attachments/assets/b410512f-1422-4ccb-9abf-99fbb2a744ea)
+    What will component A initially display: **tacofish**
+13. ![image](https://github.com/user-attachments/assets/e434754a-0735-4dec-9862-a4d2e368d899)
+    What component will the URL '/burger' render: **B**
+14. What does the command "NPM install ws" NOT do: Locks the version of the websocket package for your application, Adds the websocket source code to the node_modules directory, **Adds template code for websockets to your JavaScript**, Adds a dependency to your package.json file
+15. T/F, You can use fetch in front-end and back-end code: **TRUE**
+16. Which of the following is NOT true about a Linux Daemon: Executes independent of a user, Starts when the computer is rebooted, PM2 is an example of a daemon, **Cannot fork other processes**
   
