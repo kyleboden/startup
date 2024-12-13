@@ -801,5 +801,17 @@ Answer:
 
 
 
+# FINAL EXAM:
+1. Port 80 is reserved for: **HTTP**
+2. HTTP status codes in the 300 range for: **Content redirects or caching**
+3. Which is NOT a standard HTTP header: Content-Type, Host, Cookie, **Language**
+4. Cookies allow: **A server to store data on the client**
+   
+![image](https://github.com/user-attachments/assets/16e899c7-c1f7-4b9e-94b6-a6879834a532)
+5. For the request [GET] /fav/george what is logged: paul george john
+![image](https://github.com/user-attachments/assets/bd7e4f02-5213-46da-9a24-d14f205921ba)
+6. Which Express middleware will math this fetch request: **app.delete(/fav\/(.*)/, () => {})**
+![image](https://github.com/user-attachments/assets/24c656c7-ae8a-4814-a555-44acb7febe6a)
+7. What document matches this MongoDB query: **{ name: "Walke", score: -55 }**
 
   
